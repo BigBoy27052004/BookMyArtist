@@ -1,8 +1,8 @@
-\ 🎵 BookMyArtist
+ 🎵 BookMyArtist
 
 
 
-\ Artist Booking and Event Management System
+ Artist Booking and Event Management System
 
 
 
@@ -14,7 +14,7 @@ The system connects event organisers with artists, DJs, musicians and other ente
 
 
 
-\ 📌 Project Overview
+ 📌 Project Overview
 
 
 
@@ -26,69 +26,69 @@ BookMyArtist addresses these challenges by providing an organised digital platfo
 
 
 
-\ ✨ Key Features
+ ✨ Key Features
 
 
 
-\ 👤 Customer Features
+ 👤 Customer Features
 
-\- Register and log in to the platform
+- Register and log in to the platform
 
-\- Browse and search for artists
+- Browse and search for artists
 
-\- View artist profiles, genres and booking rates
+- View artist profiles, genres and booking rates
 
-\- Check artist availability
+- Check artist availability
 
-\- Submit booking requests for events
+- Submit booking requests for events
 
-\- Track booking statuses
+- Track booking statuses
 
-\- Communicate with artists through the messaging system
+- Communicate with artists through the messaging system
 
-\- Access payment information and manage bookings
+- Access payment information and manage bookings
 
-\- Submit artist reviews
-
-
-
-\ 🎤 Artist Features
-
-\- Register and manage an artist profile
-
-\- Upload profile images and artist information
-
-\- Manage booking rates and availability
-
-\- View and respond to booking requests
-
-\- Accept or reject bookings
-
-\- Communicate with customers
-
-\- View booking history and reviews
-
-\- Access an artist dashboard
+- Submit artist reviews
 
 
 
-\ 🛡️ Administrator Features
+ 🎤 Artist Features
 
-\- Access a dedicated administrative dashboard
+- Register and manage an artist profile
 
-\- Manage registered users
+- Upload profile images and artist information
 
-\- Manage artist accounts
+- Manage booking rates and availability
 
-\- Monitor and manage bookings
+- View and respond to booking requests
 
-\- View customer contact messages
+- Accept or reject bookings
 
-\- Oversee platform activities
+- Communicate with customers
+
+- View booking history and reviews
+
+- Access an artist dashboard
 
 
 
-\ 🛠️ Technologies Used
+ 🛡️ Administrator Features
+
+- Access a dedicated administrative dashboard
+
+- Manage registered users
+
+- Manage artist accounts
+
+- Monitor and manage bookings
+
+- View customer contact messages
+
+- Oversee platform activities
+
+
+
+ 🛠️ Technologies Used
 
 
 
@@ -122,7 +122,7 @@ BookMyArtist addresses these challenges by providing an organised digital platfo
 
 
 
-\ 🔄 Booking Workflow
+ 🔄 Booking Workflow
 
 
 
@@ -142,7 +142,7 @@ BookMyArtist addresses these challenges by providing an organised digital platfo
 
 
 
-\ 📂 Project Structure
+ 📂 Project Structure
 
 
 
@@ -182,25 +182,25 @@ BookMyArtist/
 
 
 
-\ 💻 Installation and Setup
+ 💻 Installation and Setup
 
 
 
-\ Prerequisites
+ Prerequisites
 
 
 
-\- Node.js and npm
+- Node.js and npm
 
-\- MySQL Server
+- MySQL Server
 
-\- Git
+- Git
 
-\- A code editor such as Visual Studio Code
+- A code editor such as Visual Studio Code
 
 
 
-\ 1. Clone the repository
+ 1. Clone the repository
 
 
 
@@ -212,7 +212,7 @@ git clone https://github.com/BigBoy27052004/BookMyArtist.git
 
 
 
-\ 2. Navigate to the project directory
+ 2. Navigate to the project directory
 
 
 
@@ -224,7 +224,7 @@ cd BookMyArtist
 
 
 
-\ 3. Install dependencies
+ 3. Install dependencies
 
 
 
@@ -236,7 +236,7 @@ npm install
 
 
 
-\ 4. Configure the environment
+ 4. Configure the environment
 
 
 
@@ -244,11 +244,11 @@ Create a `.env` file in the project root and configure the environment variables
 
 
 
-\*\*Important:\*\* The `.env` file is intentionally excluded from GitHub to protect credentials and other sensitive information.
+Important: The `.env` file is intentionally excluded from GitHub to protect credentials and other sensitive information.
 
 
 
-\ 5. Set up the database
+ 5. Set up the database
 
 
 
@@ -256,11 +256,11 @@ Create and configure the required MySQL database and tables using the project's 
 
 
 
-\*Note: A separate database schema or SQL setup script must be provided for a complete installation.\*
+Note: A separate database schema or SQL setup script must be provided for a complete installation.\*
 
 
 
-\ 6. Start the application
+ 6. Start the application
 
 
 
@@ -280,43 +280,43 @@ Open the local address and port configured by the application in your browser.
 
 
 
-\ 🔐 Security Features
+ 🔐 Security Features
 
 
 
-\- Password hashing using bcrypt
+- Password hashing using bcrypt
 
-\- Session-based authentication
+- Session-based authentication
 
-\- Role-based access control
+- Role-based access control
 
-\- Protected routes and middleware
+- Protected routes and middleware
 
-\- Separation of environment credentials from source code
+- Separation of environment credentials from source code
 
-\- Controlled handling of uploaded files
-
-
-
-\ 🎯 Project Objectives
+- Controlled handling of uploaded files
 
 
 
-\- Simplify the artist booking process
-
-\- Reduce booking conflicts through availability management
-
-\- Improve communication between customers and artists
-
-\- Centralise booking information
-
-\- Support effective booking and payment administration
-
-\- Provide dedicated interfaces for different system users
+ 🎯 Project Objectives
 
 
 
-\ 🚀 Future Enhancements
+- Simplify the artist booking process
+
+- Reduce booking conflicts through availability management
+
+- Improve communication between customers and artists
+
+- Centralise booking information
+
+- Support effective booking and payment administration
+
+- Provide dedicated interfaces for different system users
+
+
+
+ 🚀 Future Enhancements
 
 
 
@@ -324,35 +324,34 @@ Potential future improvements include:
 
 
 
-\- Integrated online payment gateways
+- Integrated online payment gateways
 
-\- Automated email and SMS notifications
+- Automated email and SMS notifications
 
-\- More advanced artist recommendations
+- More advanced artist recommendations
 
-\- Improved reporting and analytics
+- Improved reporting and analytics
 
-\- Mobile application support
-
-
-
-\ 🎓 Academic Information
+- Mobile application support
 
 
 
-\*\*Project Name:\*\* BookMyArtist  
-
-\*\*Institution:\*\* Sol Plaatje University  
-
-\*\*Qualification:\*\* Advanced Diploma in Information and Communication Technology  
-
-\*\*Specialisation:\*\* Application Development  
-
-\*\*Year:\*\* 2026
+ 🎓 Academic Information
 
 
+Project Name: BookMyArtist  
 
-\ 📄 Disclaimer
+Institution: Sol Plaatje University  
+
+Qualification: Advanced Diploma in Information and Communication Technology  
+
+Specialisation: Application Development  
+
+Year: 2026
+
+
+
+ 📄 Disclaimer
 
 
 
@@ -360,11 +359,11 @@ BookMyArtist was developed for academic and demonstration purposes. Artist names
 
 
 
-\---
+---
 
 
 
-\*Developed as part of the Advanced Diploma in ICT at Sol Plaatje University.\*
+Developed as part of the Advanced Diploma in ICT at Sol Plaatje University.
 
 
 
