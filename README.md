@@ -1,8 +1,8 @@
-\# 🎵 BookMyArtist
+\ 🎵 BookMyArtist
 
 
 
-\### Artist Booking and Event Management System
+\ Artist Booking and Event Management System
 
 
 
@@ -14,7 +14,7 @@ The system connects event organisers with artists, DJs, musicians and other ente
 
 
 
-\## 📌 Project Overview
+\ 📌 Project Overview
 
 
 
@@ -26,11 +26,11 @@ BookMyArtist addresses these challenges by providing an organised digital platfo
 
 
 
-\## ✨ Key Features
+\ ✨ Key Features
 
 
 
-\### 👤 Customer Features
+\ 👤 Customer Features
 
 \- Register and log in to the platform
 
@@ -52,7 +52,7 @@ BookMyArtist addresses these challenges by providing an organised digital platfo
 
 
 
-\### 🎤 Artist Features
+\ 🎤 Artist Features
 
 \- Register and manage an artist profile
 
@@ -72,7 +72,7 @@ BookMyArtist addresses these challenges by providing an organised digital platfo
 
 
 
-\### 🛡️ Administrator Features
+\ 🛡️ Administrator Features
 
 \- Access a dedicated administrative dashboard
 
@@ -88,7 +88,7 @@ BookMyArtist addresses these challenges by providing an organised digital platfo
 
 
 
-\## 🛠️ Technologies Used
+\ 🛠️ Technologies Used
 
 
 
@@ -122,7 +122,7 @@ BookMyArtist addresses these challenges by providing an organised digital platfo
 
 
 
-\## 🔄 Booking Workflow
+\ 🔄 Booking Workflow
 
 
 
@@ -142,7 +142,7 @@ BookMyArtist addresses these challenges by providing an organised digital platfo
 
 
 
-\## 📂 Project Structure
+\ 📂 Project Structure
 
 
 
@@ -150,43 +150,43 @@ BookMyArtist addresses these challenges by providing an organised digital platfo
 
 BookMyArtist/
 
-├── controllers/       # Application business logic
+├── controllers/        Application business logic
 
-├── database/          # Database connection
+├── database/           Database connection
 
-├── middleware/        # Authentication and upload middleware
+├── middleware/         Authentication and upload middleware
 
 ├── public/
 
-│   ├── css/           # Stylesheets
+│   ├── css/            Stylesheets
 
-│   ├── images/        # Website images
+│   ├── images/         Website images
 
-│   └── js/            # Client-side JavaScript
+│   └── js/             Client-side JavaScript
 
-├── routes/            # Express application routes
+├── routes/             Express application routes
 
-├── uploads/           # Default artist image and upload directory
+├── uploads/            Default artist image and upload directory
 
-├── views/             # EJS page templates
+├── views/              EJS page templates
 
-├── server.js          # Application entry point
+├── server.js           Application entry point
 
-├── package.json       # Project dependencies
+├── package.json        Project dependencies
 
-├── package-lock.json  # Dependency lock file
+├── package-lock.json   Dependency lock file
 
-└── .gitignore         # Files excluded from version control
+└── .gitignore          Files excluded from version control
 
 ```
 
 
 
-\## 💻 Installation and Setup
+\ 💻 Installation and Setup
 
 
 
-\### Prerequisites
+\ Prerequisites
 
 
 
@@ -200,7 +200,7 @@ BookMyArtist/
 
 
 
-\### 1. Clone the repository
+\ 1. Clone the repository
 
 
 
@@ -212,7 +212,7 @@ git clone https://github.com/BigBoy27052004/BookMyArtist.git
 
 
 
-\### 2. Navigate to the project directory
+\ 2. Navigate to the project directory
 
 
 
@@ -224,7 +224,7 @@ cd BookMyArtist
 
 
 
-\### 3. Install dependencies
+\ 3. Install dependencies
 
 
 
@@ -236,7 +236,7 @@ npm install
 
 
 
-\### 4. Configure the environment
+\ 4. Configure the environment
 
 
 
@@ -248,7 +248,7 @@ Create a `.env` file in the project root and configure the environment variables
 
 
 
-\### 5. Set up the database
+\ 5. Set up the database
 
 
 
@@ -260,7 +260,7 @@ Create and configure the required MySQL database and tables using the project's 
 
 
 
-\### 6. Start the application
+\ 6. Start the application
 
 
 
@@ -280,7 +280,7 @@ Open the local address and port configured by the application in your browser.
 
 
 
-\## 🔐 Security Features
+\ 🔐 Security Features
 
 
 
@@ -298,7 +298,7 @@ Open the local address and port configured by the application in your browser.
 
 
 
-\## 🎯 Project Objectives
+\ 🎯 Project Objectives
 
 
 
@@ -316,7 +316,7 @@ Open the local address and port configured by the application in your browser.
 
 
 
-\## 🚀 Future Enhancements
+\ 🚀 Future Enhancements
 
 
 
@@ -336,7 +336,7 @@ Potential future improvements include:
 
 
 
-\## 🎓 Academic Information
+\ 🎓 Academic Information
 
 
 
@@ -352,7 +352,7 @@ Potential future improvements include:
 
 
 
-\## 📄 Disclaimer
+\ 📄 Disclaimer
 
 
 
