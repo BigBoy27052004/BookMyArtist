@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Browse Artists | BookMyArtist</title>
+
+    <!-- GOOGLE FONT -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FONT AWESOME -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/css/browse_artist.css" />
+  </head>
+
+  <body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+      <div class="logo">
+        BookMyArtist
+      </div>
+
+      <div class="nav-links">
+
+        <a href="/" >Home</a>
+
+        <a href="/artists" class="active">
+          Artists
+        </a>
+
+        <a href="/features">
+          Features
+        </a>
+
+        <a href="/about">
+          About
+        </a>
+
+        <a href="/contact">
+          Contact
+        </a>
+
+      </div>
+
+      <div class="nav-buttons">
+
+        <a href="/auth/login" class="btn login-btn">
+          Login
+        </a>
+
+        <a href="/auth/register" class="btn signup-btn">
+          Sign Up
+        </a>
+
+      </div>
+
+    </nav>
+
+
+    <!-- HEADER -->
+
+    <section class="header">
+
+      <h1>
+        Discover Incredible Artists
+      </h1>
+
+      <p>
+        Browse talented singers, DJs, bands, and performers available for
+        weddings, festivals, concerts, corporate events and more.
+      </p>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section class="search-section">
+
+      <form
+        class="search-container"
+        action="/artists"
+        method="GET"
+      >
+
+        <!-- SEARCH BAR -->
+
+        <div class="search-box">
+
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            type="text"
+            name="search"
+            placeholder="Search artists by name..."
+            value="<%= search || '' %>"
+          />
+
+        </div>
+
+
+        <!-- GENRE FILTER -->
+
+        <div class="filter-box">
+
+          <i class="fa-solid fa-music"></i>
+
+          <select name="genre">
+
+            <option value="">
+              All Genres
+            </option>
+
+            <option
+              value="Amapiano"
+              <%= genre === "Amapiano" ? "selected" : "" %>
+            >
+              Amapiano
+            </option>
+
+            <option
+              value="Hip Hop"
+              <%= genre === "Hip Hop" ? "selected" : "" %>
+            >
+              Hip Hop
+            </option>
+
+            <option
+              value="Afropop"
+              <%= genre === "Afropop" ? "selected" : "" %>
+            >
+              Afropop
+            </option>
+
+            <option
+              value="House"
+              <%= genre === "House" ? "selected" : "" %>
+            >
+              House
+            </option>
+
+            <option
+              value="Gospel"
+              <%= genre === "Gospel" ? "selected" : "" %>
+            >
+              Gospel
+            </option>
+
+            <option
+              value="Kwaito"
+              <%= genre === "Kwaito" ? "selected" : "" %>
+            >
+              Kwaito
+            </option>
+
+            <option
+              value="Jazz"
+              <%= genre === "Jazz" ? "selected" : "" %>
+            >
+              Jazz
+            </option>
+
+            <option
+              value="Maskandi"
+              <%= genre === "Maskandi" ? "selected" : "" %>
+            >
+              Maskandi
+            </option>
+
+            <option
+              value="R&B"
+              <%= genre === "R&B" ? "selected" : "" %>
+            >
+              R&B
+            </option>
+
+            <option
+              value="Traditional"
+              <%= genre === "Traditional" ? "selected" : "" %>
+            >
+              Traditional
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- PROVINCE FILTER -->
+
+        <div class="filter-box">
+
+          <i class="fa-solid fa-location-dot"></i>
+
+          <select name="province">
+
+            <option value="">
+              All Provinces
+            </option>
+
+            <option
+              value="Eastern Cape"
+              <%= province === "Eastern Cape" ? "selected" : "" %>
+            >
+              Eastern Cape
+            </option>
+
+            <option
+              value="Free State"
+              <%= province === "Free State" ? "selected" : "" %>
+            >
+              Free State
+            </option>
+
+            <option
+              value="Gauteng"
+              <%= province === "Gauteng" ? "selected" : "" %>
+            >
+              Gauteng
+            </option>
+
+            <option
+              value="KwaZulu-Natal"
+              <%= province === "KwaZulu-Natal" ? "selected" : "" %>
+            >
+              KwaZulu-Natal
+            </option>
+
+            <option
+              value="Limpopo"
+              <%= province === "Limpopo" ? "selected" : "" %>
+            >
+              Limpopo
+            </option>
+
+            <option
+              value="Mpumalanga"
+              <%= province === "Mpumalanga" ? "selected" : "" %>
+            >
+              Mpumalanga
+            </option>
+
+            <option
+              value="North West"
+              <%= province === "North West" ? "selected" : "" %>
+            >
+              North West
+            </option>
+
+            <option
+              value="Northern Cape"
+              <%= province === "Northern Cape" ? "selected" : "" %>
+            >
+              Northern Cape
+            </option>
+
+            <option
+              value="Western Cape"
+              <%= province === "Western Cape" ? "selected" : "" %>
+            >
+              Western Cape
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- SEARCH BUTTON -->
+
+        <button
+          type="submit"
+          class="search-btn"
+        >
+          Search
+        </button>
+
+      </form>
+
+    </section>
+
+
+    <!-- ARTISTS -->
+
+    <section class="artists">
+
+      <div class="artist-grid">
+
+        <% if (artists && artists.length > 0) { %>
+
+          <% artists.forEach(artist => { %>
+
+            <!-- ARTIST CARD -->
+
+            <div class="artist-card">
+
+              <img
+                src="/uploads/artist-images/<%= artist.profile_image %>"
+                alt="<%= artist.stage_name %>"
+              />
+
+
+              <div class="artist-content">
+
+                <!-- ARTIST NAME -->
+
+                <div class="artist-top">
+
+                  <div class="artist-name">
+                    <%= artist.stage_name %>
+                  </div>
+
+                  <% if (artist.is_verified) { %>
+
+                    <div class="verified">
+                      <i class="fa-solid fa-circle-check"></i>
+                    </div>
+
+                  <% } %>
+
+                </div>
+
+
+                <!-- GENRE -->
+
+                <div class="genre">
+
+                  <%= artist.genre || "Genre not specified" %>
+
+                </div>
+
+
+                <!-- BIOGRAPHY -->
+
+                <p>
+
+                  <% if (artist.biography) { %>
+
+                    <%= artist.biography.length > 120
+                      ? artist.biography.substring(0, 120) + "..."
+                      : artist.biography
+                    %>
+
+                  <% } else { %>
+
+                    No biography available.
+
+                  <% } %>
+
+                </p>
+
+
+                <!-- LOCATION -->
+
+                <p class="artist-location">
+
+                  <i class="fa-solid fa-location-dot"></i>
+
+                  <%= artist.city || "" %>
+
+                  <% if (artist.city && artist.province) { %>
+                    ,
+                  <% } %>
+
+                  <%= artist.province || "Location not specified" %>
+
+                </p>
+
+
+                <!-- RATING + PRICE -->
+
+                <div class="artist-info">
+
+                  <div class="rating">
+
+                    <% if (Number(artist.review_count) > 0) { %>
+
+                      <span>
+                        ★
+                      </span>
+
+                      <%= Number(artist.average_rating).toFixed(1) %>
+
+                      <small>
+                        (<%= artist.review_count %>)
+                      </small>
+
+                    <% } else { %>
+
+                      <span>
+                        ☆
+                      </span>
+
+                      No ratings
+
+                    <% } %>
+
+                  </div>
+
+
+                  <div class="price">
+
+                    <% if (artist.booking_price) { %>
+
+                      R<%= Number(artist.booking_price).toLocaleString("en-ZA") %>
+
+                    <% } else { %>
+
+                      Price on request
+
+                    <% } %>
+
+                  </div>
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="artist-buttons">
+
+                  <a
+                    href="/artists/<%= artist.artist_id %>"
+                    class="view-btn"
+                  >
+                    View Profile
+                  </a>
+
+                  <a
+                    href="/bookings/create/<%= artist.artist_id %>"
+                    class="book-btn"
+                  >
+                    Book Now
+                  </a>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          <% }) %>
+
+
+        <% } else { %>
+
+
+          <!-- NO ARTISTS -->
+
+          <div class="no-artists">
+
+            <i class="fa-solid fa-microphone-slash"></i>
+
+            <h2>
+              No Artists Found
+            </h2>
+
+            <p>
+              We couldn't find any artists matching your search.
+              Try changing your search or filters.
+            </p>
+
+          </div>
+
+
+        <% } %>
+
+      </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+      <div class="socials">
+
+        <i class="fa-brands fa-facebook"></i>
+
+        <i class="fa-brands fa-instagram"></i>
+
+        <i class="fa-brands fa-x-twitter"></i>
+
+        <i class="fa-brands fa-youtube"></i>
+
+      </div>
+
+      <p>
+        © 2026 BookMyArtist. All Rights Reserved.
+      </p>
+
+    </footer>
+
+  </body>
+</html>

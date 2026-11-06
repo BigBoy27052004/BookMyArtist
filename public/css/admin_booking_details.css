@@ -1,0 +1,854 @@
+/* ================================
+   ADMIN BOOKING DETAILS
+================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+/* ================================
+   SIDEBAR
+================================ */
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 250px;
+  height: 100vh;
+
+  background: #111827;
+
+  padding: 25px 18px;
+
+  display: flex;
+  flex-direction: column;
+
+  border-right: 1px solid #1e293b;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 0 10px;
+  margin-bottom: 35px;
+
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.logo i {
+  color: #8b5cf6;
+  font-size: 22px;
+}
+
+/* Admin Profile */
+
+.admin-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px;
+
+  background: #1e293b;
+
+  border-radius: 12px;
+
+  margin-bottom: 30px;
+}
+
+.admin-avatar {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  background: rgba(108, 99, 255, 0.15);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #a78bfa;
+}
+
+.admin-profile h4 {
+  font-size: 13px;
+  color: #f8fafc;
+}
+
+.admin-profile p {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* Navigation */
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-nav a,
+.sidebar-bottom a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 14px;
+
+  color: #94a3b8;
+
+  text-decoration: none;
+
+  border-radius: 9px;
+
+  font-size: 13px;
+
+  transition: 0.3s;
+}
+
+.sidebar-nav a:hover,
+.sidebar-bottom a:hover {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.sidebar-nav a.active {
+  background: rgba(108, 99, 255, 0.15);
+  color: #a78bfa;
+}
+
+.sidebar-nav i,
+.sidebar-bottom i {
+  width: 18px;
+  text-align: center;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+}
+
+/* ================================
+   MAIN CONTENT
+================================ */
+
+.main-content {
+  margin-left: 250px;
+  min-height: 100vh;
+}
+
+/* ================================
+   TOPBAR
+================================ */
+
+.topbar {
+  height: 85px;
+
+  padding: 0 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #1e293b;
+}
+
+.topbar h1 {
+  font-size: 22px;
+  color: #f8fafc;
+}
+
+.topbar p {
+  margin-top: 4px;
+
+  font-size: 12px;
+
+  color: #64748b;
+}
+
+.topbar-avatar {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+
+  background: rgba(108, 99, 255, 0.15);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #a78bfa;
+}
+
+/* ================================
+   CONTENT
+================================ */
+
+.content {
+  padding: 35px;
+}
+
+/* Back Link */
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #94a3b8;
+
+  text-decoration: none;
+
+  font-size: 12px;
+
+  margin-bottom: 20px;
+
+  transition: 0.3s;
+}
+
+.back-link:hover {
+  color: #a78bfa;
+}
+
+/* ================================
+   BOOKING HEADER
+================================ */
+
+.booking-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 22px;
+
+  background: #1e293b;
+
+  border: 1px solid #293548;
+
+  border-radius: 14px;
+
+  margin-bottom: 25px;
+}
+
+.booking-header-icon {
+  width: 50px;
+  height: 50px;
+
+  border-radius: 12px;
+
+  background: rgba(108, 99, 255, 0.12);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #a78bfa;
+
+  font-size: 20px;
+
+  flex-shrink: 0;
+}
+
+.booking-title {
+  flex: 1;
+}
+
+.booking-title h2 {
+  color: #f8fafc;
+
+  font-size: 19px;
+}
+
+.booking-title p {
+  color: #64748b;
+
+  font-size: 11px;
+
+  margin-top: 4px;
+}
+
+/* ================================
+   STATUS
+================================ */
+
+.status {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 7px 11px;
+
+  border-radius: 8px;
+
+  font-size: 11px;
+
+  font-weight: 500;
+
+  white-space: nowrap;
+}
+
+.status.pending {
+  background: rgba(234, 179, 8, 0.1);
+
+  color: #fde047;
+}
+
+.status.accepted {
+  background: rgba(34, 197, 94, 0.1);
+
+  color: #86efac;
+}
+
+.status.rejected {
+  background: rgba(239, 68, 68, 0.1);
+
+  color: #fca5a5;
+}
+
+.status.completed {
+  background: rgba(59, 130, 246, 0.1);
+
+  color: #93c5fd;
+}
+
+/* ================================
+   DETAILS GRID
+================================ */
+
+.details-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+/* ================================
+   DETAILS CARD
+================================ */
+
+.details-card {
+  background: #1e293b;
+
+  border: 1px solid #293548;
+
+  border-radius: 14px;
+
+  padding: 22px;
+}
+
+.full-card {
+  grid-column: 1 / -1;
+}
+
+/* Card Title */
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding-bottom: 16px;
+
+  margin-bottom: 18px;
+
+  border-bottom: 1px solid #293548;
+}
+
+.card-title i {
+  color: #a78bfa;
+
+  font-size: 15px;
+}
+
+.card-title h3 {
+  color: #f8fafc;
+
+  font-size: 14px;
+}
+
+/* ================================
+   INFO GRID
+================================ */
+
+.info-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 18px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.info-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.info-item span,
+.artist-details span {
+  color: #64748b;
+
+  font-size: 10px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.4px;
+}
+
+.info-item strong,
+.artist-details strong {
+  color: #e2e8f0;
+
+  font-size: 12px;
+
+  font-weight: 500;
+}
+
+/* ================================
+   PAYMENT
+================================ */
+
+.payment-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px;
+
+  background: #172033;
+
+  border-radius: 10px;
+}
+
+.payment-box span {
+  color: #94a3b8;
+
+  font-size: 11px;
+}
+
+.payment-box strong {
+  color: #f8fafc;
+
+  font-size: 20px;
+}
+
+.payment-note {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 8px;
+
+  margin-top: 14px;
+
+  color: #64748b;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+.payment-note i {
+  color: #8b5cf6;
+
+  margin-top: 2px;
+}
+
+/* ================================
+   PERSON INFORMATION
+================================ */
+
+.person-header {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 20px;
+}
+
+.person-avatar {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: rgba(108, 99, 255, 0.12);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #a78bfa;
+}
+
+.person-avatar.artist {
+  background: rgba(168, 85, 247, 0.12);
+
+  color: #c084fc;
+}
+
+.person-header h4 {
+  color: #f8fafc;
+
+  font-size: 13px;
+}
+
+.person-header p {
+  color: #64748b;
+
+  font-size: 10px;
+
+  margin-top: 3px;
+}
+
+/* Contact List */
+
+.contact-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 11px;
+}
+
+.contact-list > div {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.contact-list i {
+  width: 18px;
+
+  color: #64748b;
+
+  text-align: center;
+
+  font-size: 11px;
+}
+
+.contact-list span {
+  color: #cbd5e1;
+
+  font-size: 11px;
+
+  word-break: break-word;
+}
+
+/* ================================
+   ARTIST DETAILS
+================================ */
+
+.artist-details {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 15px;
+
+  margin-bottom: 18px;
+}
+
+.artist-details > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+/* ================================
+   TIMELINE
+================================ */
+
+.timeline {
+  display: flex;
+
+  gap: 45px;
+
+  position: relative;
+}
+
+.timeline::before {
+  content: "";
+
+  position: absolute;
+
+  left: 16px;
+  top: 32px;
+
+  width: calc(100% - 32px);
+
+  height: 1px;
+
+  background: #293548;
+}
+
+.timeline-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  position: relative;
+
+  z-index: 1;
+
+  background: #1e293b;
+
+  padding-right: 20px;
+}
+
+.timeline-icon {
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+
+  background: rgba(108, 99, 255, 0.12);
+
+  color: #a78bfa;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 11px;
+
+  flex-shrink: 0;
+}
+
+.timeline-item span {
+  display: block;
+
+  color: #64748b;
+
+  font-size: 10px;
+}
+
+.timeline-item strong {
+  display: block;
+
+  color: #e2e8f0;
+
+  font-size: 11px;
+
+  margin-top: 3px;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 1000px) {
+  .sidebar {
+    width: 70px;
+
+    padding: 20px 10px;
+  }
+
+  .logo span,
+  .admin-profile > div:last-child {
+    display: none;
+  }
+
+  .logo,
+  .sidebar-nav a,
+  .sidebar-bottom a {
+    justify-content: center;
+  }
+
+  .admin-profile {
+    justify-content: center;
+  }
+
+  .sidebar-nav a,
+  .sidebar-bottom a {
+    font-size: 0;
+  }
+
+  .main-content {
+    margin-left: 70px;
+  }
+
+  .content {
+    padding: 25px;
+  }
+
+  .topbar {
+    padding: 0 25px;
+  }
+}
+
+@media (max-width: 700px) {
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-card {
+    grid-column: auto;
+  }
+
+  .booking-header {
+    align-items: flex-start;
+
+    flex-wrap: wrap;
+  }
+
+  .header-status {
+    width: 100%;
+
+    margin-left: 65px;
+  }
+
+  .info-grid,
+  .artist-details {
+    grid-template-columns: 1fr;
+  }
+
+  .info-item.full-width {
+    grid-column: auto;
+  }
+
+  .timeline {
+    flex-direction: column;
+
+    gap: 20px;
+  }
+
+  .timeline::before {
+    display: none;
+  }
+
+  .timeline-item {
+    padding-right: 0;
+  }
+  .status-control {
+    width: 100%;
+    margin-left: 65px;
+    margin-top: 5px;
+  }
+
+  .status-form {
+    width: 100%;
+  }
+
+  .status-form select {
+    flex: 1;
+  }
+}
+
+/* ================================
+   STATUS CONTROL
+================================ */
+
+.status-control {
+  margin-left: auto;
+  margin-top: 5px;
+}
+
+.status-control form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.status-control label {
+  color: #64748b;
+
+  font-size: 10px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.4px;
+}
+
+.status-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-form select {
+  min-width: 130px;
+
+  padding: 8px 10px;
+
+  background: #172033;
+
+  color: #e2e8f0;
+
+  border: 1px solid #334155;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  outline: none;
+
+  cursor: pointer;
+}
+
+.status-form select:focus {
+  border-color: #8b5cf6;
+}
+
+.status-form button {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 8px 12px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #6c63ff;
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.status-form button:hover {
+  background: #7c73ff;
+
+  transform: translateY(-1px);
+}

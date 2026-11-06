@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Admin Dashboard | BookMyArtist</title>
+
+  <link rel="stylesheet" href="/css/admin_dashboard.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  >
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      BookMyArtist
+    </div>
+
+    <a href="/admin/profile" class="admin-profile">
+
+  <div class="profile-icon">
+    <i class="fa-solid fa-user-shield"></i>
+  </div>
+
+  <div>
+    <h3>
+      <%= user.first_name %>
+    </h3>
+
+    <p>
+      Administrator
+    </p>
+  </div>
+
+</a>
+
+
+    <nav class="sidebar-nav">
+
+      <a href="/admin-dashboard" class="active">
+        <i class="fa-solid fa-gauge"></i>
+        Dashboard
+      </a>
+
+      <a href="/admin/users">
+        <i class="fa-solid fa-users"></i>
+        Users
+      </a>
+
+      <a href="/admin/artists">
+        <i class="fa-solid fa-microphone"></i>
+        Artists
+      </a>
+
+      <a href="/admin/bookings">
+        <i class="fa-solid fa-calendar-check"></i>
+        Bookings
+      </a>
+
+      <a href="/admin/contact-messages">
+        <i class="fa-solid fa-envelope"></i>
+        Contact Messages
+
+        <% if (unreadMessages > 0) { %>
+          <span class="nav-badge">
+            <%= unreadMessages %>
+          </span>
+        <% } %>
+
+      </a>
+
+      <a href="/admin/profile">
+        <i class="fa-solid fa-user-shield"></i>
+        My Profile
+      </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+      <a href="/">
+        <i class="fa-solid fa-house"></i>
+        View Website
+      </a>
+
+      <a href="/auth/logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <div>
+        <p class="eyebrow">ADMIN PANEL</p>
+
+        <h1>Dashboard</h1>
+
+        <p class="welcome">
+          Welcome back, <%= user.first_name %>.
+        </p>
+      </div>
+
+    </header>
+
+
+    <!-- STATISTICS -->
+
+    <section class="stats-grid">
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          <i class="fa-solid fa-users"></i>
+        </div>
+
+        <div>
+          <p>Total Users</p>
+          <h2><%= totalUsers %></h2>
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          <i class="fa-solid fa-microphone"></i>
+        </div>
+
+        <div>
+          <p>Total Artists</p>
+          <h2><%= totalArtists %></h2>
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          <i class="fa-solid fa-calendar-check"></i>
+        </div>
+
+        <div>
+          <p>Total Bookings</p>
+          <h2><%= totalBookings %></h2>
+        </div>
+
+      </div>
+
+
+      <div class="stat-card">
+
+        <div class="stat-icon">
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+
+        <div>
+          <p>Contact Messages</p>
+          <h2><%= totalMessages %></h2>
+
+          <% if (unreadMessages > 0) { %>
+
+            <span class="unread-text">
+              <%= unreadMessages %> unread
+            </span>
+
+          <% } else { %>
+
+            <span class="read-text">
+              All messages read
+            </span>
+
+          <% } %>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Recent Bookings -->
+
+<div class="dashboard-section">
+
+  <div class="section-header">
+
+    <div>
+      <h2>Recent Bookings</h2>
+      <p>Latest booking activity on the platform.</p>
+    </div>
+
+    <a href="/admin/bookings" class="section-link">
+      View All
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
+
+  </div>
+
+
+  <div class="recent-bookings">
+
+    <% if (recentBookings.length === 0) { %>
+
+      <div class="empty-state">
+
+        <i class="fa-regular fa-calendar-xmark"></i>
+
+        <h3>No bookings yet</h3>
+
+        <p>New bookings will appear here.</p>
+
+      </div>
+
+    <% } else { %>
+
+      <% recentBookings.forEach(booking => { %>
+
+        <a
+          href="/admin/bookings/<%= booking.booking_id %>"
+          class="booking-item"
+        >
+
+          <div class="booking-icon">
+            <i class="fa-solid fa-calendar-check"></i>
+          </div>
+
+
+          <div class="booking-info">
+
+            <h3>
+              <%= booking.event_name || "Untitled Event" %>
+            </h3>
+
+            <p>
+              <%= booking.customer_first_name %>
+              <%= booking.customer_last_name %>
+              <span>•</span>
+              <%= booking.stage_name %>
+            </p>
+
+          </div>
+
+
+          <div class="booking-meta">
+
+            <span class="booking-date">
+              <%= new Date(booking.event_date).toLocaleDateString() %>
+            </span>
+
+            <span class="booking-status <%= booking.status.toLowerCase() %>">
+              <%= booking.status %>
+            </span>
+
+          </div>
+
+        </a>
+
+      <% }) %>
+
+    <% } %>
+
+  </div>
+
+</div>
+
+<!-- Recent Users -->
+
+<div class="dashboard-section">
+
+  <div class="section-header">
+
+    <div>
+      <h2>Recent Users</h2>
+      <p>Latest accounts registered on the platform.</p>
+    </div>
+
+    <a href="/admin/users" class="section-link">
+      View All
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
+
+  </div>
+
+
+  <div class="recent-users">
+
+    <% if (recentUsers.length === 0) { %>
+
+      <div class="empty-state">
+
+        <i class="fa-regular fa-user"></i>
+
+        <h3>No users yet</h3>
+
+        <p>Newly registered users will appear here.</p>
+
+      </div>
+
+    <% } else { %>
+
+      <% recentUsers.forEach(user => { %>
+
+        <a
+          href="/admin/users/<%= user.id %>"
+          class="user-item"
+        >
+
+          <div class="user-avatar">
+
+            <% if (user.profile_image) { %>
+
+              <img
+                src="/uploads/artist-images/<%= user.profile_image %>"
+                alt="<%= user.first_name %>"
+              >
+
+            <% } else { %>
+
+              <i class="fa-solid fa-user"></i>
+
+            <% } %>
+
+          </div>
+
+
+          <div class="user-info">
+
+            <h3>
+              <%= user.first_name %>
+              <%= user.last_name %>
+            </h3>
+
+            <p>
+              <%= user.email %>
+            </p>
+
+          </div>
+
+
+          <div class="user-meta">
+
+            <span class="role-badge <%= user.role %>">
+              <%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %>
+            </span>
+
+            <% if (user.is_active) { %>
+
+              <span class="user-status active">
+                Active
+              </span>
+
+            <% } else { %>
+
+              <span class="user-status inactive">
+                Inactive
+              </span>
+
+            <% } %>
+
+          </div>
+
+        </a>
+
+      <% }) %>
+
+    <% } %>
+
+  </div>
+
+</div>
+
+<!-- Recent Contact Messages -->
+
+<div class="dashboard-section">
+
+  <div class="section-header">
+
+    <div>
+      <h2>Recent Contact Messages</h2>
+      <p>Latest messages received from users and visitors.</p>
+    </div>
+
+    <a href="/admin/contact-messages" class="section-link">
+      View All
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
+
+  </div>
+
+
+  <div class="recent-messages">
+
+    <% if (recentMessages.length === 0) { %>
+
+      <div class="empty-state">
+
+        <i class="fa-regular fa-envelope"></i>
+
+        <h3>No messages yet</h3>
+
+        <p>Contact messages will appear here.</p>
+
+      </div>
+
+    <% } else { %>
+
+      <% recentMessages.forEach(message => { %>
+
+        <a
+          href="/admin/contact-messages"
+          class="message-item"
+        >
+
+          <div class="message-icon">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+
+
+          <div class="message-info">
+
+            <h3>
+              <%= message.subject %>
+            </h3>
+
+            <p>
+              <%= message.name %>
+              <span>•</span>
+              <%= message.email %>
+            </p>
+
+          </div>
+
+
+          <div class="message-meta">
+
+            <% if (!message.is_read) { %>
+
+              <span class="message-status unread">
+                Unread
+              </span>
+
+            <% } else { %>
+
+              <span class="message-status read">
+                Read
+              </span>
+
+            <% } %>
+
+            <span class="message-date">
+              <%= new Date(message.created_at).toLocaleDateString() %>
+            </span>
+
+          </div>
+
+        </a>
+
+      <% }) %>
+
+    <% } %>
+
+  </div>
+
+</div>
+
+    <!-- QUICK ACTIONS -->
+
+    <section class="section">
+
+      <div class="section-header">
+
+        <div>
+          <p class="eyebrow">MANAGEMENT</p>
+          <h2>Quick Actions</h2>
+        </div>
+
+      </div>
+
+
+      <div class="action-grid">
+
+        <a href="/admin/contact-messages" class="action-card">
+
+          <div class="action-icon">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+
+          <div>
+            <h3>Contact Messages</h3>
+
+            <p>
+              View messages submitted by visitors.
+            </p>
+          </div>
+
+          <i class="fa-solid fa-arrow-right arrow"></i>
+
+        </a>
+
+
+        <a href="/admin/users" class="action-card">
+
+          <div class="action-icon">
+            <i class="fa-solid fa-users"></i>
+          </div>
+
+          <div>
+            <h3>Manage Users</h3>
+
+            <p>
+              View and manage registered users.
+            </p>
+          </div>
+
+          <i class="fa-solid fa-arrow-right arrow"></i>
+
+        </a>
+
+
+        <a href="/admin/artists" class="action-card">
+
+          <div class="action-icon">
+            <i class="fa-solid fa-microphone"></i>
+          </div>
+
+          <div>
+            <h3>Manage Artists</h3>
+
+            <p>
+              Review and manage artist profiles.
+            </p>
+          </div>
+
+          <i class="fa-solid fa-arrow-right arrow"></i>
+
+        </a>
+
+
+        <a href="/admin/bookings" class="action-card">
+
+          <div class="action-icon">
+            <i class="fa-solid fa-calendar-check"></i>
+          </div>
+
+          <div>
+            <h3>Manage Bookings</h3>
+
+            <p>
+              Monitor bookings across the platform.
+            </p>
+          </div>
+
+          <i class="fa-solid fa-arrow-right arrow"></i>
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- SYSTEM OVERVIEW -->
+
+    <section class="section">
+
+      <div class="section-header">
+
+        <div>
+          <p class="eyebrow">BOOKMYARTIST</p>
+          <h2>System Overview</h2>
+        </div>
+
+      </div>
+
+
+      <div class="overview-card">
+
+        <div class="overview-item">
+
+          <i class="fa-solid fa-circle-check"></i>
+
+          <div>
+            <h3>Platform Status</h3>
+            <p>BookMyArtist is running normally.</p>
+          </div>
+
+          <span class="status">
+            Online
+          </span>
+
+        </div>
+
+
+        <div class="overview-item">
+
+          <i class="fa-solid fa-database"></i>
+
+          <div>
+            <h3>Database</h3>
+            <p>MySQL database connection is active.</p>
+          </div>
+
+          <span class="status">
+            Connected
+          </span>
+
+        </div>
+
+
+        <div class="overview-item">
+
+          <i class="fa-solid fa-shield-halved"></i>
+
+          <div>
+            <h3>Admin Access</h3>
+            <p>Your account has administrator privileges.</p>
+          </div>
+
+          <span class="status">
+            Active
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    
+
+  </main>
+
+</body>
+
+</html>

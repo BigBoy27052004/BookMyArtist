@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Artists Management | BookMyArtist</title>
+
+  <link rel="stylesheet" href="/css/admin_artists.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  >
+
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      BookMyArtist
+    </div>
+
+    <div class="admin-profile">
+
+      <div class="profile-icon">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+
+      <div>
+        <h3>
+          <%= user.first_name %>
+        </h3>
+
+        <p>Administrator</p>
+      </div>
+
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a href="/admin-dashboard">
+        <i class="fa-solid fa-gauge"></i>
+        Dashboard
+      </a>
+
+      <a href="/admin/users">
+        <i class="fa-solid fa-users"></i>
+        Users
+      </a>
+
+      <a href="/admin/artists" class="active">
+        <i class="fa-solid fa-microphone"></i>
+        Artists
+      </a>
+
+      <a href="/admin/bookings">
+        <i class="fa-solid fa-calendar-check"></i>
+        Bookings
+      </a>
+
+      <a href="/admin/contact-messages">
+        <i class="fa-solid fa-envelope"></i>
+        Contact Messages
+      </a>
+
+      <a href="/admin/profile">
+        <i class="fa-solid fa-user-shield"></i>
+        My Profile
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <a href="/">
+        <i class="fa-solid fa-house"></i>
+        View Website
+      </a>
+
+      <a href="/auth/logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <div>
+
+        <p class="eyebrow">
+          ADMIN PANEL
+        </p>
+
+        <h1>
+          Artists Management
+        </h1>
+
+        <p class="welcome">
+          Review and manage registered BookMyArtist artists.
+        </p>
+
+      </div>
+
+    </header>
+
+
+    <!-- ARTISTS -->
+
+    <section class="section">
+
+      <div class="section-header">
+
+        <div>
+
+          <p class="eyebrow">
+            REGISTERED ARTISTS
+          </p>
+
+          <h2>
+            All Artists
+          </h2>
+
+        </div>
+
+        <div class="artist-count">
+          <%= artists.length %> artist<%= artists.length === 1 ? "" : "s" %>
+        </div>
+
+      </div>
+
+
+      <% if (artists.length === 0) { %>
+
+        <div class="empty-state">
+
+          <div class="empty-icon">
+            <i class="fa-solid fa-microphone"></i>
+          </div>
+
+          <h3>
+            No Artists Registered
+          </h3>
+
+          <p>
+            There are currently no artist accounts on BookMyArtist.
+          </p>
+
+        </div>
+
+      <% } else { %>
+
+        <div class="artists-table-container">
+
+          <table class="artists-table">
+
+            <thead>
+
+              <tr>
+
+                <th>Artist</th>
+                <th>Genre</th>
+                <th>Location</th>
+                <th>Booking Price</th>
+                <th>Verification</th>
+                <th>Joined</th>
+                <th>Actions</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <% artists.forEach(artist => { %>
+
+                <tr>
+
+                  <!-- ARTIST -->
+
+                  <td>
+
+                    <div class="artist-info">
+
+                      <div class="artist-avatar">
+
+                        <% if (
+                          artist.profile_image &&
+                          artist.profile_image !== "default.jpeg"
+                        ) { %>
+
+                          <img
+                            src="/uploads/artist-images/<%= artist.profile_image %>"
+                            alt="Artist"
+                          >
+
+                        <% } else { %>
+
+                          <i class="fa-solid fa-microphone"></i>
+
+                        <% } %>
+
+                      </div>
+
+                      <div>
+
+                        <strong>
+                          <%= artist.stage_name %>
+                        </strong>
+
+                        <span>
+                          <%= artist.first_name %>
+                          <%= artist.last_name %>
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                  </td>
+
+
+                  <!-- GENRE -->
+
+                  <td>
+
+                    <span class="genre">
+
+                      <%= artist.genre || "Not specified" %>
+
+                    </span>
+
+                  </td>
+
+
+                  <!-- LOCATION -->
+
+                  <td>
+
+                    <span class="location">
+
+                      <i class="fa-solid fa-location-dot"></i>
+
+                      <%= artist.city || "Unknown" %><% if (artist.province) { %>, <%= artist.province %><% } %>
+
+                    </span>
+
+                  </td>
+
+
+                  <!-- BOOKING PRICE -->
+
+                  <td>
+
+                    <strong class="price">
+
+                      <% if (artist.booking_price !== null) { %>
+
+                        R<%= Number(artist.booking_price).toLocaleString("en-ZA", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        }) %>
+
+                      <% } else { %>
+
+                        Not specified
+
+                      <% } %>
+
+                    </strong>
+
+                  </td>
+
+
+                  <!-- VERIFICATION -->
+
+                  <td>
+
+                    <% if (artist.is_verified) { %>
+
+                      <span class="verified-badge">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        Verified
+
+                      </span>
+
+                    <% } else { %>
+
+                      <span class="unverified-badge">
+
+                        <i class="fa-solid fa-clock"></i>
+
+                        Not Verified
+
+                      </span>
+
+                    <% } %>
+
+                  </td>
+
+
+                  <!-- JOINED -->
+
+                  <td>
+
+                    <span class="joined">
+
+                      <%= new Date(
+                        artist.created_at
+                      ).toLocaleDateString() %>
+
+                    </span>
+
+                  </td>
+
+
+                  <!-- ACTIONS -->
+
+                  <td>
+
+                    <div class="actions">
+
+                      <a
+    href="/admin/artists/<%= artist.artist_id %>"
+    class="view-btn"
+  >
+    <i class="fa-solid fa-eye"></i>
+    View
+  </a>
+
+  <% if (!artist.is_verified) { %>
+
+    <form
+      action="/admin/artists/<%= artist.artist_id %>/verify"
+      method="POST"
+    >
+      <button
+        type="submit"
+        class="verify-btn"
+      >
+        <i class="fa-solid fa-circle-check"></i>
+        Verify
+      </button>
+    </form>
+
+  <% } else { %>
+
+    <span class="verified-badge">
+      <i class="fa-solid fa-circle-check"></i>
+      Verified
+    </span>
+
+  <% } %>
+
+
+                    </div>
+
+                  </td>
+
+                </tr>
+
+              <% }) %>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      <% } %>
+
+    </section>
+
+  </main>
+
+</body>
+
+</html>

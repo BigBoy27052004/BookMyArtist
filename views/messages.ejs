@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages | BookMyArtist</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      min-height: 100vh;
+    }
+
+    nav {
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, .97);
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .nav-links a,
+    .logout {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #6c63ff;
+    }
+
+    .logout:hover {
+      color: #ef4444;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 125px 25px 50px;
+    }
+
+    .page-heading {
+      margin-bottom: 28px;
+    }
+
+    .page-heading h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .page-heading p {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(260px, 350px) minmax(0, 1fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .panel-heading {
+      padding: 20px;
+      border-bottom: 1px solid #334155;
+    }
+
+    .panel-heading h2 {
+      font-size: 17px;
+    }
+
+    .panel-heading p {
+      color: #94a3b8;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .contact {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 18px;
+      text-decoration: none;
+      color: #f8fafc;
+      border-bottom: 1px solid #334155;
+      transition: background .2s;
+    }
+
+    .contact:last-child {
+      border-bottom: none;
+    }
+
+    .contact:hover {
+      background: #273449;
+    }
+
+    .avatar {
+      width: 43px;
+      height: 43px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #6c63ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+    }
+
+    .contact-info {
+      min-width: 0;
+    }
+
+    .contact-info strong {
+      display: block;
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-info small {
+      display: block;
+      color: #94a3b8;
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .contact-arrow {
+      margin-left: auto;
+      color: #6c63ff;
+    }
+
+    .empty {
+      padding: 28px 20px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .welcome {
+      min-height: 320px;
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .welcome-icon {
+      width: 75px;
+      height: 75px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(108, 99, 255, .15);
+      color: #a5b4fc;
+      border-radius: 50%;
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .welcome h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .welcome p {
+      color: #94a3b8;
+      font-size: 13px;
+      line-height: 1.8;
+      max-width: 350px;
+    }
+
+    @media (max-width: 760px) {
+      nav {
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .nav-links {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      main {
+        padding: 155px 16px 35px;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .page-heading h1 {
+        font-size: 25px;
+      }
+
+      .welcome {
+        min-height: 220px;
+      }
+    }
+
+    .unread-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      margin-left: 6px;
+      border-radius: 999px;
+      background: #ef4444;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">BookMyArtist</div>
+
+    <div class="nav-links">
+      <% if (user.role === "artist") { %>
+      <a href="/artist-dashboard">Dashboard</a>
+      <a href="/bookings/artist">Booking Requests</a>
+      <a href="/messages" class="nav-link">
+        Messages
+        <% if (typeof unreadCount !== "undefined" && unreadCount > 0) { %>
+        <span class="unread-badge">
+          <%= unreadCount %>
+        </span>
+        <% } %>
+      </a>
+      <a href="/reviews/artist">Reviews</a>
+      <a href="/artists/my-profile">Profile</a>
+      <% } else if (user.role === "customer") { %>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/artists">Browse Artists</a>
+      <a href="/bookings">My Bookings</a>
+      <a href="/messages" class="active">Messages</a>
+      <% } %>
+    </div>
+
+    <a href="/auth/logout" class="logout">Logout</a>
+  </nav>
+
+  <main>
+    <div class="page-heading">
+      <h1>Messages</h1>
+      <p>Connect with artists and customers about your bookings.</p>
+    </div>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>
+            <i class="fa-solid fa-users" style="color:#a5b4fc;"></i>
+            People
+          </h2>
+          <p>Select someone to open a conversation.</p>
+        </div>
+
+        <% if (contacts && contacts.length > 0) { %>
+        <% contacts.forEach(contact => { %>
+        <a class="contact" href="/messages/conversation/<%= contact.id %>">
+          <% if (contact.profile_image &&
+                     contact.profile_image !== "default.jpeg") { %>
+          <img class="avatar" src="/uploads/artist-images/<%= contact.profile_image %>" alt="Profile picture">
+          <% } else { %>
+          <div class="avatar">
+            <%= (contact.stage_name || contact.first_name).charAt(0).toUpperCase() %>
+          </div>
+          <% } %>
+
+          <div class="contact-info">
+            <strong>
+              <%= contact.stage_name ||
+                      (contact.first_name + " " + contact.last_name) %>
+            </strong>
+            <small>
+              <%= user.role === "customer" ? "Artist" : "Customer" %>
+            </small>
+          </div>
+
+          <i class="fa-solid fa-chevron-right contact-arrow"></i>
+        </a>
+        <% }); %>
+        <% } else { %>
+        <div class="empty">
+          <i class="fa-regular fa-comments" style="font-size:25px;margin-bottom:10px;"></i>
+          <p>No contacts available yet.</p>
+          <p>Contacts will appear here when they meet the messaging criteria.</p>
+        </div>
+        <% } %>
+      </section>
+
+      <section class="panel welcome">
+        <div class="welcome-icon">
+          <i class="fa-regular fa-comments"></i>
+        </div>
+        <h2>Your Conversations</h2>
+        <p>
+          Choose someone from the list to read previous messages
+          and send a reply. Your conversations will be available here.
+        </p>
+      </section>
+    </div>
+  </main>
+</body>
+
+</html>

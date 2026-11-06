@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Login | BookMyArtist</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/css/login.css" />
+  </head>
+
+  <body>
+    <!-- BACKGROUND GLOW -->
+
+    <div class="glow1"></div>
+    <div class="glow2"></div>
+
+    <!-- LOGIN CONTAINER -->
+
+    <div class="login-container">
+      <!-- LEFT SIDE -->
+
+      <div class="left-side">
+        <div class="logo">BookMyArtist</div>
+
+        <h1>Welcome Back To The Future Of Artist Booking</h1>
+
+        <p>
+          Access your account to manage bookings, communicate with artists,
+          track payments, and discover incredible talent for your events.
+        </p>
+      </div>
+
+      <!-- RIGHT SIDE -->
+
+      <div class="right-side">
+        <div class="form-box">
+          <h2>Login</h2>
+
+          <p class="subtitle">Sign in to continue to BookMyArtist</p>
+
+          <!-- LOGIN FORM -->
+
+          <form action="/auth/login" method="POST">
+            <!-- EMAIL -->
+
+            <div class="input-group">
+              <label>Email Address</label>
+
+              <div class="input-field">
+                <i class="fa-solid fa-envelope"></i>
+
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- PASSWORD -->
+
+            <div class="input-group">
+              <label>Password</label>
+
+              <div class="input-field">
+                <i class="fa-solid fa-lock"></i>
+
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- OPTIONS -->
+
+            <div class="options">
+              <div class="remember">
+                <input type="checkbox" name="remember" />
+
+                <span>Remember me</span>
+              </div>
+
+              <a href="#" class="forgot"> Forgot Password? </a>
+            </div>
+
+            <!-- BUTTON -->
+
+            <button type="submit" class="login-btn">Login</button>
+          </form>
+
+          <!-- REGISTER -->
+
+          <div class="register">
+            Don’t have an account?
+
+            <a href="/auth/register"> Register Here </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

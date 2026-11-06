@@ -1,0 +1,304 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  padding: 20px;
+}
+
+/* BACKGROUND GLOW */
+
+.glow1,
+.glow2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  z-index: 0;
+}
+
+.glow1 {
+  width: 300px;
+  height: 300px;
+  background: #6c63ff;
+  top: -50px;
+  left: -80px;
+  opacity: 0.4;
+}
+
+.glow2 {
+  width: 300px;
+  height: 300px;
+  background: #a855f7;
+  bottom: -50px;
+  right: -80px;
+  opacity: 0.3;
+}
+
+/* LOGIN CONTAINER */
+
+.login-container {
+  width: 100%;
+  max-width: 1000px;
+  min-height: 650px;
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  border-radius: 30px;
+  overflow: hidden;
+  display: flex;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+/* LEFT SIDE */
+
+.left-side {
+  flex: 1;
+  background:
+    linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.9)),
+    url("images/BookMyArtist.webp");
+  background-size: cover;
+  background-position: center;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 25px;
+}
+
+.logo span {
+  color: #6c63ff;
+}
+
+.left-side h1 {
+  font-size: 50px;
+  line-height: 1.2;
+  margin-bottom: 25px;
+  color: white;
+}
+
+.left-side p {
+  color: #cbd5e1;
+  line-height: 1.8;
+  font-size: 16px;
+  max-width: 450px;
+}
+
+/* RIGHT SIDE */
+
+.right-side {
+  flex: 1;
+  background: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+
+.form-box {
+  width: 100%;
+  max-width: 380px;
+}
+
+.form-box h2 {
+  font-size: 38px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.form-box .subtitle {
+  color: #cbd5e1;
+  margin-bottom: 40px;
+}
+
+/* INPUTS */
+
+.input-group {
+  margin-bottom: 25px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 10px;
+  color: #f8fafc;
+  font-size: 14px;
+}
+
+.input-field {
+  position: relative;
+}
+
+.input-field i {
+  position: absolute;
+  top: 50%;
+  left: 18px;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+.input-field input {
+  width: 100%;
+  padding: 15px 15px 15px 50px;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  background: #0f172a;
+  color: white;
+  font-size: 15px;
+  border: 1px solid transparent;
+  transition: 0.3s;
+}
+
+.input-field input:focus {
+  border-color: #6c63ff;
+}
+
+/* OPTIONS */
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #cbd5e1;
+}
+
+.forgot {
+  color: #6c63ff;
+  text-decoration: none;
+}
+
+.forgot:hover {
+  text-decoration: underline;
+}
+
+/* BUTTON */
+
+.login-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 15px;
+  background: linear-gradient(to right, #6c63ff, #a855f7);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-bottom: 25px;
+}
+
+.login-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(108, 99, 255, 0.4);
+}
+
+/* DIVIDER */
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #94a3b8;
+  margin-bottom: 25px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.divider:not(:empty)::before {
+  margin-right: 10px;
+}
+
+.divider:not(:empty)::after {
+  margin-left: 10px;
+}
+
+/* SOCIAL LOGIN */
+
+.social-login {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.social-btn {
+  flex: 1;
+  padding: 13px;
+  border-radius: 15px;
+  border: none;
+  background: #0f172a;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid transparent;
+}
+
+.social-btn:hover {
+  border-color: #6c63ff;
+}
+
+/* REGISTER */
+
+.register {
+  text-align: center;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+
+.register a {
+  color: #6c63ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register a:hover {
+  text-decoration: underline;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+  .login-container {
+    flex-direction: column;
+    height: auto;
+    margin: 20px;
+  }
+
+  .left-side {
+    min-height: 300px;
+  }
+
+  .left-side h1 {
+    font-size: 38px;
+  }
+}

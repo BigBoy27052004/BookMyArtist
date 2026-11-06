@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Users Management | BookMyArtist</title>
+
+  <link rel="stylesheet" href="/css/admin_users.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  >
+
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      BookMyArtist
+    </div>
+
+
+    <div class="admin-profile">
+
+      <div class="profile-icon">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+
+      <div>
+
+        <h3>
+          <%= user.first_name %>
+        </h3>
+
+        <p>Administrator</p>
+
+      </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+      <a href="/admin-dashboard">
+        <i class="fa-solid fa-gauge"></i>
+        Dashboard
+      </a>
+
+      <a href="/admin/users" class="active">
+        <i class="fa-solid fa-users"></i>
+        Users
+      </a>
+
+      <a href="/admin/artists">
+        <i class="fa-solid fa-microphone"></i>
+        Artists
+      </a>
+
+      <a href="/admin/bookings">
+        <i class="fa-solid fa-calendar-check"></i>
+        Bookings
+      </a>
+
+      <a href="/admin/contact-messages">
+
+        <i class="fa-solid fa-envelope"></i>
+
+        Contact Messages
+
+      </a>
+
+      <a href="/admin/profile">
+        <i class="fa-solid fa-user-shield"></i>
+        My Profile
+      </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+      <a href="/">
+
+        <i class="fa-solid fa-house"></i>
+
+        View Website
+
+      </a>
+
+
+      <a href="/auth/logout">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        Logout
+
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <div>
+
+        <p class="eyebrow">
+          ADMIN PANEL
+        </p>
+
+        <h1>
+          Users Management
+        </h1>
+
+        <p class="welcome">
+          Manage registered BookMyArtist users.
+        </p>
+
+      </div>
+
+    </header>
+
+
+    <!-- USERS -->
+
+    <section class="section">
+
+      <div class="section-header">
+
+        <div>
+
+          <p class="eyebrow">
+            USER MANAGEMENT
+          </p>
+
+          <h2>
+            All Users
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="user-filters">
+
+  <form action="/admin/users" method="GET">
+
+    <!-- Search -->
+    <div class="filter-group search-group">
+
+      <label for="search">Search</label>
+
+      <div class="search-input">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+          type="text"
+          id="search"
+          name="search"
+          placeholder="Search name, email or phone..."
+          value="<%= search || '' %>"
+        >
+
+      </div>
+
+    </div>
+
+
+    <!-- Role -->
+    <div class="filter-group">
+
+      <label for="role">Role</label>
+
+      <select name="role" id="role">
+
+        <option value="">All Roles</option>
+
+        <option value="customer"
+          <%= role === "customer" ? "selected" : "" %>>
+          Customer
+        </option>
+
+        <option value="artist"
+          <%= role === "artist" ? "selected" : "" %>>
+          Artist
+        </option>
+
+        <option value="admin"
+          <%= role === "admin" ? "selected" : "" %>>
+          Admin
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- Verification -->
+    <div class="filter-group">
+
+      <label for="verification">Verification</label>
+
+      <select name="verification" id="verification">
+
+        <option value="">All Users</option>
+
+        <option value="verified"
+          <%= verification === "verified" ? "selected" : "" %>>
+          Verified
+        </option>
+
+        <option value="unverified"
+          <%= verification === "unverified" ? "selected" : "" %>>
+          Unverified
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- Buttons -->
+    <button type="submit" class="filter-btn">
+
+      <i class="fa-solid fa-filter"></i>
+
+      Filter
+
+    </button>
+
+
+    <a href="/admin/users" class="clear-filter-btn">
+
+      Clear
+
+    </a>
+
+  </form>
+
+</div>
+
+<div class="user-summary">
+
+  <div class="summary-card">
+    <div class="summary-icon">
+      <i class="fa-solid fa-users"></i>
+    </div>
+    <div>
+      <span>Total Users</span>
+      <strong><%= userSummary.total %></strong>
+    </div>
+  </div>
+
+  <div class="summary-card customer">
+    <div class="summary-icon">
+      <i class="fa-solid fa-user"></i>
+    </div>
+    <div>
+      <span>Customers</span>
+      <strong><%= userSummary.customers %></strong>
+    </div>
+  </div>
+
+  <div class="summary-card artist">
+    <div class="summary-icon">
+      <i class="fa-solid fa-music"></i>
+    </div>
+    <div>
+      <span>Artists</span>
+      <strong><%= userSummary.artists %></strong>
+    </div>
+  </div>
+
+  <div class="summary-card admin">
+    <div class="summary-icon">
+      <i class="fa-solid fa-user-shield"></i>
+    </div>
+    <div>
+      <span>Admins</span>
+      <strong><%= userSummary.admins %></strong>
+    </div>
+  </div>
+
+  <div class="summary-card verified">
+    <div class="summary-icon">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+    <div>
+      <span>Verified</span>
+      <strong><%= userSummary.verified %></strong>
+    </div>
+  </div>
+
+  <div class="summary-card unverified">
+    <div class="summary-icon">
+      <i class="fa-solid fa-circle-exclamation"></i>
+    </div>
+    <div>
+      <span>Unverified</span>
+      <strong><%= userSummary.unverified %></strong>
+    </div>
+  </div>
+
+</div>
+
+      <div class="users-card">
+
+        <div class="users-summary">
+
+          <p>
+            <%= users.length %>
+            registered user<%= users.length !== 1 ? "s" : "" %>
+          </p>
+
+        </div>
+
+
+        <% if (users.length === 0) { %>
+
+          <div class="empty-state">
+
+            <i class="fa-solid fa-users"></i>
+
+            <h3>
+              No Users Found
+            </h3>
+
+            <p>
+              There are currently no registered users.
+            </p>
+
+          </div>
+
+        <% } else { %>
+
+
+          <div class="table-container">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>User</th>
+
+                  <th>Email</th>
+
+                  <th>Phone</th>
+
+                  <th>Role</th>
+
+                  <th>Verification</th>
+<th>Status</th>
+<th>Joined</th>
+<th>Actions</th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody>
+
+                <% users.forEach(user => { %>
+
+                  <tr>
+
+                    <!-- USER -->
+
+                    <td>
+
+                      <div class="user-info">
+
+                        <div class="user-avatar">
+
+                          <% if (
+                            user.profile_image &&
+                            user.profile_image !== "default.jpeg"
+                          ) { %>
+
+                            <img
+                              src="/uploads/artist-images/<%= user.profile_image %>"
+                              alt="Profile"
+                            >
+
+                          <% } else { %>
+
+                            <i class="fa-solid fa-user"></i>
+
+                          <% } %>
+
+                        </div>
+
+
+                        <div>
+
+                          <strong>
+                            <%= user.first_name %>
+                            <%= user.last_name %>
+                          </strong>
+
+                        </div>
+
+                      </div>
+
+                    </td>
+
+
+                    <!-- EMAIL -->
+
+                    <td>
+                      <%= user.email %>
+                    </td>
+
+
+                    <!-- PHONE -->
+
+                    <td>
+                      <%= user.phone || "Not provided" %>
+                    </td>
+
+
+                    <!-- ROLE -->
+
+                    <td>
+
+                      <span class="role <%= user.role %>">
+
+                        <% if (user.role === "admin") { %>
+
+                          <i class="fa-solid fa-shield-halved"></i>
+
+                        <% } else if (user.role === "artist") { %>
+
+                          <i class="fa-solid fa-microphone"></i>
+
+                        <% } else { %>
+
+                          <i class="fa-solid fa-user"></i>
+
+                        <% } %>
+
+                        <%= user.role %>
+
+                      </span>
+
+                    </td>
+
+
+                    <!-- VERIFICATION -->
+
+                    <td>
+
+                      <% if (user.is_verified) { %>
+
+                        <span class="status verified">
+
+                          <i class="fa-solid fa-circle-check"></i>
+
+                          Verified
+
+                        </span>
+
+                      <% } else { %>
+
+                        <span class="status unverified">
+
+                          <i class="fa-solid fa-clock"></i>
+
+                          Not Verified
+
+                        </span>
+
+                      <% } %>
+
+                    </td>
+
+                    <td>
+  <% if (user.is_active) { %>
+
+    <span class="status-badge active">
+      <i class="fa-solid fa-circle-check"></i>
+      Active
+    </span>
+
+  <% } else { %>
+
+    <span class="status-badge inactive">
+      <i class="fa-solid fa-circle-xmark"></i>
+      Inactive
+    </span>
+
+  <% } %>
+</td>
+
+
+                    <!-- JOINED -->
+
+                    <td>
+
+                      <%= new Date(
+                        user.created_at
+                      ).toLocaleDateString() %>
+
+                    </td>
+
+
+                    <!-- ACTIONS -->
+
+                    <td>
+
+                      <div class="actions">
+
+  <a
+    href="/admin/users/<%= user.id %>"
+    class="view-btn"
+  >
+    <i class="fa-solid fa-eye"></i>
+    View
+  </a>
+
+  <% if (!user.is_verified) { %>
+
+    <form
+      action="/admin/users/<%= user.id %>/verify"
+      method="POST"
+    >
+      <button
+        type="submit"
+        class="verify-btn"
+      >
+        <i class="fa-solid fa-circle-check"></i>
+        Verify
+      </button>
+    </form>
+
+  <% } else { %>
+
+    <span class="verified-badge">
+      <i class="fa-solid fa-circle-check"></i>
+      Verified
+    </span>
+
+  <% } %>
+  <% if (user.is_active) { %>
+
+  <form
+    action="/admin/users/<%= user.id %>/toggle-status"
+    method="POST"
+  >
+    <button type="submit" class="deactivate-btn">
+      <i class="fa-solid fa-user-slash"></i>
+      Deactivate
+    </button>
+  </form>
+
+<% } else { %>
+
+  <form
+    action="/admin/users/<%= user.id %>/toggle-status"
+    method="POST"
+  >
+    <button type="submit" class="activate-btn">
+      <i class="fa-solid fa-user-check"></i>
+      Activate
+    </button>
+  </form>
+
+<% } %>
+
+</div>
+
+                    </td>
+
+                  </tr>
+
+                <% }) %>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+        <% } %>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+
+</html>

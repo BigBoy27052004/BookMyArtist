@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Availability | BookMyArtist</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="/css/artist_availability.css">
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+
+  <nav>
+    <a href="/artist-dashboard" class="logo">
+      BookMyArtist
+    </a>
+
+    <div class="nav-links">
+      <a href="/artist-dashboard">Dashboard</a>
+      <a href="/bookings/artist">Bookings</a>
+
+      <a href="/availability/artist" class="active">
+        Availability
+      </a>
+
+      <a href="/messages">
+        Messages
+        <% if (Number(unreadCount) > 0) { %>
+        <span class="unread-badge">
+          <%= unreadCount %>
+        </span>
+        <% } %>
+      </a>
+
+      <a href="/reviews/artist">Reviews</a>
+      <a href="/artists/my-profile">My Profile</a>
+    </div>
+
+    <div class="nav-right">
+      <% if (user.profile_image) { %>
+      <img class="profile-pic" src="/uploads/artist-images/<%= user.profile_image %>" alt="Profile picture">
+      <% } else { %>
+      <div class="profile-fallback">
+        <%= (user.first_name || "A").charAt(0).toUpperCase() %>
+      </div>
+      <% } %>
+
+      <a href="/auth/logout" class="logout">
+        Logout
+      </a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+
+  <main class="page-container">
+
+    <div class="page-header">
+      <div>
+        <h1>My <span>Availability</span></h1>
+        <p>
+          View your booked dates and manage
+          your schedule.
+        </p>
+      </div>
+
+      <a href="/bookings/artist" class="bookings-btn">
+        <i class="fa-solid fa-calendar-check"></i>
+        View Bookings
+      </a>
+    </div>
+
+    <!-- STATISTICS -->
+
+    <section class="stats-grid">
+      <div class="stat-card">
+        <i class="fa-solid fa-ban blocked-icon"></i>
+        <strong><%= unavailableDates.length %></strong>
+        <span>Blocked Dates</span>
+      </div>
+
+      <div class="stat-card">
+        <i class="fa-solid fa-calendar-check booked-icon"></i>
+        <strong><%= bookedDates.length %></strong>
+        <span>Accepted / Completed Bookings</span>
+      </div>
+    </section>
+
+    <!-- CALENDAR -->
+
+    <section class="calendar-card">
+
+      <div class="calendar-heading">
+        <div>
+          <h2>Availability Calendar</h2>
+          <p>Select a date to view its status.</p>
+        </div>
+
+        <div class="calendar-controls">
+          <button type="button" id="prevMonth" aria-label="Previous month">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+
+          <h3 id="calendarMonth"></h3>
+
+          <button type="button" id="nextMonth" aria-label="Next month">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="calendar-legend">
+        <span><i class="dot available"></i> Available</span>
+        <span><i class="dot blocked"></i> Blocked</span>
+        <span><i class="dot booked"></i> Booked</span>
+      </div>
+
+      <div class="weekdays">
+        <span>Sun</span>
+        <span>Mon</span>
+        <span>Tue</span>
+        <span>Wed</span>
+        <span>Thu</span>
+        <span>Fri</span>
+        <span>Sat</span>
+      </div>
+
+      <div class="calendar-grid" id="calendarGrid"></div>
+
+      <div class="selected-date-info" id="selectedDateInfo">
+        Select a date to see its details.
+      </div>
+
+
+      <!-- BLOCK DATE FORM -->
+
+      <form id="blockDateForm" action="/availability/artist/block" method="POST" class="block-date-form" hidden>
+        <h3>
+          <i class="fa-solid fa-calendar-xmark"></i>
+          Block Selected Date
+        </h3>
+
+        <p class="block-form-description">
+          Customers won't be able to book this date
+          once availability checks are enabled.
+        </p>
+
+        <label for="blockDateInput">
+          Selected Date
+        </label>
+
+        <input type="date" id="blockDateInput" name="date" required readonly>
+
+        <label for="blockReason">
+          Reason (optional)
+        </label>
+
+        <textarea id="blockReason" name="reason" rows="3" maxlength="255" placeholder="e.g. Personal commitment"></textarea>
+
+        <button type="submit" class="block-date-btn">
+          <i class="fa-solid fa-ban"></i>
+          Block This Date
+        </button>
+      </form>
+
+
+      <!-- UNBLOCK DATE FORM -->
+
+      <form id="unblockDateForm" action="/availability/artist/unblock" method="POST" class="unblock-date-form" hidden>
+        <h3>
+          <i class="fa-solid fa-calendar-check"></i>
+          Unblock Selected Date
+        </h3>
+
+        <p class="unblock-form-description">
+          This date is currently marked as unavailable.
+          Unblocking it will allow customers to request
+          bookings once availability checks are enabled.
+        </p>
+
+        <label for="unblockDateInput">
+          Selected Date
+        </label>
+
+        <input type="date" id="unblockDateInput" name="date" required readonly>
+
+        <button type="submit" class="unblock-date-btn">
+          <i class="fa-solid fa-calendar-check"></i>
+          Unblock This Date
+        </button>
+      </form>
+
+
+
+    </section>
+
+    <!-- UPCOMING DATES -->
+
+    <section class="dates-section">
+
+      <div class="dates-card">
+        <h2>
+          <i class="fa-solid fa-ban"></i>
+          Manually Blocked Dates
+        </h2>
+
+        <% if (unavailableDates.length === 0) { %>
+        <p class="empty-message">
+          You haven't blocked any dates yet.
+        </p>
+        <% } else { %>
+
+        <% unavailableDates.forEach(item => { %>
+        <div class="date-item">
+          <span>
+            <%= item.unavailable_date %>
+          </span>
+          <small>
+            <%= item.reason || "Unavailable" %>
+          </small>
+        </div>
+        <% }) %>
+
+        <% } %>
+      </div>
+
+      <div class="dates-card">
+        <h2>
+          <i class="fa-solid fa-calendar-check"></i>
+          Booked Dates
+        </h2>
+
+        <% if (bookedDates.length === 0) { %>
+        <p class="empty-message">
+          You have no accepted or completed bookings.
+        </p>
+        <% } else { %>
+
+        <% bookedDates.forEach(item => { %>
+        <div class="date-item">
+          <span><%= item.event_date %></span>
+          <small>
+            <%= item.event_name %>
+            (<%= item.status %>)
+          </small>
+        </div>
+        <% }) %>
+
+        <% } %>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- DATA FROM MYSQL -->
+
+  <script id="availabilityData" type="application/json">
+    <%- JSON.stringify({
+    blocked: unavailableDates.map(item => ({
+      date: item.unavailable_date,
+      reason: item.reason || ""
+    })),
+    booked: bookedDates.map(item => ({
+      date: item.event_date,
+      event: item.event_name,
+      status: item.status
+    }))
+  }).replace(/</g, "\\u003c").replace(/>/g, "\\u003e").replace(/&/g, "\\u0026").replace(/\u2028/g, "\\u2028").replace(/\u2029/g, "\\u2029") %>
+  </script>
+
+  <script>
+    const availability = JSON.parse(
+      document.getElementById("availabilityData").textContent
+    );
+
+    const calendarGrid =
+      document.getElementById("calendarGrid");
+
+    const calendarMonth =
+      document.getElementById("calendarMonth");
+
+    const selectedDateInfo =
+      document.getElementById("selectedDateInfo");
+
+    const blockDateForm =
+      document.getElementById("blockDateForm");
+
+    const blockDateInput =
+      document.getElementById("blockDateInput");
+
+    const blockReason =
+      document.getElementById("blockReason");
+
+
+    const unblockDateForm =
+      document.getElementById("unblockDateForm");
+
+    const unblockDateInput =
+      document.getElementById("unblockDateInput");
+
+
+    // Use the artist's browser-local calendar date.
+    function todayKey() {
+      const today = new Date();
+
+      return dateKey(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate()
+      );
+    }
+
+
+    let currentMonth = new Date();
+    currentMonth.setDate(1);
+
+    function dateKey(year, month, day) {
+      return [
+        year,
+        String(month + 1).padStart(2, "0"),
+        String(day).padStart(2, "0")
+      ].join("-");
+    }
+
+    function showDateDetails(date) {
+      const booked = availability.booked.filter(
+        item => item.date === date
+      );
+
+      const blocked = availability.blocked.find(
+        item => item.date === date
+      );
+
+      const readableDate = new Date(
+        date + "T12:00:00"
+      ).toLocaleDateString("en-ZA", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      });
+
+      let text = readableDate + ": ";
+
+      if (booked.length > 0) {
+        text += "Booked — " + booked
+          .map(item =>
+            item.event + " (" + item.status + ")"
+          ).join(", ");
+      } else if (blocked) {
+        text += "Unavailable";
+        if (blocked.reason) {
+          text += " — " + blocked.reason;
+        }
+      } else {
+        text += "Available";
+      }
+
+
+
+      selectedDateInfo.textContent = text;
+
+      // Reset both forms whenever a date is selected.
+      blockDateForm.hidden = true;
+      blockDateInput.value = "";
+      blockReason.value = "";
+
+      unblockDateForm.hidden = true;
+      unblockDateInput.value = "";
+
+      // Booked dates cannot be blocked or unblocked
+      // from this interface.
+      if (booked.length > 0) {
+        return;
+      }
+
+      // Manually blocked dates can be unblocked.
+      if (blocked) {
+        unblockDateInput.value = date;
+        unblockDateForm.hidden = false;
+        return;
+      }
+
+      // Available future dates can be blocked.
+      if (date >= todayKey()) {
+        blockDateInput.value = date;
+        blockDateForm.hidden = false;
+      }
+
+    }
+
+    function renderCalendar() {
+      calendarGrid.innerHTML = "";
+
+      blockDateForm.hidden = true;
+      blockDateInput.value = "";
+      blockReason.value = "";
+      selectedDateInfo.textContent =
+        "Select a date to see its details.";
+
+      unblockDateForm.hidden = true;
+      unblockDateInput.value = "";
+
+      const year = currentMonth.getFullYear();
+      const month = currentMonth.getMonth();
+
+      calendarMonth.textContent =
+        currentMonth.toLocaleDateString("en-ZA", {
+          month: "long",
+          year: "numeric"
+        });
+
+      const firstDay = new Date(
+        year, month, 1
+      ).getDay();
+
+      const daysInMonth = new Date(
+        year, month + 1, 0
+      ).getDate();
+
+      for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement("div");
+        empty.className = "calendar-empty";
+        calendarGrid.appendChild(empty);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = dateKey(year, month, day);
+
+        const isBooked = availability.booked.some(
+          item => item.date === date
+        );
+
+        const isBlocked = availability.blocked.some(
+          item => item.date === date
+        );
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = day;
+        button.className = "calendar-day";
+
+        if (isBooked) {
+          button.classList.add("booked");
+        } else if (isBlocked) {
+          button.classList.add("blocked");
+        } else {
+          button.classList.add("available");
+        }
+
+        button.addEventListener("click", () => {
+          document.querySelectorAll(".calendar-day")
+            .forEach(item =>
+              item.classList.remove("selected")
+            );
+
+          button.classList.add("selected");
+          showDateDetails(date);
+        });
+
+        calendarGrid.appendChild(button);
+      }
+    }
+
+    document.getElementById("prevMonth")
+      .addEventListener("click", () => {
+        currentMonth.setMonth(
+          currentMonth.getMonth() - 1
+        );
+
+        renderCalendar();
+      });
+
+    document.getElementById("nextMonth")
+      .addEventListener("click", () => {
+        currentMonth.setMonth(
+          currentMonth.getMonth() + 1
+        );
+
+        renderCalendar();
+      });
+
+    renderCalendar();
+  </script>
+
+</body>
+
+</html>

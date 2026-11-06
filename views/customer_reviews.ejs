@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Reviews | BookMyArtist</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="/css/customer_reviews.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+
+    <a href="/dashboard" class="logo">
+      BookMyArtist
+    </a>
+
+    <div class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/artists">Browse Artists</a>
+      <a href="/bookings">My Bookings</a>
+
+      <a href="/messages" class="messages-nav-link">
+        Messages
+
+        <% if (Number(unreadCount) > 0) { %>
+          <span class="message-unread-badge">
+            <%= unreadCount %>
+          </span>
+        <% } %>
+      </a>
+
+      <a href="/reviews/customer" class="active">
+        Reviews
+      </a>
+
+      <a href="/customer/profile">My Profile</a>
+    </div>
+
+    <div class="nav-right">
+
+      <% if (user.profile_image) { %>
+        <img
+          src="/uploads/artist-images/<%= user.profile_image %>"
+          alt="Profile picture"
+          class="profile-pic"
+        >
+      <% } else { %>
+        <div class="profile-fallback">
+          <%= (user.first_name || "U").charAt(0).toUpperCase() %>
+        </div>
+      <% } %>
+
+      <a href="/auth/logout" class="logout">
+        Logout
+      </a>
+
+    </div>
+
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="page-container">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+
+      <div>
+        <h1>My Reviews</h1>
+
+        <p>
+          View the ratings and feedback you've submitted
+          for artists you've booked.
+        </p>
+      </div>
+
+      <a href="/bookings" class="browse-btn">
+        <i class="fa-solid fa-calendar-check"></i>
+        My Bookings
+      </a>
+
+    </div>
+
+    <!-- REVIEW STATISTICS -->
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <i class="fa-solid fa-comment-dots stat-icon"></i>
+
+        <div class="stat-number">
+          <%= totalReviews %>
+        </div>
+
+        <div class="stat-label">
+          Reviews Submitted
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <i class="fa-solid fa-star stat-icon star-icon"></i>
+
+        <div class="stat-number">
+          <%= Number(averageRating).toFixed(1) %>
+          <span class="stat-unit">/ 5</span>
+        </div>
+
+        <div class="stat-label">
+          Average Rating Given
+        </div>
+      </div>
+
+    </div>
+
+    <!-- REVIEWS -->
+    <section class="reviews-section">
+
+      <div class="section-header">
+        <h2>Your Submitted Reviews</h2>
+        <span class="review-count">
+          <%= totalReviews %> <%= totalReviews === 1 ? "review" : "reviews" %>
+        </span>
+      </div>
+
+      <% if (reviews.length === 0) { %>
+
+        <div class="empty-state">
+
+          <i class="fa-regular fa-star"></i>
+
+          <h2>No Reviews Yet</h2>
+
+          <p>
+            You haven't reviewed any artists yet.
+            Once you've completed a booking, you can
+            share your experience with a rating and review.
+          </p>
+
+          <a href="/bookings" class="browse-btn">
+            <i class="fa-solid fa-calendar-check"></i>
+            View My Bookings
+          </a>
+
+        </div>
+
+      <% } else { %>
+
+        <div class="reviews-list">
+
+          <% reviews.forEach(review => { %>
+
+            <article class="review-card">
+
+              <!-- ARTIST INFORMATION -->
+              <div class="review-header">
+
+                <div class="artist-info">
+
+                  <% if (review.profile_image) { %>
+
+                    <img
+                      src="/uploads/artist-images/<%= review.profile_image %>"
+                      alt="<%= review.stage_name %>"
+                      class="artist-image"
+                    >
+
+                  <% } else { %>
+
+                    <div class="artist-fallback">
+                      <%= (review.stage_name || "A").charAt(0).toUpperCase() %>
+                    </div>
+
+                  <% } %>
+
+                  <div class="artist-details">
+
+                    <h3><%= review.stage_name %></h3>
+
+                    <span>
+                      <%= review.genre || "Artist" %>
+                    </span>
+
+                  </div>
+
+                </div>
+
+                <div class="rating-display">
+
+                  <div class="stars" aria-label="<%= review.rating %> out of 5 stars">
+
+                    <% for (let i = 1; i <= 5; i++) { %>
+
+                      <i class="<%= i <= Number(review.rating)
+                        ? 'fa-solid'
+                        : 'fa-regular' %> fa-star"></i>
+
+                    <% } %>
+
+                  </div>
+
+                  <span class="rating-number">
+                    <%= review.rating %>/5
+                  </span>
+
+                </div>
+
+              </div>
+
+              <!-- EVENT DETAILS -->
+              <div class="event-details">
+
+                <span>
+                  <i class="fa-solid fa-calendar-days"></i>
+                  <%= review.event_name || "Event not specified" %>
+                </span>
+
+                <% if (review.event_date) { %>
+
+                  <span>
+                    <i class="fa-regular fa-calendar"></i>
+                    <%= new Date(review.event_date).toLocaleDateString("en-ZA", {
+                      day: "2-digit",
+                      month: "long",
+                      year: "numeric"
+                    }) %>
+                  </span>
+
+                <% } %>
+
+              </div>
+
+              <!-- REVIEW TEXT -->
+              <div class="review-content">
+
+                <% if (review.review) { %>
+
+                  <p><%= review.review %></p>
+
+                <% } else { %>
+
+                  <p class="no-comment">
+                    No written review provided.
+                  </p>
+
+                <% } %>
+
+              </div>
+
+              <!-- FOOTER -->
+              <div class="review-footer">
+
+                <span class="review-date">
+                  <i class="fa-regular fa-clock"></i>
+                  Reviewed on
+                  <%= new Date(review.created_at).toLocaleDateString("en-ZA", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric"
+                  }) %>
+                </span>
+
+                <a
+                  href="/artists/<%= review.artist_id %>"
+                  class="view-artist-btn"
+                >
+                  View Artist
+                  <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+              </div>
+
+            </article>
+
+          <% }) %>
+
+        </div>
+
+      <% } %>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 BookMyArtist. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>

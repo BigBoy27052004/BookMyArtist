@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Booking Details | BookMyArtist</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="/css/booking_details.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav>
+
+    <div class="logo">
+      BookMyArtist
+    </div>
+
+    <div class="nav-links">
+
+      <a href="/dashboard">
+        Dashboard
+      </a>
+
+      <a href="/artists">
+        Browse Artists
+      </a>
+
+      <a href="/bookings" class="active">
+        My Bookings
+      </a>
+
+      <a href="#">
+        Messages
+      </a>
+
+      <a href="#">
+        Reviews
+      </a>
+
+      <a href="#">
+        Profile
+      </a>
+
+    </div>
+
+    <div class="nav-right">
+
+      <div class="notification-bell">
+
+        <i class="fa-solid fa-bell"></i>
+
+      </div>
+
+      <img src="/uploads/artist-images/<%= booking.profile_image %>" alt="Profile" class="profile-pic">
+
+      <a href="/auth/logout" class="logout">
+        Logout
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="page-container">
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+      <div>
+
+        <h1>
+          Booking Details
+        </h1>
+
+        <p>
+          View the details of your artist booking.
+        </p>
+
+      </div>
+
+      <a href="/bookings" class="back-btn">
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        Back to My Bookings
+
+      </a>
+
+    </div>
+
+
+    <!-- BOOKING DETAILS CARD -->
+
+    <div class="details-card">
+
+      <!-- ARTIST -->
+
+      <div class="artist-section">
+
+        <img src="/uploads/artist-images/<%= booking.profile_image %>" alt="<%= booking.stage_name %>" class="artist-image">
+
+        <div>
+
+          <h2>
+            <%= booking.stage_name %>
+          </h2>
+
+          <span class="genre">
+            <%= booking.genre || "Artist" %>
+          </span>
+
+          <% if (booking.province || booking.city) { %>
+
+          <div class="location">
+
+            <i class="fa-solid fa-location-dot"></i>
+
+            <%= booking.city || "" %>
+            <% if (booking.city && booking.province) { %>, <% } %>
+            <%= booking.province || "" %>
+
+          </div>
+
+          <% } %>
+
+        </div>
+
+      </div>
+
+
+      <!-- STATUS -->
+
+      <div class="status-section">
+
+        <span class="status-label">
+          Booking Status
+        </span>
+
+        <% if (booking.status === "Pending") { %>
+
+        <span class="status pending">
+          <i class="fa-solid fa-hourglass-half"></i>
+          Pending
+        </span>
+
+        <% } else if (booking.status === "Accepted") { %>
+
+        <span class="status accepted">
+          <i class="fa-solid fa-circle-check"></i>
+          Accepted
+        </span>
+
+        <% } else if (booking.status === "Rejected") { %>
+
+        <span class="status rejected">
+          <i class="fa-solid fa-circle-xmark"></i>
+          Rejected
+        </span>
+
+        <% } else if (booking.status === "Completed") { %>
+
+        <span class="status completed">
+          <i class="fa-solid fa-check-double"></i>
+          Completed
+        </span>
+
+        <% } %>
+
+      </div>
+
+
+      <!-- DIVIDER -->
+
+      <div class="divider"></div>
+
+
+      <!-- EVENT INFORMATION -->
+
+      <div class="section-title">
+
+        <i class="fa-solid fa-calendar-days"></i>
+
+        <h3>
+          Event Information
+        </h3>
+
+      </div>
+
+
+      <div class="details-grid">
+
+        <!-- EVENT NAME -->
+
+        <div class="detail-box">
+
+          <div class="detail-icon">
+            <i class="fa-solid fa-champagne-glasses"></i>
+          </div>
+
+          <div>
+
+            <span>
+              Event Name
+            </span>
+
+            <strong>
+              <%= booking.event_name || "Not specified" %>
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- EVENT DATE -->
+
+        <div class="detail-box">
+
+          <div class="detail-icon">
+            <i class="fa-solid fa-calendar"></i>
+          </div>
+
+          <div>
+
+            <span>
+              Event Date
+            </span>
+
+            <strong>
+
+              <% if (booking.event_date) { %>
+
+              <%= new Date(booking.event_date).toLocaleDateString("en-ZA", {
+                  day: "2-digit",
+                  month: "long",
+                  year: "numeric"
+                }) %>
+
+              <% } else { %>
+
+              Not specified
+
+              <% } %>
+
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- VENUE -->
+
+        <div class="detail-box">
+
+          <div class="detail-icon">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+
+          <div>
+
+            <span>
+              Venue
+            </span>
+
+            <strong>
+              <%= booking.venue || "Not specified" %>
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- AMOUNT -->
+
+        <div class="detail-box">
+
+          <div class="detail-icon">
+            <i class="fa-solid fa-money-bill"></i>
+          </div>
+
+          <div>
+
+            <span>
+              Booking Amount
+            </span>
+
+            <strong class="amount">
+
+              <% if (booking.amount) { %>
+
+              R<%= Number(booking.amount).toLocaleString("en-ZA") %>
+
+              <% } else { %>
+
+              Not specified
+
+              <% } %>
+
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- BOOKING INFORMATION -->
+
+      <div class="section-title booking-info-title">
+
+        <i class="fa-solid fa-file-lines"></i>
+
+        <h3>
+          Booking Information
+        </h3>
+
+      </div>
+
+
+      <div class="booking-info">
+
+        <div>
+
+          <span>
+            Booking ID
+          </span>
+
+          <strong>
+            #<%= booking.booking_id %>
+          </strong>
+
+        </div>
+
+        <div>
+
+          <span>
+            Request Date
+          </span>
+
+          <strong>
+
+            <% if (booking.created_at) { %>
+
+            <%= new Date(booking.created_at).toLocaleDateString("en-ZA", {
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+              }) %>
+
+            <% } else { %>
+
+            Not available
+
+            <% } %>
+
+          </strong>
+
+        </div>
+
+        <div class="detail">
+          <span class="detail-label">Payment Status</span>
+
+          <span class="detail-value">
+            <%= booking.payment_status || "Unpaid" %>
+          </span>
+        </div>
+
+      </div>
+
+
+      <!-- ARTIST BIO -->
+
+      <% if (booking.biography) { %>
+
+      <div class="section-title">
+
+        <i class="fa-solid fa-user"></i>
+
+        <h3>
+          About the Artist
+        </h3>
+
+      </div>
+
+      <div class="biography">
+
+        <p>
+          <%= booking.biography %>
+        </p>
+
+      </div>
+
+      <% } %>
+
+
+      <!-- ACTIONS -->
+
+      <div class="actions">
+
+        <a href="/bookings" class="secondary-btn">
+
+          <i class="fa-solid fa-arrow-left"></i>
+
+          Back to Bookings
+
+        </a>
+
+        <% if (booking.status === "Accepted") { %>
+
+        <a href="#" class="primary-btn">
+
+          <i class="fa-solid fa-envelope"></i>
+
+          Contact Artist
+
+        </a>
+
+        <% } %>
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="footer-links">
+
+      <a href="#">
+        About Us
+      </a>
+
+      <a href="#">
+        Privacy Policy
+      </a>
+
+      <a href="#">
+        Terms of Service
+      </a>
+
+      <a href="#">
+        Contact
+      </a>
+
+      <a href="#">
+        Help Center
+      </a>
+
+    </div>
+
+    <p>
+      © 2026 BookMyArtist. All Rights Reserved.
+    </p>
+
+  </footer>
+
+</body>
+
+</html>

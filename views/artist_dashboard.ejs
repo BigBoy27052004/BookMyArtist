@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Artist Dashboard | BookMyArtist</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <link rel="stylesheet" href="/css/artist_dashboard.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav>
+
+    <div class="logo">
+      BookMyArtist
+    </div>
+
+
+    <div class="nav-links">
+
+      <a href="/artist-dashboard" class="active">
+        Dashboard
+      </a>
+
+      <a href="/bookings/artist">
+        Booking Requests
+      </a>
+
+      <a href="/messages" class="messages-nav-link">
+        <i class="fa-regular fa-envelope"></i>
+        Messages
+
+        <% if (Number(unreadCount) > 0) { %>
+        <span class="message-unread-badge">
+          <%= unreadCount %>
+        </span>
+        <% } %>
+      </a>
+
+      <a href="/reviews/artist">
+        Reviews
+      </a>
+
+      <a href="/artists/my-profile">
+        Profile
+      </a>
+
+    </div>
+
+
+    <div class="nav-right">
+
+
+      <div class="notification-bell">
+
+        <div class="notification-wrapper">
+
+          <button type="button" class="notification-btn" id="artistNotificationButton" aria-label="Notifications" aria-expanded="false" aria-controls="artistNotificationDropdown">
+            <i class="fa-solid fa-bell"></i>
+
+            <% if (Number(unreadNotifications) > 0) { %>
+            <span class="badge">
+              <%= unreadNotifications %>
+            </span>
+            <% } %>
+          </button>
+
+          <div class="notification-dropdown" id="artistNotificationDropdown">
+
+            <div class="notification-header">
+              <h3>Notifications</h3>
+
+              <% if (Number(unreadNotifications) > 0) { %>
+              <form action="/notifications/read" method="POST">
+                <button type="submit" class="mark-read-btn">
+                  Mark all as read
+                </button>
+              </form>
+              <% } %>
+            </div>
+
+            <div class="notification-list">
+
+              <% if (notifications.length === 0) { %>
+
+              <div class="no-notifications">
+                <i class="fa-regular fa-bell-slash"></i>
+                <p>No notifications yet.</p>
+              </div>
+
+              <% } else { %>
+
+
+              <% notifications.forEach(notification => { %>
+
+              <% if (notification.booking_id) { %>
+
+              <!-- Clickable booking notification -->
+              <a href="/bookings/artist" class="notification-item notification-link <%= notification.is_read ? 'read' : 'unread' %>">
+
+                <div class="notification-icon">
+                  <i class="fa-solid fa-calendar-check"></i>
+                </div>
+
+                <div class="notification-content">
+
+                  <h4><%= notification.title %></h4>
+
+                  <p><%= notification.message %></p>
+
+                  <small>
+                    <%= new Date(notification.created_at).toLocaleString("en-ZA") %>
+                  </small>
+
+                </div>
+
+                <i class="fa-solid fa-chevron-right notification-arrow"></i>
+
+              </a>
+
+              <% } else { %>
+
+              <!-- Older notifications without booking references -->
+              <div class="notification-item <%= notification.is_read ? 'read' : 'unread' %>">
+
+                <div class="notification-icon">
+                  <i class="fa-solid fa-circle-info"></i>
+                </div>
+
+                <div class="notification-content">
+
+                  <h4><%= notification.title %></h4>
+
+                  <p><%= notification.message %></p>
+
+                  <small>
+                    <%= new Date(notification.created_at).toLocaleString("en-ZA") %>
+                  </small>
+
+                </div>
+
+              </div>
+
+              <% } %>
+
+              <% }) %>
+
+
+              <% } %>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <img src="/uploads/artist-images/<%= artist.profile_image %>" alt="<%= artist.stage_name %>" class="profile-pic">
+
+      <a href="/auth/logout" class="logout">
+        Logout
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <!-- DASHBOARD -->
+
+  <div class="dashboard-container">
+
+    <!-- WELCOME -->
+
+    <div class="welcome-banner">
+
+      <div>
+
+        <h1>
+          Welcome back, <%= artist.stage_name %> 👋
+        </h1>
+
+        <p>
+          Manage your bookings, events and artist profile.
+        </p>
+
+      </div>
+
+      <img src="/uploads/artist-images/<%= artist.profile_image %>" alt="<%= artist.stage_name %>" class="welcome-image">
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="stats-grid">
+
+      <!-- TOTAL BOOKINGS -->
+
+      <div class="stat-card">
+
+        <i class="fa-solid fa-calendar-check stat-icon"></i>
+
+        <div class="stat-number">
+          <%= stats.totalBookings %>
+        </div>
+
+        <div class="stat-label">
+          Total Bookings
+        </div>
+
+      </div>
+
+
+      <!-- PENDING -->
+
+      <div class="stat-card">
+
+        <i class="fa-solid fa-hourglass-half stat-icon pending-icon"></i>
+
+        <div class="stat-number">
+          <%= stats.pendingBookings %>
+        </div>
+
+        <div class="stat-label">
+          Pending Requests
+        </div>
+
+      </div>
+
+
+      <!-- ACCEPTED -->
+
+      <div class="stat-card">
+
+        <i class="fa-solid fa-circle-check stat-icon accepted-icon"></i>
+
+        <div class="stat-number">
+          <%= stats.acceptedBookings %>
+        </div>
+
+        <div class="stat-label">
+          Accepted Bookings
+        </div>
+
+      </div>
+
+
+      <!-- EARNINGS -->
+
+      <div class="stat-card">
+
+        <i class="fa-solid fa-wallet stat-icon earnings-icon"></i>
+
+        <div class="stat-number">
+          R<%= Number(stats.totalEarnings).toLocaleString("en-ZA") %>
+        </div>
+
+        <div class="stat-label">
+          Total Earnings
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PROFILE + BOOKING REQUESTS -->
+
+    <div class="main-grid">
+
+
+      <!-- RECENT BOOKINGS -->
+
+      <div class="recent-bookings">
+
+        <div class="section-header">
+
+          <h2>
+            Recent Booking Requests
+          </h2>
+
+          <a href="/bookings/artist">
+            View All →
+          </a>
+
+        </div>
+
+
+        <% if (recentBookings.length === 0) { %>
+
+        <div class="empty-state">
+
+          <i class="fa-solid fa-calendar-xmark"></i>
+
+          <p>
+            You don't have any booking requests yet.
+          </p>
+
+        </div>
+
+        <% } else { %>
+
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>Customer</th>
+              <th>Event</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Amount</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <% recentBookings.forEach(booking => { %>
+
+            <tr>
+
+              <!-- CUSTOMER -->
+
+              <td>
+
+                <div class="customer-cell">
+
+                  <img src="/uploads/artist-images/<%= booking.profile_image %>" alt="<%= booking.first_name %>">
+
+                  <span>
+                    <%= booking.first_name %>
+                    <%= booking.last_name %>
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <!-- EVENT -->
+
+              <td>
+                <%= booking.event_name || "Not specified" %>
+              </td>
+
+
+              <!-- DATE -->
+
+              <td>
+
+                <%= booking.event_date
+                      ? new Date(booking.event_date).toLocaleDateString("en-ZA")
+                      : "Not specified"
+                    %>
+
+              </td>
+
+
+              <!-- STATUS -->
+
+              <td>
+
+                <% if (booking.status === "Pending") { %>
+
+                <span class="status pending">
+                  Pending
+                </span>
+
+                <% } else if (booking.status === "Accepted") { %>
+
+                <span class="status accepted">
+                  Accepted
+                </span>
+
+                <% } else if (booking.status === "Rejected") { %>
+
+                <span class="status rejected">
+                  Rejected
+                </span>
+
+                <% } else if (booking.status === "Completed") { %>
+
+                <span class="status completed">
+                  Completed
+                </span>
+
+                <% } %>
+
+              </td>
+
+
+              <!-- AMOUNT -->
+
+              <td>
+
+                R<%= Number(booking.amount || 0)
+                      .toLocaleString("en-ZA") %>
+
+              </td>
+
+            </tr>
+
+            <% }) %>
+
+          </tbody>
+
+        </table>
+
+        <% } %>
+
+      </div>
+
+
+      <!-- PROFILE -->
+
+      <div class="profile-card">
+
+        <div class="profile-header">
+
+          <img src="/uploads/artist-images/<%= artist.profile_image %>" alt="<%= artist.stage_name %>">
+
+          <h2>
+            <%= artist.stage_name %>
+          </h2>
+
+          <p>
+            <%= artist.genre || "Artist" %>
+          </p>
+
+        </div>
+
+
+        <div class="profile-details">
+
+          <div>
+
+            <i class="fa-solid fa-location-dot"></i>
+
+            <span>
+              <%= artist.city || "City not specified" %>,
+              <%= artist.province || "Province not specified" %>
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <i class="fa-solid fa-money-bill"></i>
+
+            <span>
+              From R<%= Number(artist.booking_price || 0)
+                .toLocaleString("en-ZA") %>
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <i class="fa-solid fa-envelope"></i>
+
+            <span>
+              <%= artist.email %>
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <i class="fa-solid fa-phone"></i>
+
+            <span>
+              <%= artist.phone || "Phone not specified" %>
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <a href="/artists/my-profile/edit" class="edit-profile">
+          Edit Profile
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="quick-actions">
+
+      <h2>
+        Quick Actions
+      </h2>
+
+      <div class="quick-grid">
+
+        <a href="/bookings/artist" class="quick-btn">
+
+          <i class="fa-solid fa-calendar-check"></i>
+
+          <span>
+            Booking Requests
+          </span>
+
+        </a>
+
+
+
+        <a href="/messages" class="quick-btn">
+
+          <i class="fa-solid fa-envelope"></i>
+
+          <span>
+            Messages
+
+            <% if (Number(unreadCount) > 0) { %>
+            <span class="message-unread-badge">
+              <%= unreadCount %>
+            </span>
+            <% } %>
+          </span>
+
+        </a>
+
+
+
+        <a href="/reviews/artist" class="quick-btn">
+
+          <i class="fa-solid fa-star"></i>
+
+          <span>
+            My Reviews
+          </span>
+
+        </a>
+
+
+        <a href="/artists/my-profile/edit" class="quick-btn">
+
+          <i class="fa-solid fa-user-pen"></i>
+
+          <span>
+            Edit Profile
+          </span>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <p>
+      © 2026 BookMyArtist. All Rights Reserved.
+    </p>
+
+  </footer>
+
+
+  <script>
+    const notificationButton = document.getElementById(
+      "artistNotificationButton"
+    );
+
+    const notificationDropdown = document.getElementById(
+      "artistNotificationDropdown"
+    );
+
+    notificationButton.addEventListener("click", function(event) {
+      event.stopPropagation();
+
+      const isOpen = notificationDropdown.classList.toggle("show");
+
+      notificationButton.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    document.addEventListener("click", function(event) {
+      if (
+        !notificationButton.contains(event.target) &&
+        !notificationDropdown.contains(event.target)
+      ) {
+        notificationDropdown.classList.remove("show");
+        notificationButton.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        notificationDropdown.classList.remove("show");
+        notificationButton.setAttribute("aria-expanded", "false");
+      }
+    });
+  </script>
+
+
+</body>
+
+</html>

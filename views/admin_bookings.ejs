@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Manage Bookings | BookMyArtist</title>
+
+  <link rel="stylesheet" href="/css/admin_bookings.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      <i class="fa-solid fa-music"></i>
+      <span>BookMyArtist</span>
+    </div>
+
+    <div class="admin-profile">
+
+      <div class="admin-avatar">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+
+      <div>
+        <h4>
+          <%= user.first_name %> <%= user.last_name %>
+        </h4>
+
+        <p>Administrator</p>
+      </div>
+
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a href="/admin-dashboard">
+        <i class="fa-solid fa-chart-line"></i>
+        Dashboard
+      </a>
+
+      <a href="/admin/users">
+        <i class="fa-solid fa-users"></i>
+        Users
+      </a>
+
+      <a href="/admin/artists">
+        <i class="fa-solid fa-microphone"></i>
+        Artists
+      </a>
+
+      <a href="/admin/bookings" class="active">
+        <i class="fa-solid fa-calendar-check"></i>
+        Bookings
+      </a>
+
+      <a href="/admin/contact-messages">
+        <i class="fa-solid fa-envelope"></i>
+        Contact Messages
+      </a>
+
+      <a href="/admin/profile">
+        <i class="fa-solid fa-user-shield"></i>
+        My Profile
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <a href="/auth/logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+
+      <div>
+        <h1>Manage Bookings</h1>
+        <p>View and manage all artist bookings.</p>
+      </div>
+
+      <div class="topbar-user">
+
+        <div class="topbar-avatar">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- Page Content -->
+    <section class="content">
+
+      <div class="page-header">
+
+        <div>
+          <h2>All Bookings</h2>
+
+          <p>
+            Monitor booking requests and their current status.
+          </p>
+        </div>
+
+      </div>
+      <div class="booking-filters">
+
+  <form action="/admin/bookings" method="GET">
+
+    <div class="filter-group search-group">
+
+      <label for="search">Search</label>
+
+      <div class="search-input">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+          type="text"
+          id="search"
+          name="search"
+          placeholder="Search customer, artist or event..."
+          value="<%= search || '' %>"
+        >
+
+      </div>
+
+    </div>
+
+
+    <div class="filter-group">
+
+      <label for="status">Status</label>
+
+      <select name="status" id="status">
+
+        <option value="">All Statuses</option>
+
+        <option
+          value="Pending"
+          <%= status === "Pending" ? "selected" : "" %>
+        >
+          Pending
+        </option>
+
+        <option
+          value="Accepted"
+          <%= status === "Accepted" ? "selected" : "" %>
+        >
+          Accepted
+        </option>
+
+        <option
+          value="Rejected"
+          <%= status === "Rejected" ? "selected" : "" %>
+        >
+          Rejected
+        </option>
+
+        <option
+          value="Completed"
+          <%= status === "Completed" ? "selected" : "" %>
+        >
+          Completed
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <button type="submit" class="filter-btn">
+      <i class="fa-solid fa-filter"></i>
+      Filter
+    </button>
+
+
+    <a href="/admin/bookings" class="clear-filter-btn">
+      Clear
+    </a>
+
+  </form>
+
+</div>
+<div class="booking-summary">
+
+  <div class="summary-card">
+
+    <div class="summary-icon">
+      <i class="fa-solid fa-calendar-check"></i>
+    </div>
+
+    <div>
+      <span>Total Bookings</span>
+      <strong><%= bookingSummary.total %></strong>
+    </div>
+
+  </div>
+
+
+  <div class="summary-card pending">
+
+    <div class="summary-icon">
+      <i class="fa-solid fa-clock"></i>
+    </div>
+
+    <div>
+      <span>Pending</span>
+      <strong><%= bookingSummary.pending %></strong>
+    </div>
+
+  </div>
+
+
+  <div class="summary-card accepted">
+
+    <div class="summary-icon">
+      <i class="fa-solid fa-circle-check"></i>
+    </div>
+
+    <div>
+      <span>Accepted</span>
+      <strong><%= bookingSummary.accepted %></strong>
+    </div>
+
+  </div>
+
+
+  <div class="summary-card rejected">
+
+    <div class="summary-icon">
+      <i class="fa-solid fa-circle-xmark"></i>
+    </div>
+
+    <div>
+      <span>Rejected</span>
+      <strong><%= bookingSummary.rejected %></strong>
+    </div>
+
+  </div>
+
+
+  <div class="summary-card completed">
+
+    <div class="summary-icon">
+      <i class="fa-solid fa-flag-checkered"></i>
+    </div>
+
+    <div>
+      <span>Completed</span>
+      <strong><%= bookingSummary.completed %></strong>
+    </div>
+
+  </div>
+
+</div>
+
+      <!-- Bookings Table -->
+      <div class="table-card">
+
+        <div class="table-wrapper">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Booking</th>
+                <th>Customer</th>
+                <th>Artist</th>
+                <th>Event Date</th>
+                <th>Venue</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Actions</th>
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              <% if (bookings.length === 0) { %>
+
+                <tr>
+                  <td colspan="9" class="empty-state">
+
+                    <i class="fa-solid fa-calendar-xmark"></i>
+
+                    <h3>No bookings found</h3>
+
+                    <p>
+                      There are currently no bookings in the system.
+                    </p>
+
+                  </td>
+                </tr>
+
+              <% } %>
+
+
+              <% bookings.forEach(booking => { %>
+
+                <tr>
+
+                  <!-- Booking -->
+                  <td>
+
+                    <div class="booking-info">
+
+                      <div class="booking-icon">
+                        <i class="fa-solid fa-calendar-day"></i>
+                      </div>
+
+                      <div>
+                        <strong>
+                          <%= booking.event_name || "Unnamed Event" %>
+                        </strong>
+
+                        <span>
+                          Booking #<%= booking.booking_id %>
+                        </span>
+                      </div>
+
+                    </div>
+
+                  </td>
+
+
+                  <!-- Customer -->
+                  <td>
+
+                    <div class="person-info">
+
+                      <strong>
+                        <%= booking.customer_first_name %>
+                        <%= booking.customer_last_name %>
+                      </strong>
+
+                      <span>
+                        <%= booking.customer_email %>
+                      </span>
+
+                    </div>
+
+                  </td>
+
+
+                  <!-- Artist -->
+                  <td>
+
+                    <div class="person-info">
+
+                      <strong>
+                        <%= booking.stage_name %>
+                      </strong>
+
+                      <span>
+                        <%= booking.artist_first_name %>
+                        <%= booking.artist_last_name %>
+                      </span>
+
+                    </div>
+
+                  </td>
+
+
+                  <!-- Event Date -->
+                  <td>
+
+                    <% if (booking.event_date) { %>
+
+                      <%= new Date(booking.event_date).toLocaleDateString("en-ZA", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                      }) %>
+
+                    <% } else { %>
+
+                      <span class="muted">
+                        Not specified
+                      </span>
+
+                    <% } %>
+
+                  </td>
+
+
+                  <!-- Venue -->
+                  <td>
+
+                    <span class="venue">
+                      <%= booking.venue || "Not specified" %>
+                    </span>
+
+                  </td>
+
+
+                  <!-- Amount -->
+                  <td>
+
+                    <strong class="amount">
+                      R<%= Number(booking.amount || 0).toLocaleString("en-ZA", {
+                        minimumFractionDigits: 2
+                      }) %>
+                    </strong>
+
+                  </td>
+
+
+                  <!-- Status -->
+                  <td>
+
+                    <% if (booking.status === "Pending") { %>
+
+                      <span class="status pending">
+                        <i class="fa-solid fa-clock"></i>
+                        Pending
+                      </span>
+
+                    <% } else if (booking.status === "Accepted") { %>
+
+                      <span class="status accepted">
+                        <i class="fa-solid fa-circle-check"></i>
+                        Accepted
+                      </span>
+
+                    <% } else if (booking.status === "Rejected") { %>
+
+                      <span class="status rejected">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        Rejected
+                      </span>
+
+                    <% } else if (booking.status === "Completed") { %>
+
+                      <span class="status completed">
+                        <i class="fa-solid fa-check-double"></i>
+                        Completed
+                      </span>
+
+                    <% } else { %>
+
+                      <span class="status">
+                        <%= booking.status %>
+                      </span>
+
+                    <% } %>
+
+                  </td>
+
+
+                  <!-- Created -->
+                  <td>
+
+                    <span class="created-date">
+
+                      <%= new Date(booking.created_at).toLocaleDateString("en-ZA", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                      }) %>
+
+                    </span>
+
+                  </td>
+
+
+                  <!-- Actions -->
+                  <td>
+
+                    <a
+                      href="/admin/bookings/<%= booking.booking_id %>"
+                      class="view-btn"
+                    >
+                      <i class="fa-solid fa-eye"></i>
+                      View
+                    </a>
+
+                  </td>
+
+                </tr>
+
+              <% }) %>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+
+</html>

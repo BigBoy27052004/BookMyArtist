@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Booking Details | BookMyArtist</title>
+
+  <link rel="stylesheet" href="/css/admin_booking_details.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      <i class="fa-solid fa-music"></i>
+      <span>BookMyArtist</span>
+    </div>
+
+    <div class="admin-profile">
+
+      <div class="admin-avatar">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+
+      <div>
+        <h4>
+          <%= user.first_name %> <%= user.last_name %>
+        </h4>
+
+        <p>Administrator</p>
+      </div>
+
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a href="/admin-dashboard">
+        <i class="fa-solid fa-chart-line"></i>
+        Dashboard
+      </a>
+
+      <a href="/admin/users">
+        <i class="fa-solid fa-users"></i>
+        Users
+      </a>
+
+      <a href="/admin/artists">
+        <i class="fa-solid fa-microphone"></i>
+        Artists
+      </a>
+
+      <a href="/admin/bookings" class="active">
+        <i class="fa-solid fa-calendar-check"></i>
+        Bookings
+      </a>
+
+      <a href="/admin/contact-messages">
+        <i class="fa-solid fa-envelope"></i>
+        Contact Messages
+      </a>
+
+      <a href="/admin/profile">
+        <i class="fa-solid fa-user-shield"></i>
+        My Profile
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <a href="/auth/logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+
+      <div>
+        <h1>Booking Details</h1>
+        <p>View complete information about this booking.</p>
+      </div>
+
+      <div class="topbar-user">
+
+        <div class="topbar-avatar">
+          <i class="fa-solid fa-user-shield"></i>
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- Content -->
+    <section class="content">
+
+      <!-- Back -->
+      <a href="/admin/bookings" class="back-link">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Bookings
+      </a>
+
+
+      <!-- Booking Header -->
+      <div class="booking-header">
+
+        <div class="booking-header-icon">
+          <i class="fa-solid fa-calendar-check"></i>
+        </div>
+
+        <div class="booking-title">
+
+          <h2>
+            <%= booking.event_name || "Unnamed Event" %>
+          </h2>
+
+          <p>
+            Booking #<%= booking.booking_id %>
+          </p>
+
+        </div>
+
+
+        <!-- Status -->
+        <div class="header-status">
+
+          <% if (booking.status === "Pending") { %>
+
+            <span class="status pending">
+              <i class="fa-solid fa-clock"></i>
+              Pending
+            </span>
+
+          <% } else if (booking.status === "Accepted") { %>
+
+            <span class="status accepted">
+              <i class="fa-solid fa-circle-check"></i>
+              Accepted
+            </span>
+
+          <% } else if (booking.status === "Rejected") { %>
+
+            <span class="status rejected">
+              <i class="fa-solid fa-circle-xmark"></i>
+              Rejected
+            </span>
+
+          <% } else if (booking.status === "Completed") { %>
+
+            <span class="status completed">
+              <i class="fa-solid fa-check-double"></i>
+              Completed
+            </span>
+
+          <% } else { %>
+
+            <span class="status">
+              <%= booking.status %>
+            </span>
+
+          <% } %>
+
+        </div>
+
+        <div class="status-control">
+
+  <form
+    action="/admin/bookings/<%= booking.booking_id %>/status"
+    method="POST"
+  >
+
+    <label for="status">
+      Update Status
+    </label>
+
+    <div class="status-form">
+
+      <select name="status" id="status">
+
+        <option
+          value="Pending"
+          <%= booking.status === "Pending" ? "selected" : "" %>
+        >
+          Pending
+        </option>
+
+        <option
+          value="Accepted"
+          <%= booking.status === "Accepted" ? "selected" : "" %>
+        >
+          Accepted
+        </option>
+
+        <option
+          value="Rejected"
+          <%= booking.status === "Rejected" ? "selected" : "" %>
+        >
+          Rejected
+        </option>
+
+        <option
+          value="Completed"
+          <%= booking.status === "Completed" ? "selected" : "" %>
+        >
+          Completed
+        </option>
+
+      </select>
+
+      <button type="submit">
+        <i class="fa-solid fa-rotate"></i>
+        Update
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
+
+      </div>
+
+
+      <!-- Main Grid -->
+      <div class="details-grid">
+
+
+        <!-- Event Information -->
+        <div class="details-card">
+
+          <div class="card-title">
+
+            <i class="fa-solid fa-calendar-days"></i>
+
+            <h3>Event Information</h3>
+
+          </div>
+
+
+          <div class="info-grid">
+
+            <div class="info-item">
+
+              <span>Event Name</span>
+
+              <strong>
+                <%= booking.event_name || "Not specified" %>
+              </strong>
+
+            </div>
+
+
+            <div class="info-item">
+
+              <span>Event Date</span>
+
+              <strong>
+
+                <% if (booking.event_date) { %>
+
+                  <%= new Date(booking.event_date).toLocaleDateString("en-ZA", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric"
+                  }) %>
+
+                <% } else { %>
+
+                  Not specified
+
+                <% } %>
+
+              </strong>
+
+            </div>
+
+
+            <div class="info-item full-width">
+
+              <span>Venue</span>
+
+              <strong>
+                <%= booking.venue || "Not specified" %>
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Payment Information -->
+        <div class="details-card">
+
+          <div class="card-title">
+
+            <i class="fa-solid fa-money-bill-wave"></i>
+
+            <h3>Payment Information</h3>
+
+          </div>
+
+
+          <div class="payment-box">
+
+            <span>Booking Amount</span>
+
+            <strong>
+              R<%= Number(booking.amount || 0).toLocaleString("en-ZA", {
+                minimumFractionDigits: 2
+              }) %>
+            </strong>
+
+          </div>
+
+          <div class="payment-note">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            <span>
+              Payment status is determined by the booking workflow.
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- Customer Information -->
+        <div class="details-card">
+
+          <div class="card-title">
+
+            <i class="fa-solid fa-user"></i>
+
+            <h3>Customer Information</h3>
+
+          </div>
+
+
+          <div class="person-header">
+
+            <div class="person-avatar">
+              <i class="fa-solid fa-user"></i>
+            </div>
+
+            <div>
+
+              <h4>
+                <%= booking.customer_first_name %>
+                <%= booking.customer_last_name %>
+              </h4>
+
+              <p>Customer</p>
+
+            </div>
+
+          </div>
+
+
+          <div class="contact-list">
+
+            <div>
+              <i class="fa-solid fa-envelope"></i>
+
+              <span>
+                <%= booking.customer_email %>
+              </span>
+            </div>
+
+
+            <div>
+              <i class="fa-solid fa-phone"></i>
+
+              <span>
+                <%= booking.customer_phone || "Not provided" %>
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Artist Information -->
+        <div class="details-card">
+
+          <div class="card-title">
+
+            <i class="fa-solid fa-microphone"></i>
+
+            <h3>Artist Information</h3>
+
+          </div>
+
+
+          <div class="person-header">
+
+            <div class="person-avatar artist">
+              <i class="fa-solid fa-music"></i>
+            </div>
+
+            <div>
+
+              <h4>
+                <%= booking.stage_name %>
+              </h4>
+
+              <p>
+                <%= booking.artist_first_name %>
+                <%= booking.artist_last_name %>
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="artist-details">
+
+            <div>
+
+              <span>Genre</span>
+
+              <strong>
+                <%= booking.genre || "Not specified" %>
+              </strong>
+
+            </div>
+
+
+            <div>
+
+              <span>Location</span>
+
+              <strong>
+
+                <% if (booking.city && booking.province) { %>
+
+                  <%= booking.city %>, <%= booking.province %>
+
+                <% } else { %>
+
+                  Not specified
+
+                <% } %>
+
+              </strong>
+
+            </div>
+
+          </div>
+
+
+          <div class="contact-list">
+
+            <div>
+              <i class="fa-solid fa-envelope"></i>
+
+              <span>
+                <%= booking.artist_email %>
+              </span>
+            </div>
+
+
+            <div>
+              <i class="fa-solid fa-phone"></i>
+
+              <span>
+                <%= booking.artist_phone || "Not provided" %>
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Booking Timeline -->
+        <div class="details-card full-card">
+
+          <div class="card-title">
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
+
+            <h3>Booking Information</h3>
+
+          </div>
+
+
+          <div class="timeline">
+
+            <div class="timeline-item">
+
+              <div class="timeline-icon">
+                <i class="fa-solid fa-plus"></i>
+              </div>
+
+              <div>
+
+                <span>Booking Created</span>
+
+                <strong>
+
+                  <%= new Date(booking.created_at).toLocaleDateString("en-ZA", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric"
+                  }) %>
+
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+              <div class="timeline-icon">
+                <i class="fa-solid fa-circle-info"></i>
+              </div>
+
+              <div>
+
+                <span>Current Status</span>
+
+                <strong>
+                  <%= booking.status %>
+                </strong>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+
+</html>

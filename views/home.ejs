@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookMyArtist</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/css/home.css" />
+  </head>
+  <body>
+    <!-- NAVBAR -->
+
+    <nav>
+      <div class="logo">BookMyArtist</div>
+
+      <div class="nav-links">
+        <a href="/" class="active">Home</a>
+<a href="/artists">Artists</a>
+<a href="/features">Features</a>
+<a href="/about">About</a>
+<a href="/contact">Contact</a>
+      </div>
+
+      <div class="nav-buttons">
+        <a href="/auth/login" class="btn login-btn">Login</a>
+        <a href="/auth/register" class="btn signup-btn">Sign Up</a>
+      </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+      <div class="hero-text">
+        <h1>
+          Book Amazing Artists<br />
+          For Your Events
+        </h1>
+
+        <p>
+          BookMyArtist connects event organisers with talented artists,
+          musicians, DJs and performers through a modern booking platform with
+          real-time availability, secure payments and seamless communication.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="/artists" class="primary-btn">Browse Artists</a>
+          <a href="/auth/register" class="secondary-btn">Become an Artist</a>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="/images/logo.webp" />
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS SECTION -->
+    <section style="padding: 80px 8%; background: #0f172a">
+      <div style="text-align: center; margin-bottom: 60px">
+        <h2 style="font-size: 40px; margin-bottom: 15px">How It Works</h2>
+        <p style="color: #cbd5e1">
+          Three simple steps to book your dream artist
+        </p>
+      </div>
+      <div
+        style="
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 30px;
+        "
+      >
+        <!-- Step 1 -->
+        <div
+          style="
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+          "
+        >
+          <div
+            style="
+              width: 80px;
+              height: 80px;
+              background: linear-gradient(to right, #6c63ff, #a855f7);
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0 auto 20px;
+              font-size: 30px;
+              font-weight: 700;
+            "
+          >
+            1
+          </div>
+          <h3 style="margin-bottom: 15px">Discover</h3>
+          <p style="color: #cbd5e1; line-height: 1.7">
+            Browse talented artists and filter by genre, rating, or price.
+          </p>
+        </div>
+        <!-- Step 2 -->
+        <div
+          style="
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+          "
+        >
+          <div
+            style="
+              width: 80px;
+              height: 80px;
+              background: linear-gradient(to right, #6c63ff, #a855f7);
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0 auto 20px;
+              font-size: 30px;
+              font-weight: 700;
+            "
+          >
+            2
+          </div>
+          <h3 style="margin-bottom: 15px">Check & Book</h3>
+          <p style="color: #cbd5e1; line-height: 1.7">
+            View real-time availability and send a booking request instantly.
+          </p>
+        </div>
+        <!-- Step 3 -->
+        <div
+          style="
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+          "
+        >
+          <div
+            style="
+              width: 80px;
+              height: 80px;
+              background: linear-gradient(to right, #6c63ff, #a855f7);
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0 auto 20px;
+              font-size: 30px;
+              font-weight: 700;
+            "
+          >
+            3
+          </div>
+          <h3 style="margin-bottom: 15px">Pay & Confirm</h3>
+          <p style="color: #cbd5e1; line-height: 1.7">
+            Secure payment via PayPal and instant booking confirmation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+
+    <section class="features">
+      <div class="section-title">
+        <h2>Why Choose BookMyArtist?</h2>
+        <p>Everything you need to manage artist bookings in one place.</p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <i class="fa-solid fa-calendar-check"></i>
+          <h3>Real-Time Availability</h3>
+          <p>
+            Instantly check whether an artist is available before sending a
+            booking request.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fa-solid fa-credit-card"></i>
+          <h3>Secure Payments</h3>
+          <p>
+            Integrated PayPal payments provide secure and reliable transactions.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fa-solid fa-comments"></i>
+          <h3>Built-in Messaging</h3>
+          <p>
+            Communicate directly with artists and managers without external
+            apps.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fa-solid fa-star"></i>
+          <h3>Ratings & Reviews</h3>
+          <p>
+            Read reviews and ratings from previous clients before booking
+            artists.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED ARTISTS -->
+
+    <section class="artists">
+      <div class="section-title">
+        <h2>Featured Artists</h2>
+        <p>Discover some of the hottest artists on the platform.</p>
+      </div>
+
+      <div class="artist-grid">
+
+  <% if (featuredArtists && featuredArtists.length > 0) { %>
+
+    <% featuredArtists.forEach(artist => { %>
+
+      <div class="artist-card">
+
+        <img
+          src="/uploads/artist-images/<%= artist.profile_image || 'default.jpeg' %>"
+          alt="<%= artist.stage_name %>"
+        />
+
+        <div class="artist-content">
+
+          <h3>
+            <%= artist.stage_name %>
+          </h3>
+
+          <div class="genre">
+            <%= artist.genre || "Artist" %>
+          </div>
+
+          <div class="rating">
+
+            <% 
+              const rating = Math.round(Number(artist.average_rating || 0));
+            %>
+
+            <% for (let i = 1; i <= 5; i++) { %>
+
+              <%= i <= rating ? "★" : "☆" %>
+
+            <% } %>
+
+            <span style="font-size: 12px; color: #94a3b8;">
+              (<%= artist.review_count %>)
+            </span>
+
+          </div>
+
+          <a
+            href="/artists/<%= artist.artist_id %>"
+            class="view-btn"
+          >
+            View Profile
+          </a>
+
+        </div>
+
+      </div>
+
+    <% }) %>
+
+  <% } else { %>
+
+    <p style="text-align: center; color: #94a3b8;">
+      No featured artists available yet.
+    </p>
+
+  <% } %>
+
+</div>
+    </section>
+
+    <!-- CTA -->
+
+    <section class="cta">
+      <div class="cta-box">
+        <h2>Ready To Book Your Next Artist?</h2>
+
+        <p>
+          Join BookMyArtist today and simplify your entertainment booking
+          experience with powerful tools designed for event organisers and
+          performers.
+        </p>
+
+        <a href="/auth/register" class="primary-btn">Get Started</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+      <div class="socials">
+        <i class="fa-brands fa-facebook"></i>
+        <i class="fa-brands fa-instagram"></i>
+        <i class="fa-brands fa-x-twitter"></i>
+        <i class="fa-brands fa-youtube"></i>
+      </div>
+
+      <p>© 2026 BookMyArtist. All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>

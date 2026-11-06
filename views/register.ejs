@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Create Account | BookMyArtist</title>
+
+    <!-- Google Font -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/css/register.css" />
+  </head>
+
+  <body>
+    <div class="background-circle one"></div>
+    <div class="background-circle two"></div>
+
+    <div class="register-container">
+      <!-- LEFT PANEL -->
+
+      <div class="left-panel">
+        <h1>Book<span>MyArtist</span></h1>
+
+        <h2>Join South Africa's Modern Artist Booking Platform</h2>
+
+        <p>
+          Whether you're looking for amazing artists for your next event or
+          you're an artist looking to get booked, BookMyArtist connects you with
+          thousands of opportunities.
+        </p>
+      </div>
+
+      <!-- RIGHT PANEL -->
+
+      <div class="right-panel">
+        <h2>Create Your Account</h2>
+
+        <p class="subtitle">Fill in your information below to get started.</p>
+        <form
+          action="/auth/register"
+          method="POST"
+          enctype="multipart/form-data"
+          id="registerForm"
+        >
+          <div class="input-group">
+            <label> First Name </label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-user"></i>
+
+              <input type="text" name="first_name" required />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label> Last Name </label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-user"></i>
+
+              <input type="text" name="last_name" required />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label> Email Address </label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-envelope"></i>
+
+              <input type="email" name="email" required />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label> Phone Number </label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-phone"></i>
+
+              <input type="text" name="phone" required />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Password</label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-lock"></i>
+
+              <input type="password" id="password" name="password" required />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label> Confirm Password </label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-lock"></i>
+
+              <input type="password" id="confirmPassword" required />
+            </div>
+          </div>
+
+          <p id="passwordMessage"></p>
+
+          <div class="input-group">
+            <label> Register As </label>
+
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="role" value="customer" checked />
+
+                Customer
+              </label>
+
+              <label>
+                <input type="radio" name="role" value="artist" />
+
+                Artist
+              </label>
+            </div>
+          </div>
+          <!-- ARTIST INFORMATION -->
+
+          <div id="artistFields" style="display: none">
+            <hr
+              style="
+                margin: 30px 0;
+                border: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+              "
+            />
+
+            <h3 style="margin-bottom: 20px">Artist Information</h3>
+
+            <!-- Stage Name -->
+
+            <div class="input-group">
+              <label>Stage Name</label>
+
+              <div class="input-field">
+                <i class="fa-solid fa-microphone"></i>
+
+                <input type="text" name="stage_name" />
+              </div>
+            </div>
+
+            <!-- Genre -->
+
+            <div class="input-group">
+              <label>Genre</label>
+
+              <div class="input-field">
+                <i class="fa-solid fa-music"></i>
+
+                <select name="genre">
+                  <option value="">Select Genre</option>
+
+                  <option>Amapiano</option>
+                  <option>Hip Hop</option>
+                  <option>Afropop</option>
+                  <option>House</option>
+                  <option>Gospel</option>
+                  <option>Kwaito</option>
+                  <option>Jazz</option>
+                  <option>Maskandi</option>
+                  <option>R&B</option>
+                  <option>Traditional</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Province -->
+
+            <div class="input-group">
+              <label>Province</label>
+
+              <div class="input-field">
+                <i class="fa-solid fa-location-dot"></i>
+
+                <select id="province" name="province">
+                  <option value="">Select Province</option>
+
+                  <option>Eastern Cape</option>
+                  <option>Free State</option>
+                  <option>Gauteng</option>
+                  <option>KwaZulu-Natal</option>
+                  <option>Limpopo</option>
+                  <option>Mpumalanga</option>
+                  <option>North West</option>
+                  <option>Northern Cape</option>
+                  <option>Western Cape</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- City -->
+
+            <div class="input-group">
+              <label>City</label>
+
+              <div class="input-field">
+                <i class="fa-solid fa-city"></i>
+
+                <select id="city" name="city">
+                  <option value="">Select City</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Booking Price -->
+
+            <div class="input-group">
+              <label>Booking Price (R)</label>
+
+              <div class="input-field">
+                <i class="fa-solid fa-money-bill"></i>
+
+                <input type="number" name="booking_price" min="0" />
+              </div>
+            </div>
+
+            <!-- Biography -->
+
+            <div class="input-group">
+              <label>Biography</label>
+
+              <div class="input-field">
+                <i class="fa-solid fa-pen"></i>
+
+                <textarea
+                  name="biography"
+                  rows="5"
+                  placeholder="Tell customers about yourself..."
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Profile Picture -->
+
+            <div class="input-group">
+              <label>Profile Picture</label>
+
+              <div class="input-field">
+                <i class="fa-solid fa-image"></i>
+
+                <input
+                  type="file"
+                  name="profile_image"
+                  id="profile_image"
+                  accept="image/*"
+                />
+              </div>
+            </div>
+          </div>
+          <button class="register-btn" type="submit">Create Account</button>
+
+          <div class="login-link">
+            Already have an account?
+
+            <a href="/auth/login">Login here</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="/js/register.js"></script>
+  </body>
+</html>

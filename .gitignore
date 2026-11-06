@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+!.env.example
+
+private_uploads/
+uploads/artist-images/*
+!uploads/artist-images/default.png
+
+createAdmin.js
+
+*.log

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Payment Page | BookMyArtist</title>
+
+  <!-- GOOGLE FONT -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FONT AWESOME -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+  <link rel="stylesheet" href="/css/payment.css">
+
+</head>
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav>
+
+    <div class="logo">
+      BookMyArtist
+    </div>
+
+    <div class="nav-links">
+      <a href="home.html">Home</a>
+      <a href="browse_artist.html">Artists</a>
+      <a href="#">Bookings</a>
+      <a href="#">Messages</a>
+    </div>
+
+    <div class="profile-btn">
+      <i class="fa-solid fa-user"></i>
+    </div>
+
+  </nav>
+
+  <!-- HEADER -->
+
+  <section class="header">
+
+    <h1>
+      Secure Payment
+    </h1>
+
+    <p>
+      Complete your booking securely using PayPal or your bank card.
+      Your payment will confirm the booking instantly.
+    </p>
+
+  </section>
+
+  <!-- MAIN CONTAINER -->
+
+  <section class="payment-container">
+
+    <!-- LEFT -->
+
+    <div class="payment-card">
+
+      <h2 class="section-title">
+        Choose Payment Method
+      </h2>
+
+      <!-- METHODS -->
+
+      <div class="payment-methods">
+
+        <!-- PAYPAL -->
+
+        <div class="method">
+
+          <div class="method-left">
+
+            <i class="fa-brands fa-paypal"></i>
+
+            <div>
+
+              <h3>PayPal</h3>
+
+              <p>
+                Fast and secure online payments
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="radio"></div>
+
+        </div>
+
+        <!-- CARD -->
+
+        <div class="method">
+
+          <div class="method-left">
+
+            <i class="fa-solid fa-credit-card"></i>
+
+            <div>
+
+              <h3>Credit / Debit Card</h3>
+
+              <p>
+                Visa, Mastercard & American Express
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="radio"></div>
+
+        </div>
+
+      </div>
+
+      <!-- PAYMENT FORM -->
+
+      <h2 class="section-title">
+        Card Information
+      </h2>
+
+      <form>
+
+        <!-- NAME -->
+
+        <div class="input-group">
+
+          <label>Cardholder Name</label>
+
+          <div class="input-field">
+
+            <i class="fa-solid fa-user"></i>
+
+            <input type="text" placeholder="Enter cardholder name">
+
+          </div>
+
+        </div>
+
+        <!-- CARD NUMBER -->
+
+        <div class="input-group">
+
+          <label>Card Number</label>
+
+          <div class="input-field">
+
+            <i class="fa-solid fa-credit-card"></i>
+
+            <input type="text" placeholder="1234 5678 9012 3456">
+
+          </div>
+
+        </div>
+
+        <!-- GRID -->
+
+        <div class="form-grid">
+
+          <!-- EXPIRY -->
+
+          <div class="input-group">
+
+            <label>Expiry Date</label>
+
+            <div class="input-field">
+
+              <i class="fa-solid fa-calendar"></i>
+
+              <input type="text" placeholder="MM/YY">
+
+            </div>
+
+          </div>
+
+          <!-- CVV -->
+
+          <div class="input-group">
+
+            <label>CVV</label>
+
+            <div class="input-field">
+
+              <i class="fa-solid fa-lock"></i>
+
+              <input type="password" placeholder="***">
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- BUTTON -->
+
+        <button class="pay-btn">
+          Pay R9 775
+        </button>
+
+      </form>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="summary-card">
+
+      <!-- ARTIST -->
+
+      <div class="artist">
+
+        <img src="images/maphorisa.webp">
+
+        <div>
+
+          <h2>DJ Maphorisa</h2>
+
+          <p>Amapiano DJ & Producer</p>
+
+        </div>
+
+      </div>
+
+      <!-- SUMMARY -->
+
+      <h2 class="section-title">
+        Payment Summary
+      </h2>
+
+      <div class="summary-item">
+        <span>Performance Fee</span>
+        <span>R8 000</span>
+      </div>
+
+      <div class="summary-item">
+        <span>Service Fee</span>
+        <span>R500</span>
+      </div>
+
+      <div class="summary-item">
+        <span>VAT</span>
+        <span>R1 275</span>
+      </div>
+
+      <div class="summary-item total">
+        <span>Total Amount</span>
+        <span>R9 775</span>
+      </div>
+
+      <!-- SECURITY -->
+
+      <div class="secure-box">
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        <p>
+          All transactions are encrypted and securely processed through
+          PayPal payment services to ensure customer protection.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</body>
+</html>

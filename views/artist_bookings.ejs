@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Booking Requests | BookMyArtist</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #f8fafc;
+      min-height: 100vh;
+    }
+
+    /* NAVBAR */
+
+    nav {
+      width: 100%;
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .logo span {
+      color: #6c63ff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links .active {
+      color: #6c63ff;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .profile img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .profile span {
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    /* CONTAINER */
+
+    .container {
+      width: 84%;
+      max-width: 1400px;
+      margin: 50px auto;
+    }
+
+    .page-header {
+      margin-bottom: 35px;
+    }
+
+    .page-header h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .page-header h1 span {
+      color: #6c63ff;
+    }
+
+    .page-header p {
+      color: #94a3b8;
+    }
+
+    /* SUMMARY */
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 35px;
+    }
+
+    .summary-card {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .summary-card i {
+      font-size: 24px;
+      color: #6c63ff;
+      margin-bottom: 15px;
+    }
+
+    .summary-number {
+      font-size: 30px;
+      font-weight: 600;
+    }
+
+    .summary-label {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    /* BOOKING CARDS */
+
+    .booking-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .booking-card {
+      background: #1e293b;
+      border-radius: 20px;
+      padding: 28px;
+
+      border: 1px solid rgba(255, 255, 255, 0.05);
+
+      transition: 0.3s;
+    }
+
+    .booking-card:hover {
+      border-color: rgba(108, 99, 255, 0.5);
+      box-shadow: 0 0 25px rgba(108, 99, 255, 0.08);
+    }
+
+    .booking-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .customer-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .customer-info img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .customer-info h3 {
+      font-size: 18px;
+    }
+
+    .customer-info p {
+      color: #94a3b8;
+      font-size: 13px;
+      margin-top: 3px;
+    }
+
+    /* STATUS */
+
+    .status {
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .status.pending {
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+    }
+
+    .status.accepted {
+      background: rgba(34, 197, 94, 0.15);
+      color: #22c55e;
+    }
+
+    .status.rejected {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+    }
+
+    .status.completed {
+      background: rgba(108, 99, 255, 0.15);
+      color: #a855f7;
+    }
+
+    /* DETAILS */
+
+    .booking-details {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .detail {
+      background: #0f172a;
+      padding: 16px;
+      border-radius: 12px;
+    }
+
+    .detail-label {
+      display: block;
+      color: #64748b;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .detail-value {
+      color: #f8fafc;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* ACTIONS */
+
+    .booking-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+
+      margin-top: 25px;
+    }
+
+    .action-btn {
+      border: none;
+      padding: 11px 22px;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .accept-btn {
+      background: #16a34a;
+    }
+
+    .accept-btn:hover {
+      background: #15803d;
+      transform: translateY(-2px);
+    }
+
+    .reject-btn {
+      background: #dc2626;
+    }
+
+    .reject-btn:hover {
+      background: #b91c1c;
+      transform: translateY(-2px);
+    }
+
+
+    /* MARK AS COMPLETED BUTTON */
+
+    .complete-btn {
+      background: #6c63ff;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .complete-btn:hover {
+      background: #584fe0;
+      transform: translateY(-2px);
+    }
+
+
+    /* EMPTY */
+
+    .empty {
+      background: #1e293b;
+      border-radius: 20px;
+      padding: 70px 30px;
+      text-align: center;
+    }
+
+    .empty i {
+      font-size: 55px;
+      color: #475569;
+      margin-bottom: 20px;
+    }
+
+    .empty h2 {
+      margin-bottom: 10px;
+    }
+
+    .empty p {
+      color: #94a3b8;
+    }
+
+    /* FOOTER */
+
+    footer {
+      margin-top: 70px;
+      padding: 35px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      .summary {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-details {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-header {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+      }
+    }
+
+
+    /* MANUAL PAYMENT STATUS */
+
+    .payment-paid {
+      color: #22c55e;
+      font-weight: 600;
+    }
+
+    .payment-unpaid {
+      color: #f59e0b;
+      font-weight: 600;
+    }
+
+    /* PAYMENT ACTIONS */
+
+    .message-btn {
+      background: #334155;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .message-btn:hover {
+      background: #475569;
+    }
+
+    .paid-btn {
+      background: #16a34a;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .paid-btn:hover {
+      background: #15803d;
+    }
+
+    .booking-actions {
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav>
+
+    <div class="logo">
+      BookMyArtist
+    </div>
+
+    <div class="nav-links">
+      <a href="/artist-dashboard">
+        Dashboard
+      </a>
+
+      <a href="/bookings/artist" class="active">
+        Booking Requests
+      </a>
+
+      <a href="/messages" class="messages-nav-link">
+        <i class="fa-regular fa-envelope"></i>
+        Messages
+
+        <% if (Number(unreadCount) > 0) { %>
+        <span class="message-unread-badge">
+          <%= unreadCount %>
+        </span>
+        <% } %>
+      </a>
+
+      <a href="/reviews/artist">
+        Reviews
+      </a>
+
+      <a href="/artists/my-profile">
+        Profile
+      </a>
+    </div>
+
+    <div class="profile">
+
+      <div style="
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #6c63ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+">
+        <%= artist.stage_name.charAt(0).toUpperCase() %>
+      </div>
+
+      <span>
+        <%= artist.stage_name %>
+      </span>
+      <a href="/auth/logout" class="logout">
+        Logout
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <!-- MAIN -->
+
+  <main class="container">
+
+    <div class="page-header">
+
+      <h1>
+        Booking Requests</span>
+      </h1>
+
+      <p>
+        Manage booking requests from customers interested in booking you.
+      </p>
+
+    </div>
+
+
+    <!-- SUMMARY -->
+
+    <div class="summary">
+
+      <div class="summary-card">
+
+        <i class="fa-solid fa-calendar-check"></i>
+
+        <div class="summary-number">
+          <%= bookings.length %>
+        </div>
+
+        <div class="summary-label">
+          Total Requests
+        </div>
+
+      </div>
+
+
+      <div class="summary-card">
+
+        <i class="fa-solid fa-hourglass-half"></i>
+
+        <div class="summary-number">
+          <%= bookings.filter(b => b.status === "Pending").length %>
+        </div>
+
+        <div class="summary-label">
+          Pending Requests
+        </div>
+
+      </div>
+
+
+      <div class="summary-card">
+
+        <i class="fa-solid fa-circle-check"></i>
+
+        <div class="summary-number">
+          <%= bookings.filter(b => b.status === "Accepted").length %>
+        </div>
+
+        <div class="summary-label">
+          Accepted Bookings
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- BOOKINGS -->
+
+    <div class="booking-list">
+
+      <% if (bookings.length === 0) { %>
+
+      <div class="empty">
+
+        <i class="fa-solid fa-calendar-xmark"></i>
+
+        <h2>
+          No Booking Requests
+        </h2>
+
+        <p>
+          You currently don't have any booking requests.
+        </p>
+
+      </div>
+
+      <% } else { %>
+
+
+      <% bookings.forEach(booking => { %>
+
+      <div class="booking-card">
+
+        <!-- HEADER -->
+
+        <div class="booking-header">
+
+          <div class="customer-info">
+
+            <img src="/uploads/artist-images/<%= booking.profile_image || 'default.jpeg' %>" alt="<%= booking.first_name %>">
+
+            <div>
+
+              <h3>
+                <%= booking.first_name %>
+                <%= booking.last_name %>
+              </h3>
+
+              <p>
+                <%= booking.email %>
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <span class="status <%= booking.status.toLowerCase() %>">
+            <%= booking.status %>
+          </span>
+
+          <!-- ACTIONS -->
+
+        </div>
+
+
+        <!-- DETAILS -->
+
+        <div class="booking-details">
+
+
+          <div class="detail">
+
+            <span class="detail-label">
+              Event
+            </span>
+
+            <span class="detail-value">
+              <%= booking.event_name || "Not specified" %>
+            </span>
+
+          </div>
+
+
+          <div class="detail">
+
+            <span class="detail-label">
+              Event Date
+            </span>
+
+            <span class="detail-value">
+
+              <%= booking.event_date
+                    ? new Date(booking.event_date).toLocaleDateString("en-ZA")
+                    : "Not specified"
+                  %>
+
+            </span>
+
+          </div>
+
+
+          <div class="detail">
+
+            <span class="detail-label">
+              Venue
+            </span>
+
+            <span class="detail-value">
+              <%= booking.venue || "Not specified" %>
+            </span>
+
+          </div>
+
+
+          <div class="detail">
+
+            <span class="detail-label">
+              Customer Phone
+            </span>
+
+            <span class="detail-value">
+              <%= booking.phone || "Not provided" %>
+            </span>
+
+          </div>
+
+
+          <div class="detail">
+
+            <span class="detail-label">
+              Booking Amount
+            </span>
+
+            <span class="detail-value">
+
+              R<%= Number(booking.amount || 0).toLocaleString("en-ZA") %>
+
+            </span>
+
+          </div>
+
+
+          <!-- PAYMENT STATUS -->
+
+          <div class="detail">
+            <span class="detail-label">
+              Payment Status
+            </span>
+
+            <span class="detail-value">
+              <% if (booking.payment_status === "Paid") { %>
+              <span class="payment-paid">
+                <i class="fa-solid fa-circle-check"></i>
+                Paid
+              </span>
+              <% } else { %>
+              <span class="payment-unpaid">
+                <i class="fa-solid fa-clock"></i>
+                <%= booking.payment_status || "Unpaid" %>
+              </span>
+              <% } %>
+            </span>
+          </div>
+
+          <div class="detail">
+
+            <span class="detail-label">
+              Request Date
+            </span>
+
+            <span class="detail-value">
+
+              <%= booking.created_at
+                    ? new Date(booking.created_at).toLocaleDateString("en-ZA")
+                    : "Not specified"
+                  %>
+
+            </span>
+
+          </div>
+
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <% if (booking.status === "Pending") { %>
+
+        <div class="booking-actions">
+
+          <!-- REJECT -->
+          <form action="/bookings/artist/<%= booking.booking_id %>/status" method="POST">
+            <input type="hidden" name="status" value="Rejected">
+
+            <button type="submit" class="action-btn reject-btn">
+              <i class="fa-solid fa-xmark"></i>
+              Reject
+            </button>
+          </form>
+
+          <!-- ACCEPT -->
+          <form action="/bookings/artist/<%= booking.booking_id %>/status" method="POST">
+            <input type="hidden" name="status" value="Accepted">
+
+            <button type="submit" class="action-btn accept-btn">
+              <i class="fa-solid fa-check"></i>
+              Accept
+            </button>
+          </form>
+
+        </div>
+
+        <% } %>
+
+
+        <!-- MANUAL EFT PAYMENT CONFIRMATION -->
+
+        <% if (
+  booking.status === "Accepted" &&
+  booking.payment_status === "Unpaid"
+) { %>
+
+        <div class="booking-actions">
+
+          <a href="/messages/conversation/<%= booking.customer_id %>" class="action-btn message-btn">
+            <i class="fa-solid fa-comments"></i>
+            Message Customer
+          </a>
+
+          <form action="/bookings/artist/<%= booking.booking_id %>/mark-paid" method="POST" onsubmit="return confirm('Have you verified that the payment was received in your bank account?');">
+
+            <button type="submit" class="action-btn paid-btn">
+              <i class="fa-solid fa-money-bill-transfer"></i>
+              Mark as Paid
+            </button>
+
+          </form>
+
+        </div>
+
+        <% } %>
+
+        <!-- MARK ACCEPTED BOOKINGS AS COMPLETED -->
+
+        <%
+  const eventDate = booking.event_date
+    ? new Date(booking.event_date)
+    : null;
+
+  const today = new Date();
+
+  if (eventDate) {
+    eventDate.setHours(0, 0, 0, 0);
+  }
+
+  today.setHours(0, 0, 0, 0);
+
+  const canComplete =
+    booking.status === "Accepted" &&
+    eventDate &&
+    eventDate <= today;
+%>
+
+        <% if (canComplete) { %>
+
+        <div class="booking-actions">
+
+          <form action="/bookings/artist/<%= booking.booking_id %>/status" method="POST" onsubmit="return confirm('Mark this booking as completed?');">
+
+            <input type="hidden" name="status" value="Completed">
+
+            <button type="submit" class="action-btn complete-btn">
+              <i class="fa-solid fa-circle-check"></i>
+              Mark as Completed
+            </button>
+
+          </form>
+
+        </div>
+
+        <% } %>
+
+
+
+      </div>
+
+      <% }) %>
+
+      <% } %>
+
+    </div>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    © 2026 BookMyArtist. All Rights Reserved.
+
+  </footer>
+
+</body>
+
+</html>

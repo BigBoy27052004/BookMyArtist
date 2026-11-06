@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Edit Profile | BookMyArtist</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #fff;
+    }
+
+    /* ================================
+       NAVBAR
+    ================================= */
+
+    nav {
+      width: 100%;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #6c63ff;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .notification-bell {
+      position: relative;
+      font-size: 19px;
+      cursor: pointer;
+      color: #cbd5e1;
+    }
+
+    .notification-bell:hover {
+      color: #6c63ff;
+    }
+
+    .profile-pic {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #6c63ff;
+    }
+
+    .logout {
+      color: #cbd5e1;
+      font-size: 14px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .logout:hover {
+      color: #ef4444;
+    }
+
+    /* ================================
+       PAGE
+    ================================= */
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 120px 25px 50px;
+    }
+
+    .back {
+      display: inline-block;
+      color: #c4b5fd;
+      text-decoration: none;
+      margin-bottom: 25px;
+    }
+
+    .back:hover {
+      color: white;
+    }
+
+    .profile-card {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 35px;
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 30px;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .section h2 {
+      font-size: 19px;
+      margin-bottom: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      margin-bottom: 8px;
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      background: #0f172a;
+      color: white;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #6c63ff;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .current-image {
+      margin-bottom: 20px;
+    }
+
+    .current-image img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #6c63ff;
+    }
+
+    .initial {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #6c63ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      font-weight: bold;
+    }
+
+    .image-note {
+      margin-top: 10px;
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .actions {
+      margin-top: 35px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      border: none;
+      padding: 13px 22px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      background: #6c63ff;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #5b52e8;
+    }
+
+    .btn-secondary {
+      background: #334155;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #475569;
+    }
+
+    @media (max-width: 750px) {
+      nav {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <nav>
+
+    <div class="logo">
+      BookMyArtist
+    </div>
+
+    <div class="nav-links">
+
+      <a href="/artist-dashboard">Dashboard</a>
+
+      <a href="/bookings/artist">Booking Requests</a>
+
+      <a href="/messages">Messages</a>
+
+      <a href="#">Reviews</a>
+
+      <a href="/artists/my-profile" class="active">Profile</a>
+
+    </div>
+
+    <div class="nav-right">
+
+      <div class="notification-bell">
+        <i class="fa-solid fa-bell"></i>
+      </div>
+
+      <% if (artist.profile_image && artist.profile_image !== "default.jpeg") { %>
+
+      <img src="/uploads/artist-images/<%= artist.profile_image %>" alt="Profile" class="profile-pic">
+
+      <% } else { %>
+
+      <div class="profile-pic" style="
+            background: #6c63ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+          ">
+        <%= artist.stage_name.charAt(0).toUpperCase() %>
+      </div>
+
+      <% } %>
+
+      <a href="/auth/logout" class="logout">
+        Logout
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <!-- PAGE -->
+
+  <div class="container">
+
+    <a href="/artists/my-profile" class="back">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to Profile
+    </a>
+
+    <div class="profile-card">
+
+      <h1>Edit Profile</h1>
+
+      <form action="/artists/my-profile/edit" method="POST" enctype="multipart/form-data">
+
+        <!-- PERSONAL INFORMATION -->
+
+        <div class="section">
+
+          <h2>Personal Information</h2>
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label for="first_name">First Name</label>
+
+              <input type="text" id="first_name" name="first_name" value="<%= artist.first_name %>" required>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="last_name">Last Name</label>
+
+              <input type="text" id="last_name" name="last_name" value="<%= artist.last_name %>" required>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="email">Email</label>
+
+              <input type="email" id="email" value="<%= artist.email %>" disabled>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="phone">Phone</label>
+
+              <input type="text" id="phone" name="phone" value="<%= artist.phone || '' %>">
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- ARTIST INFORMATION -->
+
+        <div class="section">
+
+          <h2>Artist Information</h2>
+
+          <div class="form-grid">
+
+            <div class="form-group">
+
+              <label for="stage_name">Stage Name</label>
+
+              <input type="text" id="stage_name" name="stage_name" value="<%= artist.stage_name %>" required>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="genre">Genre</label>
+
+              <input type="text" id="genre" name="genre" value="<%= artist.genre || '' %>">
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="province">Province</label>
+
+              <input type="text" id="province" name="province" value="<%= artist.province || '' %>">
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="city">City</label>
+
+              <input type="text" id="city" name="city" value="<%= artist.city || '' %>">
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label for="booking_price">
+                Booking Price (R)
+              </label>
+
+              <input type="number" id="booking_price" name="booking_price" value="<%= artist.booking_price || '' %>" min="0" step="0.01">
+
+            </div>
+
+
+            <div class="form-group full">
+
+              <label for="biography">Biography</label>
+
+              <textarea id="biography" name="biography"><%= artist.biography || '' %></textarea>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- PROFILE IMAGE -->
+
+        <div class="section">
+
+          <h2>Profile Picture</h2>
+
+          <div class="current-image">
+
+            <% if (artist.profile_image && artist.profile_image !== "default.jpeg") { %>
+
+            <img src="/uploads/artist-images/<%= artist.profile_image %>" alt="Current Profile Picture">
+
+            <% } else { %>
+
+            <div class="initial">
+              <%= artist.stage_name.charAt(0).toUpperCase() %>
+            </div>
+
+            <% } %>
+
+          </div>
+
+          <input type="file" name="profile_image" accept=".jpg,.jpeg,.png,.webp">
+
+          <div class="image-note">
+            Accepted formats: JPG, JPEG, PNG and WEBP. Maximum size: 5 MB.
+          </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="actions">
+
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-save"></i>
+            Save Changes
+          </button>
+
+          <a href="/artists/my-profile" class="btn btn-secondary">
+            Cancel
+          </a>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>

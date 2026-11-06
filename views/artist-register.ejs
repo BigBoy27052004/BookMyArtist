@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Register | BookMyArtist</title>
+
+    <!-- GOOGLE FONT -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FONT AWESOME -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="/css/register.css">
+
+  </head>
+  <body>
+    <!-- BACKGROUND -->
+
+    <div class="glow1"></div>
+    <div class="glow2"></div>
+
+    <!-- CONTAINER -->
+
+    <div class="container">
+      <!-- LEFT -->
+
+      <div class="left-side">
+        <div class="logo">BookMyArtist</div>
+
+        <h1>Join The Future Of Artist Booking</h1>
+
+        <p>
+          Create your account today and connect event organisers with talented
+          artists through one modern platform.
+        </p>
+      </div>
+
+      <!-- RIGHT -->
+
+      <div class="right-side">
+        <div class="form-header">
+          <h2>Create Account</h2>
+
+          <p>Choose your account type and complete registration</p>
+        </div>
+
+        <!-- TABS -->
+
+        <div class="tabs">
+          <div class="tab active" onclick="showForm('customer')">Customer</div>
+
+          <div class="tab" onclick="showForm('artist')">Artist</div>
+        </div>
+
+        <!-- CUSTOMER FORM -->
+
+        <div class="form-section active" id="customer">
+          <div class="input-group">
+            <label>Full Name</label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-user"></i>
+
+              <input type="text" placeholder="Enter full name" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Email Address</label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-envelope"></i>
+
+              <input type="email" placeholder="Enter email" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Phone Number</label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-phone"></i>
+
+              <input type="text" placeholder="Enter phone number" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Province</label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-location-dot"></i>
+
+              <select>
+                <option>Select Province</option>
+                <option>Gauteng</option>
+                <option>North West</option>
+                <option>Limpopo</option>
+                <option>KwaZulu-Natal</option>
+                <option>Free State</option>
+                <option>Northern Cape</option>
+                <option>Eastern Cape</option>
+                <option>Western Cape</option>
+                <option>Mpumalanga</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Password</label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-lock"></i>
+
+              <input type="password" placeholder="Create password" />
+            </div>
+          </div>
+
+          <button class="register-btn">Register As Customer</button>
+        </div>
+
+        <!-- ARTIST FORM -->
+
+        <div class="form-section" id="artist">
+          <div class="input-group">
+            <label>Stage Name</label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-microphone"></i>
+
+              <input type="text" placeholder="Enter stage name" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Email Address</label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-envelope"></i>
+
+              <input type="email" placeholder="Enter email" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Phone Number</label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-phone"></i>
+
+              <input type="text" placeholder="Enter phone number" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Genre</label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-music"></i>
+
+              <select>
+                <option>Select Genre</option>
+                <option>Amapiano</option>
+                <option>Hip Hop</option>
+                <option>Afro Pop</option>
+                <option>Gospel</option>
+                <option>House Music</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Performance Price</label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-money-bill"></i>
+
+              <input type="text" placeholder="Enter booking price" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Artist Bio</label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-pen"></i>
+
+              <textarea placeholder="Tell people about yourself"></textarea>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Password</label>
+
+            <div class="input-field">
+              <i class="fa-solid fa-lock"></i>
+
+              <input type="password" placeholder="Create password" />
+            </div>
+          </div>
+
+          <button class="register-btn">Register As Artist</button>
+        </div>
+
+        <!-- LOGIN -->
+
+        <div class="login-link">
+          Already have an account?
+          <a href="login.html"> Login Here </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+
+    <script src="/js/register.js"></script>
+  </body>
+</html>

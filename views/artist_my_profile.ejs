@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Profile | BookMyArtist</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 120px 25px 40px;
+    }
+
+    .back {
+      display: inline-block;
+      color: #c4b5fd;
+      text-decoration: none;
+      margin-bottom: 25px;
+    }
+
+    .back:hover {
+      color: #fff;
+    }
+
+    .profile-card {
+      background: #1e293b;
+      border-radius: 16px;
+      padding: 35px;
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #334155;
+    }
+
+    .profile-image {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #6c63ff;
+    }
+
+    .initial {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: #6c63ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      font-weight: bold;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+    }
+
+    .stage-name {
+      color: #a78bfa;
+      font-size: 18px;
+    }
+
+    .verified {
+      color: #22c55e;
+      margin-left: 8px;
+    }
+
+    .section {
+      margin-top: 30px;
+    }
+
+    .section h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .info {
+      background: #0f172a;
+      padding: 18px;
+      border-radius: 10px;
+    }
+
+    .info-label {
+      color: #94a3b8;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    .info-value {
+      font-size: 16px;
+    }
+
+    .biography {
+      background: #0f172a;
+      padding: 20px;
+      border-radius: 10px;
+      line-height: 1.7;
+      color: #cbd5e1;
+    }
+
+    .price {
+      color: #a78bfa;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .actions {
+      margin-top: 30px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background: #6c63ff;
+      color: white;
+    }
+
+    .btn-secondary {
+      background: #334155;
+      color: white;
+    }
+
+    /* ================================
+   NAVBAR
+================================ */
+
+    nav {
+      width: 100%;
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .logo {
+      font-size: 27px;
+      font-weight: 700;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #6c63ff;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .notification-bell {
+      position: relative;
+      font-size: 19px;
+      cursor: pointer;
+      color: #cbd5e1;
+    }
+
+    .notification-bell:hover {
+      color: #6c63ff;
+    }
+
+    .badge {
+      position: absolute;
+      top: -9px;
+      right: -10px;
+      min-width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ef4444;
+      color: white;
+      border-radius: 50%;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .profile-pic {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #6c63ff;
+    }
+
+    .logout {
+      color: #cbd5e1;
+      font-size: 14px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .logout:hover {
+      color: #ef4444;
+    }
+
+    @media (max-width: 650px) {
+      .profile-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+
+    <div class="logo">
+      BookMyArtist
+    </div>
+
+    <div class="nav-links">
+
+      <a href="/artist-dashboard">Dashboard</a>
+
+      <a href="/bookings/artist">Booking Requests</a>
+
+      <a href="/messages">Messages</a>
+
+      <a href="#">Reviews</a>
+
+      <a href="/artists/my-profile" class="active">Profile</a>
+
+    </div>
+
+    <div class="nav-right">
+
+      <div class="notification-bell">
+        <i class="fa-solid fa-bell"></i>
+      </div>
+
+      <% if (artist.profile_image && artist.profile_image !== "default.jpeg") { %>
+
+      <img src="/uploads/artist-images/<%= artist.profile_image %>" alt="Profile" class="profile-pic">
+
+      <% } else { %>
+
+      <div class="profile-pic" style="
+          background: #6c63ff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: 700;
+        ">
+        <%= artist.stage_name.charAt(0).toUpperCase() %>
+      </div>
+
+      <% } %>
+
+      <a href="/auth/logout" class="logout">
+        Logout
+      </a>
+
+    </div>
+
+  </nav>
+
+  <div class="container">
+
+    <a href="/artist-dashboard" class="back">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to Dashboard
+    </a>
+
+    <div class="profile-card">
+
+      <div class="profile-header">
+
+        <% if (artist.profile_image && artist.profile_image !== "default.jpeg") { %>
+
+        <img src="/uploads/artist-images/<%= artist.profile_image %>" alt="Profile Image" class="profile-image">
+
+        <% } else { %>
+
+        <div class="initial">
+          <%= artist.stage_name.charAt(0).toUpperCase() %>
+        </div>
+
+        <% } %>
+
+        <div>
+
+          <h1>
+            <%= artist.first_name %> <%= artist.last_name %>
+
+            <% if (artist.is_verified) { %>
+            <span class="verified">
+              <i class="fa-solid fa-circle-check"></i>
+            </span>
+            <% } %>
+          </h1>
+
+          <div class="stage-name">
+            <%= artist.stage_name %>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="section">
+
+        <h2>Personal Information</h2>
+
+        <div class="info-grid">
+
+          <div class="info">
+            <div class="info-label">First Name</div>
+            <div class="info-value">
+              <%= artist.first_name %>
+            </div>
+          </div>
+
+          <div class="info">
+            <div class="info-label">Last Name</div>
+            <div class="info-value">
+              <%= artist.last_name %>
+            </div>
+          </div>
+
+          <div class="info">
+            <div class="info-label">Email</div>
+            <div class="info-value">
+              <%= artist.email %>
+            </div>
+          </div>
+
+          <div class="info">
+            <div class="info-label">Phone</div>
+            <div class="info-value">
+              <%= artist.phone || "Not provided" %>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="section">
+
+        <h2>Artist Information</h2>
+
+        <div class="info-grid">
+
+          <div class="info">
+            <div class="info-label">Stage Name</div>
+            <div class="info-value">
+              <%= artist.stage_name %>
+            </div>
+          </div>
+
+          <div class="info">
+            <div class="info-label">Genre</div>
+            <div class="info-value">
+              <%= artist.genre || "Not provided" %>
+            </div>
+          </div>
+
+          <div class="info">
+            <div class="info-label">Province</div>
+            <div class="info-value">
+              <%= artist.province || "Not provided" %>
+            </div>
+          </div>
+
+          <div class="info">
+            <div class="info-label">City</div>
+            <div class="info-value">
+              <%= artist.city || "Not provided" %>
+            </div>
+          </div>
+
+          <div class="info">
+            <div class="info-label">Booking Price</div>
+            <div class="price">
+              R<%= Number(artist.booking_price || 0).toFixed(2) %>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="section">
+
+        <h2>Biography</h2>
+
+        <div class="biography">
+          <%= artist.biography || "No biography has been added yet." %>
+        </div>
+
+      </div>
+
+      <div class="actions">
+
+        <a href="/artists/my-profile/edit" class="btn btn-primary">
+          <i class="fa-solid fa-pen"></i>
+          Edit Profile
+        </a>
+
+        <a href="/artist-dashboard" class="btn btn-secondary">
+          Dashboard
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>

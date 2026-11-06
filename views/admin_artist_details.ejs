@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Artist Details | BookMyArtist</title>
+
+  <link rel="stylesheet" href="/css/admin_artist_details.css">
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  >
+
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      BookMyArtist
+    </div>
+
+    <div class="admin-profile">
+
+      <div class="profile-icon">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+
+      <div>
+
+        <h3>
+          <%= user.first_name %>
+        </h3>
+
+        <p>Administrator</p>
+
+      </div>
+
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <a href="/admin-dashboard">
+        <i class="fa-solid fa-gauge"></i>
+        Dashboard
+      </a>
+
+      <a href="/admin/users">
+        <i class="fa-solid fa-users"></i>
+        Users
+      </a>
+
+      <a href="/admin/artists" class="active">
+        <i class="fa-solid fa-microphone"></i>
+        Artists
+      </a>
+
+      <a href="#">
+        <i class="fa-solid fa-calendar-check"></i>
+        Bookings
+      </a>
+
+      <a href="/admin/contact-messages">
+        <i class="fa-solid fa-envelope"></i>
+        Contact Messages
+      </a>
+
+      <a href="/admin/profile">
+        <i class="fa-solid fa-user-shield"></i>
+        My Profile
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <a href="/">
+        <i class="fa-solid fa-house"></i>
+        View Website
+      </a>
+
+      <a href="/auth/logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <div>
+
+        <p class="eyebrow">
+          ADMIN PANEL
+        </p>
+
+        <h1>
+          Artist Details
+        </h1>
+
+        <p class="welcome">
+          View information about this registered artist.
+        </p>
+
+      </div>
+
+    </header>
+
+
+    <!-- BACK BUTTON -->
+
+    <a href="/admin/artists" class="back-link">
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+      Back to Artists
+
+    </a>
+
+
+    <!-- ARTIST PROFILE -->
+
+    <section class="profile-card">
+
+      <div class="profile-header">
+
+        <div class="large-avatar">
+
+          <% if (
+            selectedArtist.profile_image &&
+            selectedArtist.profile_image !== "default.jpeg"
+          ) { %>
+
+            <img
+              src="/uploads/artist-images/<%= selectedArtist.profile_image %>"
+              alt="Artist Profile"
+            >
+
+          <% } else { %>
+
+            <i class="fa-solid fa-microphone"></i>
+
+          <% } %>
+
+        </div>
+
+
+        <div class="profile-name">
+
+          <h2>
+            <%= selectedArtist.stage_name %>
+          </h2>
+
+          <p class="real-name">
+
+            <%= selectedArtist.first_name %>
+            <%= selectedArtist.last_name %>
+
+          </p>
+
+
+          <span class="role">
+
+            <i class="fa-solid fa-microphone"></i>
+
+            Artist
+
+          </span>
+
+
+          <% if (selectedArtist.is_verified) { %>
+
+            <span class="verification verified">
+
+              <i class="fa-solid fa-circle-check"></i>
+
+              Verified
+
+            </span>
+
+          <% } else { %>
+
+            <span class="verification unverified">
+
+              <i class="fa-solid fa-clock"></i>
+
+              Not Verified
+
+            </span>
+
+          <% } %>
+
+        </div>
+
+      </div>
+
+
+      <!-- ARTIST INFORMATION -->
+
+      <div class="details-section">
+
+        <p class="eyebrow">
+          ARTIST INFORMATION
+        </p>
+
+
+        <div class="details-grid">
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+
+              <i class="fa-solid fa-microphone"></i>
+
+              Stage Name
+
+            </span>
+
+            <strong>
+              <%= selectedArtist.stage_name %>
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+
+              <i class="fa-solid fa-music"></i>
+
+              Genre
+
+            </span>
+
+            <strong>
+
+              <%= selectedArtist.genre || "Not specified" %>
+
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+
+              <i class="fa-solid fa-location-dot"></i>
+
+              Location
+
+            </span>
+
+            <strong>
+
+              <%= selectedArtist.city || "Unknown" %>
+
+              <% if (selectedArtist.province) { %>
+
+                , <%= selectedArtist.province %>
+
+              <% } %>
+
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+
+              <i class="fa-solid fa-money-bill-wave"></i>
+
+              Booking Price
+
+            </span>
+
+            <strong>
+
+              <% if (selectedArtist.booking_price !== null) { %>
+
+                R<%= Number(
+                  selectedArtist.booking_price
+                ).toLocaleString("en-ZA", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2
+                }) %>
+
+              <% } else { %>
+
+                Not specified
+
+              <% } %>
+
+            </strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <!-- CONTACT INFORMATION -->
+
+      <div class="details-section">
+
+        <p class="eyebrow">
+          CONTACT INFORMATION
+        </p>
+
+
+        <div class="details-grid">
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+
+              <i class="fa-solid fa-user"></i>
+
+              Full Name
+
+            </span>
+
+            <strong>
+
+              <%= selectedArtist.first_name %>
+              <%= selectedArtist.last_name %>
+
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+
+              <i class="fa-solid fa-envelope"></i>
+
+              Email Address
+
+            </span>
+
+            <strong>
+
+              <%= selectedArtist.email %>
+
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+
+              <i class="fa-solid fa-phone"></i>
+
+              Phone Number
+
+            </span>
+
+            <strong>
+
+              <%= selectedArtist.phone || "Not provided" %>
+
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+
+              <i class="fa-solid fa-calendar"></i>
+
+              Date Joined
+
+            </span>
+
+            <strong>
+
+              <%= new Date(
+                selectedArtist.created_at
+              ).toLocaleDateString() %>
+
+            </strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+      <!-- BIOGRAPHY -->
+
+      <div class="details-section">
+
+        <p class="eyebrow">
+          BIOGRAPHY
+        </p>
+
+
+        <div class="biography">
+
+          <% if (selectedArtist.biography) { %>
+
+            <p>
+              <%= selectedArtist.biography %>
+            </p>
+
+          <% } else { %>
+
+            <p class="empty-text">
+              No biography has been provided by this artist.
+            </p>
+
+          <% } %>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- VERIFICATION STATUS -->
+
+    <section class="section">
+
+      <div class="section-header">
+
+        <div>
+
+          <p class="eyebrow">
+            ACCOUNT VERIFICATION
+          </p>
+
+          <h2>
+            Artist Verification
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="status-card">
+
+        <% if (selectedArtist.is_verified) { %>
+
+          <div class="status-icon verified-icon">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+          </div>
+
+          <div>
+
+            <h3>
+              Artist is Verified
+            </h3>
+
+            <p>
+              This artist has been verified on BookMyArtist.
+            </p>
+
+          </div>
+
+          <span class="status verified-status">
+            Verified
+          </span>
+
+        <% } else { %>
+
+          <div class="status-icon unverified-icon">
+
+            <i class="fa-solid fa-clock"></i>
+
+          </div>
+
+          <div>
+
+            <h3>
+              Artist is Not Verified
+            </h3>
+
+            <p>
+              This artist still requires verification.
+            </p>
+
+          </div>
+
+          <span class="status unverified-status">
+            Not Verified
+          </span>
+
+        <% } %>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+
+</html>

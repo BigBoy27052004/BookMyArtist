@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>User Details | BookMyArtist</title>
+
+  <link rel="stylesheet" href="/css/admin_user_details.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      BookMyArtist
+    </div>
+
+
+    <div class="admin-profile">
+
+      <div class="profile-icon">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+
+      <div>
+
+        <h3>
+          <%= user.first_name %>
+        </h3>
+
+        <p>Administrator</p>
+
+      </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+      <a href="/admin-dashboard">
+
+        <i class="fa-solid fa-gauge"></i>
+
+        Dashboard
+
+      </a>
+
+
+      <a href="/admin/users" class="active">
+
+        <i class="fa-solid fa-users"></i>
+
+        Users
+
+      </a>
+
+
+      <a href="#">
+
+        <i class="fa-solid fa-microphone"></i>
+
+        Artists
+
+      </a>
+
+
+      <a href="#">
+
+        <i class="fa-solid fa-calendar-check"></i>
+
+        Bookings
+
+      </a>
+
+
+      <a href="/admin/contact-messages">
+
+        <i class="fa-solid fa-envelope"></i>
+
+        Contact Messages
+
+      </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+      <a href="/">
+
+        <i class="fa-solid fa-house"></i>
+
+        View Website
+
+      </a>
+
+
+      <a href="/auth/logout">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        Logout
+
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <div>
+
+        <p class="eyebrow">
+          ADMIN PANEL
+        </p>
+
+        <h1>
+          User Details
+        </h1>
+
+        <p class="welcome">
+          View information about this registered user.
+        </p>
+
+      </div>
+
+    </header>
+
+
+    <!-- BACK BUTTON -->
+
+    <a href="/admin/users" class="back-link">
+
+      <i class="fa-solid fa-arrow-left"></i>
+
+      Back to Users
+
+    </a>
+
+
+    <!-- USER PROFILE -->
+
+    <section class="profile-card">
+
+      <div class="profile-header">
+
+        <div class="large-avatar">
+
+          <% if (
+            selectedUser.profile_image &&
+            selectedUser.profile_image !== "default.jpeg"
+          ) { %>
+
+          <img src="/uploads/artist-images/<%= selectedUser.profile_image %>" alt="Profile">
+
+          <% } else { %>
+
+          <i class="fa-solid fa-user"></i>
+
+          <% } %>
+
+        </div>
+
+
+        <div class="profile-name">
+
+          <h2>
+            <%= selectedUser.first_name %>
+            <%= selectedUser.last_name %>
+          </h2>
+
+          <span class="role <%= selectedUser.role %>">
+
+            <% if (selectedUser.role === "admin") { %>
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <% } else if (selectedUser.role === "artist") { %>
+
+            <i class="fa-solid fa-microphone"></i>
+
+            <% } else { %>
+
+            <i class="fa-solid fa-user"></i>
+
+            <% } %>
+
+            <%= selectedUser.role %>
+
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- INFORMATION -->
+
+      <div class="details-section">
+
+        <p class="eyebrow">
+          ACCOUNT INFORMATION
+        </p>
+
+        <div class="details-grid">
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              <i class="fa-solid fa-user"></i>
+              Full Name
+            </span>
+
+            <strong>
+              <%= selectedUser.first_name %>
+              <%= selectedUser.last_name %>
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              <i class="fa-solid fa-envelope"></i>
+              Email Address
+            </span>
+
+            <strong>
+              <%= selectedUser.email %>
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              <i class="fa-solid fa-phone"></i>
+              Phone Number
+            </span>
+
+            <strong>
+              <%= selectedUser.phone || "Not provided" %>
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              <i class="fa-solid fa-user-tag"></i>
+              Account Role
+            </span>
+
+            <strong class="capitalize">
+              <%= selectedUser.role %>
+            </strong>
+
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              <i class="fa-solid fa-shield-halved"></i>
+              Verification
+            </span>
+
+            <% if (selectedUser.is_verified) { %>
+
+            <strong class="verified">
+
+              <i class="fa-solid fa-circle-check"></i>
+
+              Verified
+
+            </strong>
+
+            <% } else { %>
+
+            <strong class="unverified">
+
+              <i class="fa-solid fa-clock"></i>
+
+              Not Verified
+
+            </strong>
+
+            <% } %>
+
+          </div>
+
+          <div class="info-item">
+            <span>Account Status</span>
+
+            <% if (selectedUser.is_active) { %>
+
+            <strong class="detail-status active">
+              <i class="fa-solid fa-circle-check"></i>
+              Active
+            </strong>
+
+            <% } else { %>
+
+            <strong class="detail-status inactive">
+              <i class="fa-solid fa-circle-xmark"></i>
+              Inactive
+            </strong>
+
+            <% } %>
+          </div>
+
+
+          <div class="detail-item">
+
+            <span class="detail-label">
+              <i class="fa-solid fa-calendar"></i>
+              Date Joined
+            </span>
+
+            <strong>
+              <%= new Date(
+                selectedUser.created_at
+              ).toLocaleDateString() %>
+            </strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ACCOUNT STATUS -->
+
+    <section class="section">
+
+      <div class="section-header">
+
+        <div>
+
+          <p class="eyebrow">
+            ACCOUNT STATUS
+          </p>
+
+          <h2>
+            User Account
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="status-card">
+
+        <div class="status-icon">
+
+          <i class="fa-solid fa-circle-check"></i>
+
+        </div>
+
+
+        <div>
+
+          <h3>
+            Account is Active
+          </h3>
+
+          <p>
+            This account is currently registered on BookMyArtist.
+          </p>
+
+        </div>
+
+
+        <span class="status">
+          Active
+        </span>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+
+</html>

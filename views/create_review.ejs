@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Artist | BookMyArtist</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+  <style>
+    /* ==========================================
+     BOOKMYARTIST - CUSTOMER REVIEW PAGE
+     MATCHES CUSTOMER DASHBOARD STYLING
+  ========================================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* NAVBAR */
+
+    nav,
+    .review-navbar {
+      width: 100%;
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .logo span {
+      color: #6c63ff;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-size: 15px;
+      font-weight: 500;
+      transition: 0.3s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #6c63ff;
+    }
+
+    .messages-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .message-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      background: #ef4444;
+      color: white;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-profile-pic,
+    .nav-profile-fallback {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 3px solid #6c63ff;
+    }
+
+    .nav-profile-pic {
+      object-fit: cover;
+    }
+
+    .nav-profile-fallback {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #6c63ff;
+      color: white;
+      font-weight: 600;
+    }
+
+    .back-link,
+    .logout-btn {
+      color: #cbd5e1;
+      font-size: 15px;
+      text-decoration: none;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: 0.3s;
+    }
+
+    .back-link:hover,
+    .logout-btn:hover {
+      color: #6c63ff;
+    }
+
+    /* MAIN CONTENT */
+
+    main {
+      max-width: 1400px;
+      width: 100%;
+      margin: auto;
+      padding: 40px 8% 80px;
+    }
+
+    /* REVIEW CARD */
+
+    .review-card {
+      max-width: 760px;
+      margin: 0 auto;
+      background: #1e293b;
+      border-radius: 30px;
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: 0.3s;
+    }
+
+    .review-card:hover {
+      border-color: rgba(108, 99, 255, 0.3);
+      box-shadow: 0 0 25px rgba(108, 99, 255, 0.08);
+    }
+
+    .review-card h1 {
+      font-size: 34px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: #cbd5e1;
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 35px;
+    }
+
+    .artist-name {
+      color: #a855f7;
+    }
+
+    /* FORM */
+
+    .field-label {
+      display: block;
+      color: #f8fafc;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    /* STAR RATING */
+
+    .rating-options {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .rating-options input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+
+    .rating-options label {
+      cursor: pointer;
+      font-size: 38px;
+      color: #64748b;
+      transition: 0.2s;
+    }
+
+    .rating-options label:hover,
+    .rating-options label:hover~label,
+    .rating-options input:checked~label {
+      color: #f59e0b;
+    }
+
+    .rating-options input:focus-visible+label {
+      outline: 2px solid #a855f7;
+      outline-offset: 4px;
+      border-radius: 5px;
+    }
+
+    .rating-help {
+      color: #94a3b8;
+      font-size: 13px;
+      margin-bottom: 30px;
+    }
+
+    /* REVIEW TEXTAREA */
+
+    textarea {
+      width: 100%;
+      min-height: 170px;
+      padding: 18px;
+      background: #0f172a;
+      color: white;
+      border: 1px solid #334155;
+      border-radius: 18px;
+      outline: none;
+      resize: vertical;
+      font-size: 14px;
+      line-height: 1.7;
+      transition: 0.3s;
+    }
+
+    textarea::placeholder {
+      color: #64748b;
+    }
+
+    textarea:focus {
+      border-color: #6c63ff;
+      box-shadow: 0 0 15px rgba(108, 99, 255, 0.15);
+    }
+
+    /* SUBMIT BUTTON */
+
+    .submit-btn {
+      width: 100%;
+      margin-top: 30px;
+      padding: 18px;
+      background: linear-gradient(to right, #6c63ff, #a855f7);
+      color: white;
+      border: none;
+      border-radius: 18px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 25px rgba(108, 99, 255, 0.5);
+    }
+
+    .submit-btn:focus-visible {
+      outline: 2px solid white;
+      outline-offset: 3px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 1200px) {
+
+      nav,
+      .review-navbar {
+        flex-wrap: wrap;
+      }
+
+      .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      nav,
+      .review-navbar {
+        padding: 18px 5%;
+      }
+
+      main {
+        padding: 35px 5% 65px;
+      }
+
+      .review-card {
+        padding: 28px 22px;
+        border-radius: 24px;
+      }
+
+      .review-card h1 {
+        font-size: 27px;
+      }
+
+      .nav-links {
+        gap: 16px;
+      }
+
+      .nav-links a {
+        font-size: 13px;
+      }
+
+      .nav-right {
+        gap: 12px;
+      }
+
+      .back-link {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 24px;
+      }
+
+      .rating-options label {
+        font-size: 33px;
+      }
+
+      .review-card h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+  <nav class="review-navbar">
+
+    <a href="/dashboard" class="logo">
+      BookMyArtist
+    </a>
+
+    <div class="nav-links">
+
+      <a href="/dashboard">Dashboard</a>
+
+      <a href="/artists">Browse Artists</a>
+
+      <a href="/bookings">My Bookings</a>
+
+      <a href="/messages" class="messages-link">
+        Messages
+
+        <% if (Number(unreadCount) > 0) { %>
+        <span class="message-badge">
+          <%= unreadCount %>
+        </span>
+        <% } %>
+      </a>
+
+      <a href="/reviews/customer">Reviews</a>
+
+      <a href="/customer/profile">My Profile</a>
+
+    </div>
+
+    <div class="nav-right">
+
+      <a href="/bookings" class="back-link">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Bookings
+      </a>
+
+      <% if (user.profile_image) { %>
+      <img src="/uploads/artist-images/<%= user.profile_image %>" alt="Profile picture" class="nav-profile-pic">
+      <% } else { %>
+      <span class="nav-profile-fallback" aria-label="Profile">
+        <%= user.first_name.charAt(0).toUpperCase() %>
+      </span>
+      <% } %>
+
+      <a href="/auth/logout" class="logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+      </a>
+
+    </div>
+
+  </nav>
+
+  <main>
+    <section class="review-card">
+      <h1>Rate Your Experience</h1>
+
+      <p class="subtitle">
+        How was your experience with
+        <strong class="artist-name"><%= booking.stage_name %></strong>
+        for <strong><%= booking.event_name || "your event" %></strong>?
+      </p>
+
+      <form action="/reviews/create/<%= booking.booking_id %>" method="POST">
+
+        <label class="field-label">Your Rating *</label>
+
+        <div class="rating-options">
+          <% for (let i = 5; i >= 1; i--) { %>
+          <input type="radio" name="rating" id="star<%= i %>" value="<%= i %>" required>
+
+          <label for="star<%= i %>" title="<%= i %> stars">
+            <i class="fa-solid fa-star"></i>
+          </label>
+          <% } %>
+        </div>
+
+        <p class="rating-help">
+          Select a rating between 1 and 5 stars.
+        </p>
+
+        <label class="field-label" for="review">
+          Your Review
+        </label>
+
+        <textarea id="review" name="review" maxlength="2000" placeholder="Tell us about your experience..."></textarea>
+
+        <button type="submit" class="submit-btn">
+          <i class="fa-solid fa-paper-plane"></i>
+          Submit Review
+        </button>
+
+      </form>
+    </section>
+  </main>
+
+</body>
+
+</html>

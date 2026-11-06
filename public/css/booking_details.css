@@ -1,0 +1,547 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #0f172a;
+  color: #f8fafc;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav {
+  width: 100%;
+  padding: 20px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #cbd5e1;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #6c63ff;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.notification-bell {
+  position: relative;
+  color: #cbd5e1;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.notification-bell:hover {
+  color: #6c63ff;
+}
+
+.profile-pic {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #6c63ff;
+}
+
+.logout {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.logout:hover {
+  color: #ef4444;
+}
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.page-container {
+  width: 84%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 150px 0 80px;
+}
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 35px;
+}
+
+.page-header h1 {
+  font-size: 38px;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: 1px solid #6c63ff;
+  border-radius: 12px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: #6c63ff;
+  transform: translateY(-2px);
+}
+
+/* =========================
+   DETAILS CARD
+========================= */
+
+.details-card {
+  background: #1e293b;
+  border-radius: 25px;
+  padding: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* =========================
+   ARTIST SECTION
+========================= */
+
+.artist-section {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.artist-image {
+  width: 110px;
+  height: 110px;
+  border-radius: 20px;
+  object-fit: cover;
+  border: 2px solid rgba(108, 99, 255, 0.6);
+}
+
+.artist-section h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.genre {
+  display: inline-block;
+  background: rgba(108, 99, 255, 0.15);
+  color: #a855f7;
+  padding: 7px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+}
+
+.location {
+  margin-top: 12px;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.location i {
+  color: #6c63ff;
+  margin-right: 5px;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status-section {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0f172a;
+  border-radius: 15px;
+  padding: 18px 22px;
+}
+
+.status-label {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.status.pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+}
+
+.status.accepted {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.status.rejected {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.status.completed {
+  background: rgba(108, 99, 255, 0.15);
+  color: #a855f7;
+}
+
+/* =========================
+   DIVIDER
+========================= */
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  margin: 35px 0;
+}
+
+/* =========================
+   SECTION TITLES
+========================= */
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.section-title i {
+  color: #6c63ff;
+  font-size: 18px;
+}
+
+.section-title h3 {
+  font-size: 20px;
+}
+
+/* =========================
+   DETAILS GRID
+========================= */
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.detail-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px;
+  background: #0f172a;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.detail-icon {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  background: rgba(108, 99, 255, 0.12);
+  color: #6c63ff;
+  font-size: 18px;
+}
+
+.detail-box span {
+  display: block;
+  color: #94a3b8;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.detail-box strong {
+  display: block;
+  font-size: 15px;
+  color: #f8fafc;
+}
+
+.detail-box .amount {
+  color: #a855f7;
+  font-size: 18px;
+}
+
+/* =========================
+   BOOKING INFORMATION
+========================= */
+
+.booking-info-title {
+  margin-top: 40px;
+}
+
+.booking-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.booking-info > div {
+  background: #0f172a;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.booking-info span {
+  display: block;
+  color: #94a3b8;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+
+.booking-info strong {
+  color: white;
+  font-size: 15px;
+}
+
+/* =========================
+   BIOGRAPHY
+========================= */
+
+.biography {
+  background: #0f172a;
+  padding: 22px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+
+.biography p {
+  color: #cbd5e1;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 35px;
+}
+
+.secondary-btn,
+.primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.secondary-btn {
+  border: 1px solid #6c63ff;
+  color: white;
+}
+
+.secondary-btn:hover {
+  background: #6c63ff;
+}
+
+.primary-btn {
+  background: linear-gradient(to right, #6c63ff, #a855f7);
+  color: white;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(108, 99, 255, 0.3);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+  padding: 40px 8%;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  color: #94a3b8;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-bottom: 20px;
+}
+
+.footer-links a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  color: #6c63ff;
+}
+
+footer p {
+  font-size: 13px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+  .nav-links {
+    gap: 18px;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 900px) {
+  .nav-links {
+    display: none;
+  }
+
+  .page-container {
+    width: 90%;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  nav {
+    padding: 18px 5%;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .nav-right {
+    gap: 10px;
+  }
+
+  .logout {
+    display: none;
+  }
+
+  .page-container {
+    padding-top: 120px;
+  }
+
+  .page-header h1 {
+    font-size: 30px;
+  }
+
+  .details-card {
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  .artist-section {
+    align-items: flex-start;
+  }
+
+  .artist-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .artist-section h2 {
+    font-size: 21px;
+  }
+
+  .status-section {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .secondary-btn,
+  .primary-btn {
+    justify-content: center;
+  }
+}

@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Profile | BookMyArtist</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: "Poppins", sans-serif;
+      min-height: 100vh;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 20px 6%;
+      background: #111c30;
+      border-bottom: 1px solid #334155;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #a5b4fc;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 45px auto;
+      padding: 0 20px 45px;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .profile-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 18px;
+      padding: 30px;
+    }
+
+    .profile-photo-section {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      padding-bottom: 28px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid #334155;
+    }
+
+    .profile-image {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid #6c63ff;
+      object-fit: cover;
+      background: #334155;
+      flex-shrink: 0;
+    }
+
+    .photo-details h2 {
+      font-size: 17px;
+      margin: 0 0 8px;
+    }
+
+    .photo-details p {
+      color: #94a3b8;
+      font-size: 12px;
+      margin: 0 0 15px;
+    }
+
+    .upload-btn {
+      display: inline-block;
+      background: #334155;
+      padding: 10px 16px;
+      border-radius: 9px;
+      color: white;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .upload-btn:hover {
+      background: #475569;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 13px 14px;
+      background: #0f172a;
+      border: 1px solid #475569;
+      border-radius: 10px;
+      color: #f8fafc;
+      font-family: inherit;
+      font-size: 13px;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #6c63ff;
+    }
+
+    .form-group input::placeholder {
+      color: #64748b;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .save-btn,
+    .cancel-btn {
+      padding: 13px 22px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .save-btn {
+      background: #6c63ff;
+      border: none;
+      color: white;
+    }
+
+    .save-btn:hover {
+      background: #574de5;
+    }
+
+    .cancel-btn {
+      background: #334155;
+      color: white;
+      border: none;
+    }
+
+    .cancel-btn:hover {
+      background: #475569;
+    }
+
+    .success-message {
+      padding: 14px 18px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      color: #86efac;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      font-size: 13px;
+    }
+
+    @media (max-width: 650px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-photo-section {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .profile-card {
+        padding: 20px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .save-btn,
+      .cancel-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="/dashboard" class="logo">
+      BookMyArtist
+    </a>
+
+    <div class="nav-links">
+      <a href="/dashboard">Dashboard</a>
+      <a href="/artists">Browse Artists</a>
+      <a href="/bookings">My Bookings</a>
+      <a href="/messages">Messages</a>
+      <a href="/customer/profile" class="active">My Profile</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <h1>My Profile</h1>
+
+    <p class="subtitle">
+      Update your personal information and profile picture.
+    </p>
+
+    <% if (typeof customer !== "undefined") { %>
+
+      <% if (typeof updated !== "undefined" && updated) { %>
+        <div class="success-message">
+          <i class="fa-solid fa-circle-check"></i>
+          Your profile has been updated successfully.
+        </div>
+      <% } %>
+
+      <form
+        action="/customer/profile/update"
+        method="POST"
+        enctype="multipart/form-data"
+        id="profileForm"
+        class="profile-card"
+      >
+
+        <!-- PROFILE PICTURE -->
+        <div class="profile-photo-section">
+
+          <img
+            src="/uploads/artist-images/<%= encodeURIComponent(customer.profile_image || 'default.jpeg') %>"
+            alt="Customer profile picture"
+            class="profile-image"
+            id="profilePreview"
+          >
+
+          <div class="photo-details">
+            <h2>Profile Picture</h2>
+
+            <p>
+              JPG, JPEG, PNG or WEBP. Maximum file size: 5 MB.
+            </p>
+
+            <label for="profileImageInput" class="upload-btn">
+              <i class="fa-solid fa-camera"></i>
+              Change Photo
+            </label>
+
+            <input
+              type="file"
+              name="profile_image"
+              id="profileImageInput"
+              accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+              hidden
+            >
+          </div>
+
+        </div>
+
+        <!-- PERSONAL DETAILS -->
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input
+              type="text"
+              id="first_name"
+              name="first_name"
+              value="<%= customer.first_name %>"
+              maxlength="100"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input
+              type="text"
+              id="last_name"
+              name="last_name"
+              value="<%= customer.last_name %>"
+              maxlength="100"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value="<%= customer.email %>"
+              maxlength="150"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value="<%= customer.phone || '' %>"
+              maxlength="20"
+              placeholder="Enter phone number"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="province">Province</label>
+            <input
+              type="text"
+              id="province"
+              name="province"
+              value="<%= customer.province || '' %>"
+              maxlength="100"
+              placeholder="Enter province"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="city">City</label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              value="<%= customer.city || '' %>"
+              maxlength="100"
+              placeholder="Enter city"
+            >
+          </div>
+
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="actions">
+
+          <a href="/dashboard" class="cancel-btn">
+            Cancel
+          </a>
+
+          <button type="submit" class="save-btn" id="saveButton">
+            <i class="fa-solid fa-floppy-disk"></i>
+            Save Changes
+          </button>
+
+        </div>
+
+      </form>
+
+    <% } %>
+
+  </main>
+
+  <script>
+    const profileImageInput =
+      document.getElementById("profileImageInput");
+
+    const profilePreview =
+      document.getElementById("profilePreview");
+
+    const profileForm =
+      document.getElementById("profileForm");
+
+    const saveButton =
+      document.getElementById("saveButton");
+
+    const maxFileSize = 5 * 1024 * 1024;
+
+    let previewURL = null;
+
+    profileImageInput.addEventListener("change", () => {
+      const file = profileImageInput.files[0];
+
+      if (previewURL) {
+        URL.revokeObjectURL(previewURL);
+        previewURL = null;
+      }
+
+      if (!file) {
+        profilePreview.src =
+          "/uploads/artist-images/<%= encodeURIComponent(customer.profile_image || 'default.jpeg') %>";
+        return;
+      }
+
+      const allowedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+      ];
+
+      if (!allowedTypes.includes(file.type)) {
+        alert("Please select a JPG, PNG or WEBP image.");
+        profileImageInput.value = "";
+        return;
+      }
+
+      if (file.size > maxFileSize) {
+        alert("Your profile picture must be 5 MB or smaller.");
+        profileImageInput.value = "";
+        return;
+      }
+
+      previewURL = URL.createObjectURL(file);
+      profilePreview.src = previewURL;
+    });
+
+    profileForm.addEventListener("submit", () => {
+      saveButton.disabled = true;
+      saveButton.textContent = "Saving...";
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>My Profile | BookMyArtist</title>
+
+  <link rel="stylesheet" href="/css/admin_dashboard.css">
+
+  <link rel="stylesheet" href="/css/admin_profile.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      BookMyArtist
+    </div>
+
+
+    <!-- ADMIN PROFILE -->
+
+    <div class="admin-profile">
+
+      <div class="profile-icon">
+        <i class="fa-solid fa-user-shield"></i>
+      </div>
+
+      <div>
+
+        <h3>
+          <%= user.first_name %>
+        </h3>
+
+        <p>
+          Administrator
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="sidebar-nav">
+
+      <a href="/admin-dashboard">
+
+        <i class="fa-solid fa-gauge"></i>
+
+        Dashboard
+
+      </a>
+
+
+      <a href="/admin/users">
+
+        <i class="fa-solid fa-users"></i>
+
+        Users
+
+      </a>
+
+
+      <a href="/admin/artists">
+
+        <i class="fa-solid fa-microphone"></i>
+
+        Artists
+
+      </a>
+
+
+      <a href="/admin/bookings">
+
+        <i class="fa-solid fa-calendar-check"></i>
+
+        Bookings
+
+      </a>
+
+
+      <a href="/admin/contact-messages">
+
+        <i class="fa-solid fa-envelope"></i>
+
+        Contact Messages
+
+        <% if (typeof unreadMessages !== "undefined" && unreadMessages > 0) { %>
+
+        <span class="nav-badge">
+          <%= unreadMessages %>
+        </span>
+
+        <% } %>
+
+      </a>
+
+
+      <a href="/admin/profile" class="active">
+
+        <i class="fa-solid fa-user-shield"></i>
+
+        My Profile
+
+      </a>
+
+    </nav>
+
+
+    <!-- SIDEBAR BOTTOM -->
+
+    <div class="sidebar-bottom">
+
+      <a href="/">
+
+        <i class="fa-solid fa-house"></i>
+
+        View Website
+
+      </a>
+
+
+      <a href="/auth/logout">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        Logout
+
+      </a>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="main-content">
+
+
+    <!-- HEADER -->
+
+    <div class="topbar">
+
+      <div>
+
+        <div class="eyebrow">
+          ADMIN PANEL
+        </div>
+
+        <h1>
+          My Profile
+        </h1>
+
+        <p class="welcome">
+          Manage your administrator account.
+        </p>
+
+      </div>
+
+    </div>
+
+    <% if (typeof passwordChanged !== "undefined" && passwordChanged) { %>
+
+    <div class="profile-success-message">
+      <i class="fa-solid fa-circle-check"></i>
+      <span>Your password has been changed successfully.</span>
+    </div>
+
+    <% } %>
+
+
+    <!-- PROFILE -->
+
+    <section class="profile-page">
+
+      <div class="profile-card">
+
+
+        <!-- PROFILE HEADER -->
+
+        <div class="profile-header">
+
+          <div class="profile-avatar">
+
+            <i class="fa-solid fa-user-shield"></i>
+
+          </div>
+
+
+          <div>
+
+            <h2>
+
+              <%= admin.first_name %>
+              <%= admin.last_name %>
+
+            </h2>
+
+            <p>
+              Administrator
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- ACCOUNT INFORMATION -->
+
+        <div class="profile-section">
+
+          <h3>
+
+            <i class="fa-solid fa-user"></i>
+
+            Account Information
+
+          </h3>
+
+
+          <div class="profile-info-grid">
+
+
+            <div class="profile-info-item">
+
+              <span>
+                First Name
+              </span>
+
+              <strong>
+                <%= admin.first_name %>
+              </strong>
+
+            </div>
+
+
+            <div class="profile-info-item">
+
+              <span>
+                Last Name
+              </span>
+
+              <strong>
+                <%= admin.last_name %>
+              </strong>
+
+            </div>
+
+
+            <div class="profile-info-item">
+
+              <span>
+                Email Address
+              </span>
+
+              <strong>
+                <%= admin.email %>
+              </strong>
+
+            </div>
+
+
+            <div class="profile-info-item">
+
+              <span>
+                Phone Number
+              </span>
+
+              <strong>
+                <%= admin.phone || "Not provided" %>
+              </strong>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+        <!-- ACCOUNT STATUS -->
+
+        <div class="profile-section">
+
+          <h3>
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            Account Status
+
+          </h3>
+
+
+          <div class="profile-status-list">
+
+
+            <div class="profile-status-item">
+
+              <span>
+                Role
+              </span>
+
+              <strong class="role-badge admin">
+                Administrator
+              </strong>
+
+            </div>
+
+
+            <div class="profile-status-item">
+
+              <span>
+                Verification
+              </span>
+
+
+              <% if (admin.is_verified) { %>
+
+              <strong class="profile-status verified">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                Verified
+
+              </strong>
+
+              <% } else { %>
+
+              <strong class="profile-status unverified">
+
+                <i class="fa-solid fa-circle-xmark"></i>
+
+                Not Verified
+
+              </strong>
+
+              <% } %>
+
+            </div>
+
+
+            <div class="profile-status-item">
+
+              <span>
+                Account
+              </span>
+
+
+              <% if (admin.is_active) { %>
+
+              <strong class="profile-status active">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                Active
+
+              </strong>
+
+              <% } else { %>
+
+              <strong class="profile-status inactive">
+
+                <i class="fa-solid fa-circle-xmark"></i>
+
+                Inactive
+
+              </strong>
+
+              <% } %>
+
+            </div>
+
+
+            <div class="profile-status-item">
+
+              <span>
+                Member Since
+              </span>
+
+              <strong>
+
+                <%= new Date(admin.created_at).toLocaleDateString() %>
+
+              </strong>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+        <!-- SECURITY -->
+
+        <div class="profile-section">
+
+          <h3>
+
+            <i class="fa-solid fa-lock"></i>
+
+            Security
+
+          </h3>
+
+
+          <div class="security-card">
+
+            <div class="security-info">
+
+              <strong>
+                Password
+              </strong>
+
+              <p>
+                Your password is securely stored and protected.
+              </p>
+
+            </div>
+
+            <button type="button" class="security-btn" onclick="togglePasswordForm()">
+
+              <i class="fa-solid fa-key"></i>
+
+              Change Password
+
+            </button>
+
+          </div>
+
+
+          <!-- Change Password Form -->
+
+          <div class="password-form-container" id="passwordForm" style="display: none;">
+
+            <form action="/admin/profile/change-password" method="POST" class="password-form">
+
+              <div class="password-form-header">
+
+                <h3>
+                  <i class="fa-solid fa-lock"></i>
+                  Change Password
+                </h3>
+
+                <p>
+                  Enter your current password and choose a new password.
+                </p>
+
+              </div>
+
+
+              <div class="password-field">
+
+                <label for="currentPassword">
+                  Current Password
+                </label>
+
+                <input type="password" id="currentPassword" name="currentPassword" required>
+
+              </div>
+
+
+              <div class="password-field">
+
+                <label for="newPassword">
+                  New Password
+                </label>
+
+                <input type="password" id="newPassword" name="newPassword" minlength="8" required>
+
+                <small>
+                  Password must be at least 8 characters long.
+                </small>
+
+              </div>
+
+
+              <div class="password-field">
+
+                <label for="confirmPassword">
+                  Confirm New Password
+                </label>
+
+                <input type="password" id="confirmPassword" name="confirmPassword" minlength="8" required>
+
+              </div>
+
+
+              <div class="password-form-actions">
+
+                <button type="submit" class="save-password-btn">
+
+                  <i class="fa-solid fa-check"></i>
+
+                  Update Password
+
+                </button>
+
+                <button type="button" class="cancel-password-btn" onclick="togglePasswordForm()">
+
+                  Cancel
+
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+  <script>
+    function togglePasswordForm() {
+
+      const form = document.getElementById("passwordForm");
+
+      if (form.style.display === "none") {
+
+        form.style.display = "block";
+
+      } else {
+
+        form.style.display = "none";
+
+      }
+
+    }
+  </script>
+
+</body>
+
+</html>

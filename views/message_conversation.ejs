@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversation | BookMyArtist</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      min-height: 100vh;
+    }
+
+    nav {
+      padding: 18px 6%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 23, 42, .97);
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 700;
+      color: white;
+    }
+
+    nav a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    nav a:hover {
+      color: #a5b4fc;
+    }
+
+    main {
+      max-width: 950px;
+      margin: auto;
+      padding: 115px 20px 35px;
+    }
+
+    .chat {
+      height: calc(100vh - 150px);
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      border-bottom: 1px solid #334155;
+    }
+
+    .avatar {
+      width: 45px;
+      height: 45px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #6c63ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: 600;
+    }
+
+    .person {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .person h1 {
+      font-size: 16px;
+      overflow-wrap: anywhere;
+    }
+
+    .person p {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .chat-header .back {
+      color: #a5b4fc;
+      white-space: nowrap;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+
+    .message-row {
+      display: flex;
+      flex-direction: column;
+      align-self: flex-start;
+
+      width: fit-content;
+      max-width: 78%;
+      min-width: 0;
+    }
+
+    .message-row.mine {
+      align-self: flex-end;
+    }
+
+    .bubble {
+      padding: 10px 14px;
+      border-radius: 14px 14px 14px 4px;
+      background: #334155;
+      color: #f8fafc;
+
+      font-size: 13px;
+      line-height: 1.5;
+
+      overflow-wrap: anywhere;
+    }
+
+    .mine .bubble {
+      background: #6c63ff;
+      border-radius: 14px 14px 4px 14px;
+    }
+
+
+    .message-time {
+      font-size: 10px;
+      color: #94a3b8;
+      margin-top: 5px;
+      padding: 0 3px;
+    }
+
+    .mine .message-time {
+      text-align: right;
+    }
+
+    .empty {
+      margin: auto;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 13px;
+      line-height: 1.8;
+      padding: 20px;
+    }
+
+    .empty i {
+      display: block;
+      color: #a5b4fc;
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .chat-form {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      padding: 17px 20px;
+      border-top: 1px solid #334155;
+      background: #172235;
+    }
+
+    .chat-form textarea {
+      flex: 1;
+      resize: vertical;
+      min-height: 45px;
+      max-height: 130px;
+      padding: 12px 14px;
+      border: 1px solid #475569;
+      border-radius: 12px;
+      background: #0f172a;
+      color: white;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .chat-form textarea:focus {
+      border-color: #6c63ff;
+    }
+
+    .chat-form button {
+      border: none;
+      border-radius: 12px;
+      padding: 13px 18px;
+      background: #6c63ff;
+      color: white;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .chat-form button:hover {
+      background: #574de5;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        padding: 16px;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+
+      main {
+        padding: 90px 10px 15px;
+      }
+
+      .chat {
+        height: calc(100vh - 105px);
+        min-height: 400px;
+      }
+
+      .chat-messages {
+        padding: 15px;
+      }
+
+      .message-row {
+        max-width: 90%;
+      }
+
+      .chat-form {
+        padding: 12px;
+        gap: 8px;
+      }
+
+      .chat-form button {
+        padding: 13px;
+      }
+
+      .chat-header {
+        padding: 14px;
+      }
+    }
+
+
+    /* ==========================================
+   MESSAGE ATTACHMENTS
+========================================== */
+
+    .chat-input-area {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .chat-input-area textarea {
+      width: 100%;
+    }
+
+    .message-text {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+
+    .message-attachment {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      max-width: 100%;
+      margin-top: 6px;
+      padding: 8px 10px;
+
+      background: rgba(15, 23, 42, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .message-attachment:hover {
+      background: rgba(15, 23, 42, 0.55);
+    }
+
+    .attachment-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .attachment-info strong {
+      display: block;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .attachment-info small {
+      font-size: 10px;
+      opacity: 0.75;
+    }
+
+    .attachment-preview[hidden] {
+      display: none;
+    }
+
+    .attachment-preview {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      padding: 9px 12px;
+
+      background: #263449;
+      border: 1px solid #475569;
+      border-radius: 10px;
+
+      color: #cbd5e1;
+      font-size: 12px;
+    }
+
+    #selectedFileName {
+      flex: 1;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .attachment-preview button {
+      padding: 3px 7px;
+      border: none;
+      background: transparent;
+      color: #fca5a5;
+      cursor: pointer;
+    }
+
+    .attach-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 43px;
+      height: 43px;
+      flex-shrink: 0;
+
+      border: 1px solid #475569;
+      border-radius: 12px;
+
+      background: #263449;
+      color: #cbd5e1;
+
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .attach-btn:hover {
+      color: white;
+      background: #6c63ff;
+    }
+
+    @media (max-width: 600px) {
+      .message-attachment {
+        padding: 9px;
+        gap: 7px;
+      }
+
+      .attach-btn {
+        width: 40px;
+        height: 40px;
+      }
+
+      .send-btn {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">BookMyArtist</div>
+    <a href="/messages">
+      <i class="fa-solid fa-arrow-left"></i> All Messages
+    </a>
+  </nav>
+
+  <main>
+    <section class="chat">
+      <header class="chat-header">
+        <% if (otherUser.profile_image &&
+               otherUser.profile_image !== "default.jpeg") { %>
+        <img class="avatar" src="/uploads/artist-images/<%= otherUser.profile_image %>" alt="Profile picture">
+        <% } else { %>
+        <div class="avatar">
+          <%= otherUser.first_name.charAt(0).toUpperCase() %>
+        </div>
+        <% } %>
+
+        <div class="person">
+          <h1>
+            <%= otherUser.stage_name ||
+                (otherUser.first_name + " " + otherUser.last_name) %>
+          </h1>
+          <p>
+            <%= otherUser.role === "artist" ? "Artist" : "Customer" %>
+          </p>
+        </div>
+      </header>
+
+      <div class="chat-messages" id="chatMessages">
+        <% if (messages.length > 0) { %>
+        <% messages.forEach(message => { %>
+        <div class="message-row <%= message.sender_id === user.id ? 'mine' : '' %>">
+
+          <div class="bubble">
+            <% if (message.message) { %>
+            <div class="message-text"><%= message.message %></div>
+            <% } %>
+
+            <% if (message.attachment_path) { %>
+
+            <a href="/messages/attachment/<%= message.message_id %>" class="message-attachment" download>
+
+              <i class="fa-solid fa-file-arrow-down"></i>
+
+              <span class="attachment-info">
+                <strong>
+                  <%= message.attachment_name || "Attachment" %>
+                </strong>
+
+                <small>
+                  Click to download
+                </small>
+              </span>
+
+              <i class="fa-solid fa-download"></i>
+
+            </a>
+
+            <% } %>
+
+          </div>
+
+          <div class="message-time">
+            <%= new Date(message.sent_at).toLocaleString('en-ZA', {
+                  day: 'numeric',
+                  month: 'short',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                }) %>
+            <% if (message.sender_id === user.id) { %>
+            · <%= message.is_read ? "Read" : "Sent" %>
+            <% } %>
+          </div>
+        </div>
+        <% }); %>
+        <% } else { %>
+        <div class="empty">
+          <i class="fa-regular fa-comments"></i>
+          <p>No messages yet.</p>
+          <p>Send a message to start the conversation!</p>
+        </div>
+        <% } %>
+      </div>
+
+
+      <!-- SEND MESSAGE / ATTACHMENT -->
+
+      <form class="chat-form" id="chatForm" action="/messages/conversation/<%= otherUser.id %>" method="POST" enctype="multipart/form-data">
+
+        <div class="chat-input-area">
+
+          <textarea name="message" id="messageInput" rows="1" maxlength="5000" placeholder="Type your message..." aria-label="Your message"></textarea>
+
+          <div class="attachment-preview" id="attachmentPreview" hidden>
+            <i class="fa-solid fa-paperclip"></i>
+
+            <span id="selectedFileName"></span>
+
+            <button type="button" id="removeAttachment" aria-label="Remove attachment">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <label for="attachmentInput" class="attach-btn" title="Attach proof of payment or document">
+
+          <i class="fa-solid fa-paperclip"></i>
+
+        </label>
+
+        <input type="file" name="attachment" id="attachmentInput" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" hidden>
+
+        <button type="submit" class="send-btn" id="sendButton">
+          <i class="fa-solid fa-paper-plane"></i>
+          Send
+        </button>
+
+      </form>
+
+    </section>
+  </main>
+
+  <script>
+    const chatMessages = document.getElementById("chatMessages");
+
+    if (chatMessages) {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    const chatForm = document.getElementById("chatForm");
+    const messageInput = document.getElementById("messageInput");
+    const attachmentInput = document.getElementById("attachmentInput");
+    const attachmentPreview = document.getElementById("attachmentPreview");
+    const selectedFileName = document.getElementById("selectedFileName");
+    const removeAttachment = document.getElementById("removeAttachment");
+
+    const maxFileSize = 5 * 1024 * 1024;
+
+    function updateAttachmentPreview() {
+      const file = attachmentInput.files[0];
+
+      if (!file) {
+        attachmentPreview.hidden = true;
+        selectedFileName.textContent = "";
+        return;
+      }
+
+      if (file.size > maxFileSize) {
+        alert("The attachment must be 5 MB or smaller.");
+        attachmentInput.value = "";
+        updateAttachmentPreview();
+        return;
+      }
+
+      const allowedTypes = [
+        "application/pdf",
+        "image/jpeg",
+        "image/png"
+      ];
+
+      if (!allowedTypes.includes(file.type)) {
+        alert("Only PDF, JPG and PNG files are supported.");
+        attachmentInput.value = "";
+        updateAttachmentPreview();
+        return;
+      }
+
+      selectedFileName.textContent = file.name;
+      attachmentPreview.hidden = false;
+    }
+
+    attachmentInput.addEventListener(
+      "change",
+      updateAttachmentPreview
+    );
+
+    removeAttachment.addEventListener("click", () => {
+      attachmentInput.value = "";
+      updateAttachmentPreview();
+    });
+
+    chatForm.addEventListener("submit", event => {
+      const hasMessage = messageInput.value.trim().length > 0;
+      const hasAttachment = attachmentInput.files.length > 0;
+
+      if (!hasMessage && !hasAttachment) {
+        event.preventDefault();
+        alert("Please enter a message or attach a file.");
+      }
+    });
+  </script>
+</body>
+
+</html>
